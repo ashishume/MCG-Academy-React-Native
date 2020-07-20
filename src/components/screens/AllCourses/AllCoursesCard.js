@@ -20,6 +20,7 @@ const AllCourseCard = ({content}) => {
       <View style={styles.contentContainer}>
         <BadgeType name={content.category} />
         <Text style={styles.title}>{title}</Text>
+        <Text>{content.author}</Text>
         <View>
           <AmountBadge name={content.price} color="#4fb524" />
         </View>

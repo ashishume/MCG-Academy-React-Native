@@ -1,21 +1,21 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import {Text, View, SafeAreaView, ScrollView} from 'react-native';
 import TopHeader from '../../Shared/Header';
-import CourseCard from '../../Shared/CourseCard';
+import CourseCard from '../../Shared/CourseCardListItem';
 import data from '../../../assets/data.json';
+import {connect} from 'react-redux';
+import {fetchMyCourses} from '../../../store/actions/courses';
 
 class MyCourses extends Component {
+  async componentDidMount() {
+    const body = {
+      courses: this.props.myCoursesIds,
+    };
+    await this.props.fetchMyCourses(body);
+  }
   renderData = () => {
-    return data.map((value, i) => {
-      return (
-        <CourseCard
-          key={i}
-          type={value.type}
-          thumbail={value.image}
-          author={value.author}
-          title={value.text}
-        />
-      );
+    return this.props.courses.map((value, i) => {
+      return <CourseCard key={i} content={value} />;
     });
   };
   render() {
@@ -30,6 +30,10 @@ class MyCourses extends Component {
     );
   }
 }
-
-export default MyCourses;
-
+const mapStateToProps = (state) => {
+  return {
+    myCoursesIds: state.courses.myCourseIds,
+    courses: state.courses.myCourses,
+  };
+};
+export default connect(mapStateToProps, {fetchMyCourses})(MyCourses);
