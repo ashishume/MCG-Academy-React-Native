@@ -2,6 +2,7 @@ import React, {Component, useState, useEffect} from 'react';
 import {View, Text, StyleSheet, Image, Dimensions} from 'react-native';
 import BadgeType from '../../Shared/Badge';
 import AmountBadge from '../../Shared/AmountBadge';
+import Styles from '../../Styles';
 const {height, width} = Dimensions.get('window');
 
 const AllCourseCard = ({content}) => {
@@ -52,8 +53,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     paddingLeft: 10,
   },
-  title: {fontSize: 14, height: 40, fontWeight: 'bold'},
-  price: {fontSize: 12},
+  title: {fontSize: 15, height: 40, fontWeight: 'bold', ...Styles.fontFamily},
+  price: {fontSize: 13, ...Styles.fontFamily},
 });
 
 export default AllCourseCard;

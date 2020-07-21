@@ -1,7 +1,7 @@
 import React, {Fragment} from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
 import AmountBadge from '../../Shared/AmountBadge';
-
+import Styles from '../../Styles';
 const LatestCourseItem = ({content}) => {
   let title = '';
 
@@ -47,6 +47,7 @@ const styles = StyleSheet.create({
   innerContainer: {flex: 1, paddingLeft: 10, paddingTop: 10},
   title: {
     fontSize: 20,
+    ...Styles.fontFamily,
     fontWeight: 'bold',
     paddingTop: 5,
     paddingBottom: 5,

@@ -1,7 +1,11 @@
 import React from 'react';
 import {Image} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import {
+  createStackNavigator,
+  TransitionSpecs,
+  CardStyleInterpolators,
+} from '@react-navigation/stack';
 import Style from '../components/Styles';
 import DrawerNavigation from './DrawerNavigation';
 import Login from '../components/screens/login';
@@ -11,10 +15,29 @@ import Styles from '../components/Styles';
 import Profile from '../components/screens/Profile';
 
 const Stack = createStackNavigator();
+const config = {
+  animation: 'spring',
+  config: {
+    stiffness: 4000,
+    damping: 500,
+    mass: 3,
+    overshootClamping: true,
+    restDisplacementThreshold: 0.01,
+    restSpeedThreshold: 0.01,
+  },
+};
 const MainRouting = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Splash">
+      <Stack.Navigator
+        initialRouteName="Splash"
+        screenOptions={{
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+          transitionSpec: {
+            open: config,
+            close: config,
+          },
+        }}>
         <Stack.Screen
           name="Profile"
           component={Profile}

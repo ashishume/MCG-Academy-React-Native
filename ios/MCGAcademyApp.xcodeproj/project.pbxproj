@@ -32,6 +32,18 @@
 		1CB347196D1D43AB924FED6E /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0A4CC56822CC4C3EB442BF12 /* Octicons.ttf */; };
 		A9EC8BA6BD2D488B886E2484 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 71BACE35EE7A4179A1472A4D /* SimpleLineIcons.ttf */; };
 		2C8CD441066C48E3892ED705 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4A7C508829DE469DBE2BB1C6 /* Zocial.ttf */; };
+		F2987AA1EECD4A76B975D9A0 /* Kodchasan-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BD243E4D544F446395FE9A7B /* Kodchasan-Bold.ttf */; };
+		07C7BBA785E94DD1897F5610 /* Kodchasan-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C6864EA5835E485CA2C989CA /* Kodchasan-BoldItalic.ttf */; };
+		F552AEEEC0DA42579011AE6D /* Kodchasan-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CA20C51D889B44B68C338504 /* Kodchasan-ExtraLight.ttf */; };
+		2310A8A985BB4F068B3BE4F5 /* Kodchasan-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB39CC9F9A014696BB1530AD /* Kodchasan-ExtraLightItalic.ttf */; };
+		35933486E55F400FACB46669 /* Kodchasan-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1AF7E559BC9E44AAA367DDDB /* Kodchasan-Italic.ttf */; };
+		90156932E2A241CABC579679 /* Kodchasan-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7176285B444446F6AF6134FE /* Kodchasan-Light.ttf */; };
+		4A0071A87E6F4912AAB3C2D2 /* Kodchasan-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 21715BE9E5C2487AABC44557 /* Kodchasan-LightItalic.ttf */; };
+		9B6996A0A78947B3AE5F24ED /* Kodchasan-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 993C46CCB2154A6894FD8527 /* Kodchasan-Medium.ttf */; };
+		CFA19F71C1FD4692A189A4BD /* Kodchasan-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2456EBC8C51D477ABDFEC3C6 /* Kodchasan-MediumItalic.ttf */; };
+		EA2C10A0F0FB4635AD8F62D6 /* Kodchasan-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 87CD34CECEEC48CA874AC576 /* Kodchasan-Regular.ttf */; };
+		42CA61B745C94475B688B579 /* Kodchasan-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7970FE25490442E58FE637CB /* Kodchasan-SemiBold.ttf */; };
+		748DC9D4D8C7487D81DF8EDD /* Kodchasan-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D6B37E3EE061440BB83F02C4 /* Kodchasan-SemiBoldItalic.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +95,18 @@
 		0A4CC56822CC4C3EB442BF12 /* Octicons.ttf */ = {isa = PBXFileReference; name = "Octicons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		71BACE35EE7A4179A1472A4D /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; name = "SimpleLineIcons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		4A7C508829DE469DBE2BB1C6 /* Zocial.ttf */ = {isa = PBXFileReference; name = "Zocial.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		BD243E4D544F446395FE9A7B /* Kodchasan-Bold.ttf */ = {isa = PBXFileReference; name = "Kodchasan-Bold.ttf"; path = "../src/assets/fonts/Kodchasan-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		C6864EA5835E485CA2C989CA /* Kodchasan-BoldItalic.ttf */ = {isa = PBXFileReference; name = "Kodchasan-BoldItalic.ttf"; path = "../src/assets/fonts/Kodchasan-BoldItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		CA20C51D889B44B68C338504 /* Kodchasan-ExtraLight.ttf */ = {isa = PBXFileReference; name = "Kodchasan-ExtraLight.ttf"; path = "../src/assets/fonts/Kodchasan-ExtraLight.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		CB39CC9F9A014696BB1530AD /* Kodchasan-ExtraLightItalic.ttf */ = {isa = PBXFileReference; name = "Kodchasan-ExtraLightItalic.ttf"; path = "../src/assets/fonts/Kodchasan-ExtraLightItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		1AF7E559BC9E44AAA367DDDB /* Kodchasan-Italic.ttf */ = {isa = PBXFileReference; name = "Kodchasan-Italic.ttf"; path = "../src/assets/fonts/Kodchasan-Italic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		7176285B444446F6AF6134FE /* Kodchasan-Light.ttf */ = {isa = PBXFileReference; name = "Kodchasan-Light.ttf"; path = "../src/assets/fonts/Kodchasan-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		21715BE9E5C2487AABC44557 /* Kodchasan-LightItalic.ttf */ = {isa = PBXFileReference; name = "Kodchasan-LightItalic.ttf"; path = "../src/assets/fonts/Kodchasan-LightItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		993C46CCB2154A6894FD8527 /* Kodchasan-Medium.ttf */ = {isa = PBXFileReference; name = "Kodchasan-Medium.ttf"; path = "../src/assets/fonts/Kodchasan-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		2456EBC8C51D477ABDFEC3C6 /* Kodchasan-MediumItalic.ttf */ = {isa = PBXFileReference; name = "Kodchasan-MediumItalic.ttf"; path = "../src/assets/fonts/Kodchasan-MediumItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		87CD34CECEEC48CA874AC576 /* Kodchasan-Regular.ttf */ = {isa = PBXFileReference; name = "Kodchasan-Regular.ttf"; path = "../src/assets/fonts/Kodchasan-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		7970FE25490442E58FE637CB /* Kodchasan-SemiBold.ttf */ = {isa = PBXFileReference; name = "Kodchasan-SemiBold.ttf"; path = "../src/assets/fonts/Kodchasan-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		D6B37E3EE061440BB83F02C4 /* Kodchasan-SemiBoldItalic.ttf */ = {isa = PBXFileReference; name = "Kodchasan-SemiBoldItalic.ttf"; path = "../src/assets/fonts/Kodchasan-SemiBoldItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -209,6 +233,18 @@
 				0A4CC56822CC4C3EB442BF12 /* Octicons.ttf */,
 				71BACE35EE7A4179A1472A4D /* SimpleLineIcons.ttf */,
 				4A7C508829DE469DBE2BB1C6 /* Zocial.ttf */,
+				BD243E4D544F446395FE9A7B /* Kodchasan-Bold.ttf */,
+				C6864EA5835E485CA2C989CA /* Kodchasan-BoldItalic.ttf */,
+				CA20C51D889B44B68C338504 /* Kodchasan-ExtraLight.ttf */,
+				CB39CC9F9A014696BB1530AD /* Kodchasan-ExtraLightItalic.ttf */,
+				1AF7E559BC9E44AAA367DDDB /* Kodchasan-Italic.ttf */,
+				7176285B444446F6AF6134FE /* Kodchasan-Light.ttf */,
+				21715BE9E5C2487AABC44557 /* Kodchasan-LightItalic.ttf */,
+				993C46CCB2154A6894FD8527 /* Kodchasan-Medium.ttf */,
+				2456EBC8C51D477ABDFEC3C6 /* Kodchasan-MediumItalic.ttf */,
+				87CD34CECEEC48CA874AC576 /* Kodchasan-Regular.ttf */,
+				7970FE25490442E58FE637CB /* Kodchasan-SemiBold.ttf */,
+				D6B37E3EE061440BB83F02C4 /* Kodchasan-SemiBoldItalic.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -368,6 +404,18 @@
 				1CB347196D1D43AB924FED6E /* Octicons.ttf in Resources */,
 				A9EC8BA6BD2D488B886E2484 /* SimpleLineIcons.ttf in Resources */,
 				2C8CD441066C48E3892ED705 /* Zocial.ttf in Resources */,
+				F2987AA1EECD4A76B975D9A0 /* Kodchasan-Bold.ttf in Resources */,
+				07C7BBA785E94DD1897F5610 /* Kodchasan-BoldItalic.ttf in Resources */,
+				F552AEEEC0DA42579011AE6D /* Kodchasan-ExtraLight.ttf in Resources */,
+				2310A8A985BB4F068B3BE4F5 /* Kodchasan-ExtraLightItalic.ttf in Resources */,
+				35933486E55F400FACB46669 /* Kodchasan-Italic.ttf in Resources */,
+				90156932E2A241CABC579679 /* Kodchasan-Light.ttf in Resources */,
+				4A0071A87E6F4912AAB3C2D2 /* Kodchasan-LightItalic.ttf in Resources */,
+				9B6996A0A78947B3AE5F24ED /* Kodchasan-Medium.ttf in Resources */,
+				CFA19F71C1FD4692A189A4BD /* Kodchasan-MediumItalic.ttf in Resources */,
+				EA2C10A0F0FB4635AD8F62D6 /* Kodchasan-Regular.ttf in Resources */,
+				42CA61B745C94475B688B579 /* Kodchasan-SemiBold.ttf in Resources */,
+				748DC9D4D8C7487D81DF8EDD /* Kodchasan-SemiBoldItalic.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

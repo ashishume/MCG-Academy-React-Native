@@ -3,10 +3,10 @@ import React, {Component} from 'react';
 import Dashboard from '../components/screens/Dashboard';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Icon} from 'react-native-elements';
-import Search from '../components/screens/Search';
-import Profile from '../components/screens/Profile';
 import MyCourses from '../components/screens/MyCourses/MyCourses';
 import {IconStyles} from '../components/Styles';
+import Library from '../components/screens/Library';
+import FreeVideos from '../components/FreeVideos';
 
 const Tab = createBottomTabNavigator();
 
@@ -40,9 +40,9 @@ const DrawerNavigation = () => {
         inactiveTintColor: 'gray',
       }}>
       <Tab.Screen name="Explore" component={Dashboard} />
-      <Tab.Screen name="Free Videos" component={Search} />
+      <Tab.Screen name="Free Videos" component={FreeVideos} />
       <Tab.Screen name="My Courses" component={MyCourses} />
-      <Tab.Screen name="Library" component={Profile} />
+      <Tab.Screen name="Library" component={Library} />
     </Tab.Navigator>
   );
 };

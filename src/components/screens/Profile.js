@@ -39,36 +39,40 @@ class Profile extends Component {
     return (
       <Fragment>
         <View style={styles.container}>
-          <View style={styles.profileIcon}>
-            <Icon
-              round={true}
-              size={60}
-              type={IconStyles.iconType}
-              color={'purple'}
-              raised
-              name="ios-person"
-            />
-          </View>
+          <TouchableOpacity activeOpacity={0.8}>
+            <View style={styles.profileIcon}>
+              <Icon
+                round={true}
+                size={60}
+                type={IconStyles.iconType}
+                color={'purple'}
+                raised
+                name="ios-person"
+              />
+            </View>
+          </TouchableOpacity>
           <View>
             <Text style={styles.nameText}>{this.state.name}</Text>
             <Text style={styles.emailText}>{this.state.email}</Text>
             <Divider />
           </View>
-          {this.MenuListItems.map((value) => {
+          {this.MenuListItems.map((value,i) => {
             return (
-              <View style={styles.list}>
-                <View style={{flex: 1}}>
-                  <Text style={styles.listItem}>{value}</Text>
-                </View>
-                <View style={{alignSelf: 'flex-end'}}>
-                  <Icon
-                    round={true}
-                    size={22}
-                    type={IconStyles.iconType}
-                    color={'#000'}
-                    name="ios-chevron-forward"
-                  />
-                </View>
+              <View style={styles.list} key={i}>
+                <TouchableOpacity>
+                  <View style={{flex: 1}}>
+                    <Text style={styles.listItem}>{value}</Text>
+                  </View>
+                  <View style={{alignSelf: 'flex-end'}}>
+                    <Icon
+                      round={true}
+                      size={22}
+                      type={IconStyles.iconType}
+                      color={'#000'}
+                      name="ios-chevron-forward"
+                    />
+                  </View>
+                </TouchableOpacity>
               </View>
             );
           })}

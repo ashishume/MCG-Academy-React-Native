@@ -71,6 +71,18 @@
 		<string>Octicons.ttf</string>
 		<string>SimpleLineIcons.ttf</string>
 		<string>Zocial.ttf</string>
+		<string>Kodchasan-Bold.ttf</string>
+		<string>Kodchasan-BoldItalic.ttf</string>
+		<string>Kodchasan-ExtraLight.ttf</string>
+		<string>Kodchasan-ExtraLightItalic.ttf</string>
+		<string>Kodchasan-Italic.ttf</string>
+		<string>Kodchasan-Light.ttf</string>
+		<string>Kodchasan-LightItalic.ttf</string>
+		<string>Kodchasan-Medium.ttf</string>
+		<string>Kodchasan-MediumItalic.ttf</string>
+		<string>Kodchasan-Regular.ttf</string>
+		<string>Kodchasan-SemiBold.ttf</string>
+		<string>Kodchasan-SemiBoldItalic.ttf</string>
 	</array>
 </dict>
 </plist>

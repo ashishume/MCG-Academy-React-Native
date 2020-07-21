@@ -3,6 +3,8 @@ import {View, Text, SafeAreaView, StyleSheet, ScrollView} from 'react-native';
 import AllCourseCard from './AllCoursesCard';
 import {fetchAllCourses} from '../../../store/actions/courses';
 import {connect} from 'react-redux';
+import Styles from '../../Styles';
+
 class AllCourses extends Component {
   componentDidMount() {
     this.props.fetchAllCourses();
@@ -30,6 +32,7 @@ class AllCourses extends Component {
 const styles = StyleSheet.create({
   container: {flex: 1, marginTop: 20, backgroundColor: '#fff'},
   titleText: {
+    ...Styles.fontFamily,
     fontSize: 24,
     fontWeight: '700',
     paddingHorizontal: 20,

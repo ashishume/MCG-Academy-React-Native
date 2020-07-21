@@ -4,18 +4,16 @@ import {
   Text,
   StyleSheet,
   SafeAreaView,
-  TextInput,
   Platform,
   StatusBar,
   ScrollView,
-  Image,
   Dimensions,
 } from 'react-native';
 import LatestCourseItem from './LatestCourseItem';
-import dataItem from '../../../assets/data.json';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {connect} from 'react-redux';
 import {fetchAllCourses} from '../../../store/actions/courses';
+import Styles from '../../Styles';
 const {height, width} = Dimensions.get('window');
 
 class Explore extends Component {
@@ -28,7 +26,7 @@ class Explore extends Component {
     }
   }
 
-  pressHandler = value => {
+  pressHandler = (value) => {
     console.log(value);
   };
   // author: "Akash Sharma"
@@ -83,17 +81,15 @@ const styles = StyleSheet.create({
   },
   latestCourseTitle: {
     fontSize: 24,
+    ...Styles.fontFamily,
     fontWeight: '700',
     paddingHorizontal: 20,
   },
   scrollViewContainer: {height: 300, width: parseInt(width), marginTop: 20},
 });
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     courses: state.courses.courses,
   };
 };
-export default connect(
-  mapStateToProps,
-  {fetchAllCourses},
-)(Explore);
+export default connect(mapStateToProps, {fetchAllCourses})(Explore);
