@@ -6,7 +6,7 @@ const SplashScreen = (props) => {
   useEffect(() => {
     setTimeout(() => {
       loginStatusHandler(props);
-    }, 2000);
+    }, 1);
   }, []);
 
   const loginStatusHandler = async (props) => {

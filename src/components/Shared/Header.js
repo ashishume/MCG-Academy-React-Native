@@ -1,31 +1,40 @@
 import React, {Fragment} from 'react';
 import {View, Image, StyleSheet, Text} from 'react-native';
-const TopHeader = props => {
+import {Icon} from 'react-native-elements';
+import {IconStyles} from '../Styles';
+const TopHeader = (props) => {
   return (
     <Fragment>
       <View style={styles.menuContainer}>
         <View style={styles.leftItem}>
-          <Text style={styles.headerText}>{props.name}</Text>
+          <Text style={styles.headerText}>
+            {props.name}
+            {props.backIcon ? (
+              <Icon
+                onPress={props.onBackIconClick}
+                round={true}
+                size={30}
+                type={IconStyles.iconType}
+                color={'#000'}
+                name="ios-arrow-back-sharp"
+              />
+            ) : null}
+          </Text>
         </View>
         <View style={styles.rightItem}>
-          <Image
-            style={{height: 50, width: 50}}
-            source={require('../../assets/logo.jpg')}
-          />
+          {props.IconName ? (
+            <Icon
+              onPress={props.onIconClick}
+              round={true}
+              size={20}
+              type={IconStyles.iconType}
+              color={'#000'}
+              raised
+              name={props.IconName}
+            />
+          ) : null}
         </View>
       </View>
-      {/* <Icon
-        name="ios-arrow-back"
-        size={IconStyles.iconSize}
-        type={IconStyles.iconType}
-        color={IconStyles.iconColor}
-        />{' '}
-        <TouchableOpacity
-        style={styles.menuButton}
-        onPress={() => {
-          props.navigation.toggleDrawer();
-        }}
-      /> */}
     </Fragment>
   );
 };
@@ -43,7 +52,7 @@ const styles = StyleSheet.create({
   },
   headerText: {fontSize: 20, fontWeight: 'bold'},
   leftItem: {flex: 1, justifyContent: 'center', marginLeft: 10},
-  rightItem: {justifyContent: 'center'},
+  rightItem: {justifyContent: 'center', marginRight: 10},
 });
 
 export default TopHeader;

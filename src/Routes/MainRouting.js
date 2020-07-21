@@ -7,22 +7,21 @@ import DrawerNavigation from './DrawerNavigation';
 import Login from '../components/screens/login';
 import SplashScreen from '../components/screens/splashScreen';
 import Swiper from '../components/screens/Swiper';
-// import PhoneAuth from '../components/screens/phoneAuth';
-// import PhoneLogin from '../components/screens/PhoneLogin';
 import Styles from '../components/Styles';
+import Profile from '../components/screens/Profile';
 
 const Stack = createStackNavigator();
 const MainRouting = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Splash">
-        {/* <Stack.Screen
-          name="Phone"
-          component={PhoneLogin}
+        <Stack.Screen
+          name="Profile"
+          component={Profile}
           options={{
-            headerShown: false,
+            headerShown: true,
           }}
-        /> */}
+        />
         <Stack.Screen
           name="Splash"
           component={SplashScreen}

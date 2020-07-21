@@ -18,11 +18,11 @@ const DrawerNavigation = () => {
           let iconName;
           if (route.name === 'Explore') {
             iconName = 'ios-navigate';
-          } else if (route.name === 'Search') {
-            iconName = 'ios-search';
-          } else if (route.name === 'Profile') {
-            iconName = 'ios-person';
-          } else if (route.name === 'MyCourses') {
+          } else if (route.name === 'Free Videos') {
+            iconName = 'videocam-outline';
+          } else if (route.name === 'Library') {
+            iconName = 'ios-library';
+          } else if (route.name === 'My Courses') {
             iconName = 'ios-play';
           }
           return (
@@ -40,9 +40,9 @@ const DrawerNavigation = () => {
         inactiveTintColor: 'gray',
       }}>
       <Tab.Screen name="Explore" component={Dashboard} />
-      <Tab.Screen name="Search" component={Search} />
-      <Tab.Screen name="MyCourses" component={MyCourses} />
-      <Tab.Screen name="Profile" component={Profile} />
+      <Tab.Screen name="Free Videos" component={Search} />
+      <Tab.Screen name="My Courses" component={MyCourses} />
+      <Tab.Screen name="Library" component={Profile} />
     </Tab.Navigator>
   );
 };
