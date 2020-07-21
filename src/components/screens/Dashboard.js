@@ -3,10 +3,12 @@ import Explore from './Explore/Explore';
 import AllCourses from './AllCourses/AllCourses';
 import TopHeader from '../Shared/Header';
 import {View} from 'react-native';
+
 class Dashboard extends Component {
   onClickHandler = () => {
     this.props.navigation.navigate('Profile');
   };
+
   render() {
     return (
       <Fragment>
@@ -16,8 +18,8 @@ class Dashboard extends Component {
             IconName="ios-person"
             onIconClick={() => this.onClickHandler()}
           />
-          <Explore />
-          <AllCourses />
+          <Explore {...this.props} />
+          <AllCourses {...this.props} />
         </View>
       </Fragment>
     );

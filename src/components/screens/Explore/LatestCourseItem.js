@@ -2,26 +2,29 @@ import React, {Fragment} from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
 import AmountBadge from '../../Shared/AmountBadge';
 import Styles from '../../Styles';
-const LatestCourseItem = ({content}) => {
+const LatestCourseItem = (props) => {
   let title = '';
 
-  if (content.courseTitle.length > 32) {
-    title = content.courseTitle.substring(0, 30) + '...';
+  if (props.content.courseTitle.length > 32) {
+    title = props.content.courseTitle.substring(0, 30) + '...';
   } else {
-    title = content.courseTitle;
+    title = props.content.courseTitle;
   }
 
   return (
     <View style={styles.cardContainer}>
       <View style={{flex: 1}}>
-        <Image source={{uri: content.courseImage}} style={styles.imageCard} />
+        <Image
+          source={{uri: props.content.courseImage}}
+          style={styles.imageCard}
+        />
       </View>
       <View style={styles.innerContainer}>
         <Text style={styles.title}>{title}</Text>
-        <Text style={styles.author}>{content.author}</Text>
-        <Text style={styles.courseType}>{content.courseType}</Text>
+        <Text style={styles.author}>{props.content.author}</Text>
+        <Text style={styles.courseType}>{props.content.courseType}</Text>
         <View style={styles.badgeContainer}>
-          <AmountBadge color="#4fb524" name={content.price} />
+          <AmountBadge color="#4fb524" name={props.content.price} />
         </View>
       </View>
     </View>

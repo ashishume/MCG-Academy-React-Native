@@ -26,23 +26,9 @@ class Explore extends Component {
     }
   }
 
-  pressHandler = (value) => {
-    console.log(value);
+  onRouteToCourseDetailsHandler = (value) => {
+    this.props.navigation.navigate('CourseDetails', value);
   };
-  // author: "Akash Sharma"
-  // category: "SSC"
-  // content: (3) [{…}, {…}, {…}]
-  // courseDescription: "What is Lorem Ipsum Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum has been the industry's standard dummy text ever since the 1500s when an unknown printer took a galley of type and scrambled it to"
-  // courseImage: "https://cdn.mos.cms.futurecdn.net/BVb3Wzn9orDR8mwVnhrSyd-650-80.jpg"
-  // courseTitle: "React course with hooks"
-  // courseType: "Recorded"
-  // createdAt: "2020-07-18T13:07:17.920Z"
-  // isDeleted: false
-  // otherUrl: "www.telegram.com"
-  // price: 200
-  // timeLimit: "2 weeks"
-  // __v: 0
-  // _id: "5f12f4058dc7521c9
 
   render() {
     return (
@@ -59,7 +45,7 @@ class Explore extends Component {
                     <TouchableOpacity
                       activeOpacity={0.7}
                       key={i}
-                      onPress={() => this.pressHandler(value)}>
+                      onPress={() => this.onRouteToCourseDetailsHandler(value)}>
                       <LatestCourseItem content={value} />
                     </TouchableOpacity>
                   );

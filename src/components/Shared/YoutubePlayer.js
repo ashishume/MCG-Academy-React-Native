@@ -20,7 +20,7 @@ const YoutubePlayerUI = ({videoId, videoTitle}) => {
     </View>
   );
   return (
-    <View style={{paddingTop: 0}}>
+    <View style={{paddingTop: 10}}>
       <YoutubePlayer
         loop
         topBar={TopBar}

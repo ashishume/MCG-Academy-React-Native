@@ -1,8 +1,9 @@
 import React, {Fragment} from 'react';
 import {View, Text, Image, StyleSheet} from 'react-native';
-import BadgeType from './Badge';
+import BadgeType from '../../Shared/Badge';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
-const CourseCardListItem = ({content}) => {
+const CourseCardListItem = ({content, onClickCourseItem}) => {
   let shortTitle = content.courseTitle;
   let shortAuthor = content.author;
   if (content.courseTitle.length > 70) {
@@ -14,20 +15,22 @@ const CourseCardListItem = ({content}) => {
 
   return (
     <Fragment>
-      <View style={styles.container}>
-        <View style={styles.innerContainer}>
-          <View style={{justifyContent: 'center'}}>
-            <Image source={{uri: content.courseImage}} style={styles.image} />
-          </View>
-          <View style={styles.contentContainer}>
-            <Text style={styles.title}>{shortTitle}</Text>
-            <Text style={styles.author}>{shortAuthor}</Text>
-            <View style={styles.type}>
-              <BadgeType name={content.category} />
+      <TouchableOpacity onPress={onClickCourseItem}>
+        <View style={styles.container}>
+          <View style={styles.innerContainer}>
+            <View style={{justifyContent: 'center'}}>
+              <Image source={{uri: content.courseImage}} style={styles.image} />
+            </View>
+            <View style={styles.contentContainer}>
+              <Text style={styles.title}>{shortTitle}</Text>
+              <Text style={styles.author}>{shortAuthor}</Text>
+              <View style={styles.type}>
+                <BadgeType name={content.category} />
+              </View>
             </View>
           </View>
         </View>
-      </View>
+      </TouchableOpacity>
     </Fragment>
   );
 };

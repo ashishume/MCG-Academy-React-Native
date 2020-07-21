@@ -13,6 +13,7 @@ import SplashScreen from '../components/screens/splashScreen';
 import Swiper from '../components/screens/Swiper';
 import Styles from '../components/Styles';
 import Profile from '../components/screens/Profile';
+import CourseDetails from '../components/screens/CourseDetails/CourseDetails';
 
 const Stack = createStackNavigator();
 const config = {
@@ -43,6 +44,14 @@ const MainRouting = () => {
           component={Profile}
           options={{
             headerShown: true,
+          }}
+        />
+        <Stack.Screen
+          name="CourseDetails"
+          component={CourseDetails}
+          options={{
+            headerShown: true,
+            headerTitle: false,
           }}
         />
         <Stack.Screen

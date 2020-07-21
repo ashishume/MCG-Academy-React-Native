@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import {Text, View, SafeAreaView, ScrollView} from 'react-native';
 import TopHeader from '../../Shared/Header';
-import CourseCard from '../../Shared/CourseCardListItem';
+import CourseCardListItem from './CourseCardListItem';
 import {connect} from 'react-redux';
 import {fetchMyCourses, fetchMyCourseIds} from '../../../store/actions/courses';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -20,10 +20,22 @@ class MyCourses extends Component {
       console.log(e);
     }
   }
+  courseEventHandler = (value) => {
+    console.log(value);
+    // console.log(this.props);
+    
+    // this.props.navigation.navigate('CourseDetails');
+  };
 
   renderData = () => {
     return this.props.courses.map((value, i) => {
-      return <CourseCard key={i} content={value} />;
+      return (
+        <CourseCardListItem
+          key={i}
+          onClickCourseItem={() => this.courseEventHandler(value)}
+          content={value}
+        />
+      );
     });
   };
   render() {
