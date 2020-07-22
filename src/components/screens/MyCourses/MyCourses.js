@@ -11,7 +11,6 @@ class MyCourses extends Component {
     try {
       const userId = await AsyncStorage.getItem('userId');
       await this.props.fetchMyCourseIds(userId);
-      console.log(userId);
       const body = {
         courses: this.props.myCoursesIds,
       };
@@ -21,10 +20,7 @@ class MyCourses extends Component {
     }
   }
   courseEventHandler = (value) => {
-    console.log(value);
-    // console.log(this.props);
-    
-    // this.props.navigation.navigate('CourseDetails');
+    this.props.navigation.navigate('CourseContent', value);
   };
 
   renderData = () => {

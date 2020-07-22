@@ -12,6 +12,8 @@ import CourseDetails from '../components/screens/CourseDetails/CourseDetails';
 import {NavigationContainer} from '@react-navigation/native';
 import {connect} from 'react-redux';
 import YoutubePlayerUI from '../components/Shared/YoutubePlayer';
+import Profile from '../components/screens/Profile';
+import CourseContent from '../components/screens/CourseContent/CourseContentTabs';
 
 const Stack = createStackNavigator();
 const config = {
@@ -59,6 +61,21 @@ const MainRouting = (props) => {
           }}
         />
         <Stack.Screen
+          name="Profile"
+          component={Profile}
+          options={{
+            headerShown: true,
+            cardStyle: {backgroundColor: '#fff'},
+          }}
+        />
+        <Stack.Screen
+          name="CourseContent"
+          component={CourseContent}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
           name="Login"
           component={Login}
           options={{
@@ -102,8 +119,6 @@ export const headerStyles = {
   },
 };
 const mapStateToProps = (state) => {
-  console.log(state.visible.videoBody);
-
   return {
     videoBody: state.visible.videoBody,
   };

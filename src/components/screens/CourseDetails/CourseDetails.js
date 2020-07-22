@@ -1,8 +1,9 @@
 import React, {Component, Fragment} from 'react';
 import CourseDetailsCard from './CourseDetailsCard';
-import {Text, SafeAreaView} from 'react-native';
+import {Text} from 'react-native';
 import {activateVideo, deActivateVideo} from '../../../store/actions/video';
 import {connect} from 'react-redux';
+import {ScrollView} from 'react-native-gesture-handler';
 
 class CourseDetails extends Component {
   componentDidMount() {
@@ -21,8 +22,11 @@ class CourseDetails extends Component {
     this.props.deActivateVideo(body);
   }
   render() {
-    return <Fragment />;
-    // return <CourseDetailsCard content={this.props.route.params} />;
+    return (
+      <ScrollView>
+        <CourseDetailsCard content={this.props.route.params} />
+      </ScrollView>
+    );
   }
 }
 

@@ -6,7 +6,7 @@ import {Icon} from 'react-native-elements';
 import MyCourses from '../components/screens/MyCourses/MyCourses';
 import {IconStyles} from '../components/Styles';
 import Library from '../components/screens/Library';
-import FreeVideos from '../components/FreeVideos';
+import FreeVideos from '../components/screens/FreeVideos';
 
 const Tab = createBottomTabNavigator();
 
@@ -19,7 +19,7 @@ const DrawerNavigation = () => {
           if (route.name === 'Explore') {
             iconName = 'ios-navigate';
           } else if (route.name === 'Free Videos') {
-            iconName = 'videocam-outline';
+            iconName = 'videocam';
           } else if (route.name === 'Library') {
             iconName = 'ios-library';
           } else if (route.name === 'My Courses') {
