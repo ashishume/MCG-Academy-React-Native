@@ -43,23 +43,15 @@ const styles = StyleSheet.create({
   },
   imageCard: {
     flex: 1,
-    width: 150,
-    height: 150,
+    width: 110,
+    height: 110,
     alignSelf: 'center',
   },
-  innerContainer: {flex: 1, paddingLeft: 10, paddingTop: 10},
-  title: {
-    fontSize: 20,
-    ...Styles.fontFamily,
-    fontWeight: 'bold',
-    paddingTop: 5,
-    paddingBottom: 5,
-  },
-  author: {fontSize: 13, paddingBottom: 1, paddingTop: 1},
+  innerContainer: {flex: 1, paddingLeft: 10, paddingTop: 0},
+  title: {fontSize: 15, height: 40, fontWeight: 'bold', ...Styles.fontFamily},
+  author: {fontSize: 13},
   courseType: {
     fontSize: 12,
-    paddingBottom: 2,
-    paddingTop: 1,
   },
   badgeContainer: {flex: 1, flexDirection: 'row'},
 });

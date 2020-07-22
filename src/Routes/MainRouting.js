@@ -1,9 +1,6 @@
 import React from 'react';
-import {Image} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
 import {
   createStackNavigator,
-  TransitionSpecs,
   CardStyleInterpolators,
 } from '@react-navigation/stack';
 import Style from '../components/Styles';
@@ -11,9 +8,10 @@ import DrawerNavigation from './DrawerNavigation';
 import Login from '../components/screens/login';
 import SplashScreen from '../components/screens/splashScreen';
 import Swiper from '../components/screens/Swiper';
-import Styles from '../components/Styles';
-import Profile from '../components/screens/Profile';
 import CourseDetails from '../components/screens/CourseDetails/CourseDetails';
+import {NavigationContainer} from '@react-navigation/native';
+import {connect} from 'react-redux';
+import YoutubePlayerUI from '../components/Shared/YoutubePlayer';
 
 const Stack = createStackNavigator();
 const config = {
@@ -27,9 +25,15 @@ const config = {
     restSpeedThreshold: 0.01,
   },
 };
-const MainRouting = () => {
+const MainRouting = (props) => {
   return (
     <NavigationContainer>
+      {props.videoBody.introVideoUrl ? (
+        <YoutubePlayerUI
+          videoId={props.videoBody.introVideoUrl}
+          videoTitle={props.videoBody.courseTitle}
+        />
+      ) : null}
       <Stack.Navigator
         initialRouteName="Splash"
         screenOptions={{
@@ -40,18 +44,10 @@ const MainRouting = () => {
           },
         }}>
         <Stack.Screen
-          name="Profile"
-          component={Profile}
-          options={{
-            headerShown: true,
-          }}
-        />
-        <Stack.Screen
           name="CourseDetails"
           component={CourseDetails}
           options={{
-            headerShown: true,
-            headerTitle: false,
+            headerShown: false,
           }}
         />
         <Stack.Screen
@@ -104,12 +100,12 @@ export const headerStyles = {
     elevation: 10,
     shadowRadius: 5,
   },
-  headerRight: () => (
-    <Image
-      style={{height: 50, width: 50}}
-      source={require('../assets/logo.jpg')}
-    />
-  ),
 };
+const mapStateToProps = (state) => {
+  console.log(state.visible.videoBody);
 
-export default MainRouting;
+  return {
+    videoBody: state.visible.videoBody,
+  };
+};
+export default connect(mapStateToProps, {})(MainRouting);

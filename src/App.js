@@ -1,16 +1,15 @@
-import React, { Fragment} from 'react';
+import React, {Fragment, Component} from 'react';
 import MainRouting from './Routes/MainRouting';
 import LoaderComponent from './components/LoaderComponent';
-// import VideoPlayer from './components/VideoPlayer';
-// import VideoPlayer from './components/VideoPlayer';
 
-const App = () => {
-  return (
-    <Fragment>
-      <LoaderComponent />
-      <MainRouting />
-      {/* <VideoPlayer /> */}
-    </Fragment>
-  );
-};
+class App extends Component {
+  render() {
+    return (
+      <Fragment>
+        <LoaderComponent />
+        <MainRouting />
+      </Fragment>
+    );
+  }
+}
 export default App;

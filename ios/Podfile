@@ -16,6 +16,8 @@ target 'MCGAcademyApp' do
 
   pod 'react-native-orientation', :path => '../node_modules/react-native-orientation'
 
+  pod 'YouTubeSdk', :path => '../node_modules/react-native-youtube-sdk'
+
   target 'MCGAcademyAppTests' do
     inherit! :complete
     # Pods for testing

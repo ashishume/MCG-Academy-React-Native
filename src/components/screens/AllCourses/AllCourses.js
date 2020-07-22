@@ -30,13 +30,13 @@ class AllCourses extends Component {
   }
 }
 const styles = StyleSheet.create({
-  container: {flex: 1, marginTop: 20, backgroundColor: '#fff'},
+  container: {flex: 1, marginTop: 0, backgroundColor: '#fff'},
   titleText: {
     ...Styles.fontFamily,
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: '700',
     paddingHorizontal: 20,
-    paddingBottom: 10,
+    paddingBottom: 5,
   },
   scrollContainer: {
     paddingHorizontal: 20,

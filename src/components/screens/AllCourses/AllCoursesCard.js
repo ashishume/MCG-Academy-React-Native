@@ -21,7 +21,8 @@ const AllCourseCard = ({content}) => {
       <View style={styles.contentContainer}>
         <BadgeType name={content.category} />
         <Text style={styles.title}>{title}</Text>
-        <Text>{content.author}</Text>
+        <Text style={styles.courseType}>{content.courseType}</Text>
+        <Text style={styles.author}>{content.author}</Text>
         <View>
           <AmountBadge name={content.price} color="#4fb524" />
         </View>
@@ -53,6 +54,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     paddingLeft: 10,
   },
+  courseType: {
+    fontSize: 12,
+  },
+  author: {fontSize: 13},
+
   title: {fontSize: 15, height: 40, fontWeight: 'bold', ...Styles.fontFamily},
   price: {fontSize: 13, ...Styles.fontFamily},
 });

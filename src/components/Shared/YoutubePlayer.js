@@ -1,11 +1,11 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import {View, Text} from 'react-native';
 import YoutubePlayer from 'react-native-yt-player';
 const YoutubePlayerUI = ({videoId, videoTitle}) => {
   var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
   var match = videoId.match(regExp);
   const video = match && match[7].length == 11 ? match[7] : false;
-  const onFullScreen = fullScreen => {
+  const onFullScreen = (fullScreen) => {
     console.log('fullscreen ', fullScreen);
   };
 
@@ -26,7 +26,7 @@ const YoutubePlayerUI = ({videoId, videoTitle}) => {
         topBar={TopBar}
         videoId={video}
         autoPlay
-        onFullScreen={e => onFullScreen(e)}
+        onFullScreen={(e) => onFullScreen(e)}
         onStart={() => console.log('video started')}
         onEnd={() => console.log('video Ended')}
       />

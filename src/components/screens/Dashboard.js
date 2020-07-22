@@ -3,12 +3,15 @@ import Explore from './Explore/Explore';
 import AllCourses from './AllCourses/AllCourses';
 import TopHeader from '../Shared/Header';
 import {View} from 'react-native';
-
+import {connect} from 'react-redux';
+// import {deActivateVideo} from '../../store/actions/video';
 class Dashboard extends Component {
   onClickHandler = () => {
     this.props.navigation.navigate('Profile');
   };
-
+  // componentDidMount() {
+  //   // this.props.deActivateVideo();
+  // }
   render() {
     return (
       <Fragment>

@@ -5,11 +5,13 @@ import thunk from 'redux-thunk';
 import loginReducer from './reducers/login';
 import loaderReducer from './reducers/loader';
 import courseReducer from './reducers/courses';
+import visibleReducer from './reducers/video';
 
 const rootReducer = combineReducers({
   login: loginReducer,
   loader: loaderReducer,
   courses: courseReducer,
+  visible: visibleReducer,
 });
 
 const middleWares = [thunk];

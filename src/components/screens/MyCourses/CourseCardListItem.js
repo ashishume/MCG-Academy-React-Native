@@ -6,8 +6,8 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 const CourseCardListItem = ({content, onClickCourseItem}) => {
   let shortTitle = content.courseTitle;
   let shortAuthor = content.author;
-  if (content.courseTitle.length > 70) {
-    shortTitle = content.courseTitle.substring(0, 70).trim().concat('...');
+  if (content.courseTitle.length > 50) {
+    shortTitle = content.courseTitle.substring(0, 50).trim().concat('...');
   }
   if (content.author.length > 35) {
     shortAuthor = content.author.substring(0, 35).trim().concat('...');
