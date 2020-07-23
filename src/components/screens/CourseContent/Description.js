@@ -1,9 +1,15 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Linking} from 'react-native';
 import {TouchableOpacity, ScrollView} from 'react-native-gesture-handler';
+import {Icon} from 'react-native-elements';
+import {IconStyles} from '../../Styles';
 const Description = (props) => {
+  const onClickUrl = () => {
+    Linking.openURL(props.content.otherUrl);
+  };
   return (
     <ScrollView style={{backgroundColor: '#fff'}}>
+      {console.log(props.content)}
       <View style={styles.container}>
         <View style={{marginTop: 20}}>
           <Text style={styles.author}>Author: {props.content.author}</Text>
@@ -18,6 +24,16 @@ const Description = (props) => {
           <Text style={styles.courseDescription}>
             {props.content.courseDescription}
           </Text>
+          <View style={{alignItems: 'center'}}>
+            <Icon
+              onPress={() => onClickUrl()}
+              size={25}
+              raised
+              type={IconStyles.iconType}
+              color={'#000'}
+              name="link"
+            />
+          </View>
         </View>
       </View>
     </ScrollView>

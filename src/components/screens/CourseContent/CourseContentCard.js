@@ -1,12 +1,8 @@
-import React, {Fragment, useState} from 'react';
-import {View, Text, StyleSheet, Image, Dimensions} from 'react-native';
-import {Icon, Divider, Badge} from 'react-native-elements';
-import {TouchableOpacity, ScrollView} from 'react-native-gesture-handler';
-import {IconStyles} from '../../Styles';
-import ContentList from '../ContentList/ContentList';
+import React, {Fragment} from 'react';
+import {View, Text, StyleSheet} from 'react-native';
+import PaidContentList from './PaidContentList';
 import {activateVideo, deActivateVideo} from '../../../store/actions/video';
 import {connect} from 'react-redux';
-const {height, width} = Dimensions.get('window');
 
 const CourseContentCard = (props) => {
   const videoClickEventHandler = (e, index) => {
@@ -14,6 +10,7 @@ const CourseContentCard = (props) => {
       introVideoUrl: e.url,
       courseTitle: e.title,
     };
+
     props.activateVideo(body);
   };
 
@@ -28,8 +25,7 @@ const CourseContentCard = (props) => {
         </View>
 
         <View>
-          <ContentList
-            isBought={true}
+          <PaidContentList
             videoClickEventHandler={(e, i) => videoClickEventHandler(e, i)}
             data={props.content.content}
           />

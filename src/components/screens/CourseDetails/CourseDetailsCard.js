@@ -3,30 +3,34 @@ import {View, Text, StyleSheet, Image, Dimensions} from 'react-native';
 import {Icon, Divider, Badge} from 'react-native-elements';
 import {TouchableOpacity, ScrollView} from 'react-native-gesture-handler';
 import {IconStyles} from '../../Styles';
-import ContentList from '../ContentList/ContentList';
+import CourseDetailsListItem from './CourseDetailsListItems';
+
+import {activateVideo, deActivateVideo} from '../../../store/actions/video';
+import {connect} from 'react-redux';
+
 const {height, width} = Dimensions.get('window');
-const BuyCourseCard = ({content}) => {
+const BuyCourseCard = (props) => {
   const videoClickEventHandler = (e) => {
-    
-    console.log(e.isLocked);
-    if (e.isLocked === true) {
-      console.log('route');
-    } else {
-      console.log('failed');
-    }
+    const body = {
+      introVideoUrl: e.url,
+      courseTitle: e.title,
+    };
+
+    props.activateVideo(body);
   };
+
   return (
     <Fragment>
       <View style={styles.container}>
         <View>
-          <Text style={styles.courseTitle}>{content.courseTitle}</Text>
-          <Text style={styles.author}>{content.author}</Text>
+          <Text style={styles.courseTitle}>{props.content.courseTitle}</Text>
+          <Text style={styles.author}>{props.content.author}</Text>
         </View>
         <View style={styles.courseTypeContainer}>
-          <Text style={styles.courseType}>{content.courseType}</Text>
+          <Text style={styles.courseType}>{props.content.courseType}</Text>
         </View>
         <View>
-          <Text style={styles.price}>₹{content.price}</Text>
+          <Text style={styles.price}>₹{props.content.price}</Text>
         </View>
 
         <View style={styles.buyNowContainer}>
@@ -36,18 +40,21 @@ const BuyCourseCard = ({content}) => {
         </View>
         <View style={{marginTop: 20}}>
           <Text style={styles.subHeading}>Course Details</Text>
-          <Text style={{fontSize: 15}}>Time limit: {content.timeLimit}</Text>
-          <Text style={{fontSize: 15}}>Course type: {content.category}</Text>
+          <Text style={{fontSize: 15}}>
+            Time limit: {props.content.timeLimit}
+          </Text>
+          <Text style={{fontSize: 15}}>
+            Course type: {props.content.category}
+          </Text>
           <Text style={styles.subHeading}>Course Description</Text>
           <Text style={styles.courseDescription}>
-            {content.courseDescription}
+            {props.content.courseDescription}
           </Text>
         </View>
         <View>
-          <ContentList
-            isBought={false}
+          <CourseDetailsListItem
             videoClickEventHandler={(e) => videoClickEventHandler(e)}
-            data={content.content}
+            data={props.content.content}
           />
         </View>
       </View>
@@ -124,4 +131,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default BuyCourseCard;
+export default connect('', {activateVideo, deActivateVideo})(BuyCourseCard);
