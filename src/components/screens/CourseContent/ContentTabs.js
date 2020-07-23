@@ -5,10 +5,10 @@ import {activateVideo, deActivateVideo} from '../../../store/actions/video';
 import {connect} from 'react-redux';
 import {ScrollView} from 'react-native-gesture-handler';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import CourseDetails from '../CourseDetails/CourseDetails';
+// import CourseDetails from '../CourseDetails/CourseDetails';
 import Description from './Description';
 
-class CourseContent extends Component {
+class ContentTabs extends Component {
   componentDidMount() {
     const {introVideoUrl, courseTitle} = this.props.route.params;
     const body = {
@@ -44,4 +44,4 @@ class CourseContent extends Component {
   }
 }
 
-export default connect('', {activateVideo, deActivateVideo})(CourseContent);
+export default connect('', {activateVideo, deActivateVideo})(ContentTabs);

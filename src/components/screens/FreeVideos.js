@@ -1,12 +1,11 @@
 import React, {Component, Fragment} from 'react';
-import {Text} from 'react-native';
-// import YoutubePlayerUI from '../Shared/YoutubePlayer';
+import {Text, StyleSheet} from 'react-native';
 
 class FreeVideos extends Component {
   render() {
     return (
       <Fragment>
-
+        <Text>dsfdsf</Text>
       </Fragment>
     );
   }

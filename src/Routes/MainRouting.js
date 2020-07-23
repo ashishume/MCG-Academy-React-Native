@@ -13,8 +13,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {connect} from 'react-redux';
 import YoutubePlayerUI from '../components/Shared/YoutubePlayer';
 import Profile from '../components/screens/Profile';
-import CourseContent from '../components/screens/CourseContent/CourseContentTabs';
-
+import CourseContent from '../components/screens/CourseContent/ContentTabs';
 const Stack = createStackNavigator();
 const config = {
   animation: 'spring',
@@ -32,6 +31,7 @@ const MainRouting = (props) => {
     <NavigationContainer>
       {props.videoBody.introVideoUrl ? (
         <YoutubePlayerUI
+          key={props.videoBody.introVideoUrl}
           videoId={props.videoBody.introVideoUrl}
           videoTitle={props.videoBody.courseTitle}
         />
@@ -118,7 +118,7 @@ export const headerStyles = {
     shadowRadius: 5,
   },
 };
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
   return {
     videoBody: state.visible.videoBody,
   };
