@@ -3,23 +3,22 @@ import {View, Text, Image, StyleSheet} from 'react-native';
 import BadgeType from '../../Shared/Badge';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
-const CourseCardListItem = ({content, onClickCourseItem}) => {
-  let shortTitle = content.courseTitle;
+const FreeVideosCard = ({content, onClickVideoItem}) => {
+  let shortTitle = content.title;
   let shortAuthor = content.author;
-  if (content.courseTitle.length > 50) {
-    shortTitle = content.courseTitle.substring(0, 50).trim().concat('...');
+  if (content.title.length > 50) {
+    shortTitle = content.title.substring(0, 50).trim().concat('...');
   }
   if (content.author.length > 35) {
     shortAuthor = content.author.substring(0, 35).trim().concat('...');
   }
-
   return (
     <Fragment>
-      <TouchableOpacity onPress={onClickCourseItem}>
+      <TouchableOpacity onPress={onClickVideoItem}>
         <View style={styles.container}>
           <View style={styles.innerContainer}>
             <View style={{justifyContent: 'center'}}>
-              <Image source={{uri: content.courseImage}} style={styles.image} />
+              <Image source={{uri: content.videoImage}} style={styles.image} />
             </View>
             <View style={styles.contentContainer}>
               <Text style={styles.title}>{shortTitle}</Text>
@@ -76,4 +75,4 @@ const styles = StyleSheet.create({
   type: {flex: 1, flexDirection: 'row', paddingTop: 5},
 });
 
-export default CourseCardListItem;
+export default FreeVideosCard;

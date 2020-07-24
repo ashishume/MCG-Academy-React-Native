@@ -6,12 +6,14 @@ import loginReducer from './reducers/login';
 import loaderReducer from './reducers/loader';
 import courseReducer from './reducers/courses';
 import visibleReducer from './reducers/video';
+import libraryReducer from './reducers/library';
 
 const rootReducer = combineReducers({
   login: loginReducer,
   loader: loaderReducer,
   courses: courseReducer,
   visible: visibleReducer,
+  library: libraryReducer,
 });
 
 const middleWares = [thunk];

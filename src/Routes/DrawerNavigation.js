@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
-// import {createDrawerNavigator} from '@react-navigation/drawer';
 import Dashboard from '../components/screens/Dashboard';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Icon} from 'react-native-elements';
 import MyCourses from '../components/screens/MyCourses/MyCourses';
 import {IconStyles} from '../components/Styles';
-import Library from '../components/screens/Library';
-import FreeVideos from '../components/screens/FreeVideos';
+import Library from '../components/screens/Library/Library';
+import FreeVideos from '../components/screens/FreeVideos/FreeVideos';
 
 const Tab = createBottomTabNavigator();
 

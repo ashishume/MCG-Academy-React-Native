@@ -3,4 +3,6 @@ export const API_NAME = {
   COURSES: 'courses',
   MY_COURSES: 'courses/myCourses',
   MY_COURSE_IDS: 'courses',
+  VIDEOS: 'videos',
+  LIBRARY: 'library',
 };

@@ -14,6 +14,7 @@ import {connect} from 'react-redux';
 import YoutubePlayerUI from '../components/Shared/YoutubePlayer';
 import Profile from '../components/screens/Profile';
 import CourseContent from '../components/screens/CourseContent/ContentTabs';
+import FreeVideosContent from '../components/screens/FreeVideos/FreeVideosContent';
 const Stack = createStackNavigator();
 const config = {
   animation: 'spring',
@@ -71,6 +72,13 @@ const MainRouting = (props) => {
         <Stack.Screen
           name="CourseContent"
           component={CourseContent}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="FreeVideoContent"
+          component={FreeVideosContent}
           options={{
             headerShown: false,
           }}

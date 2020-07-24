@@ -39,7 +39,7 @@ class MyCourses extends Component {
       <View style={{flex: 1}}>
         <TopHeader name="My Courses" />
         <SafeAreaView
-          style={{flex: 1, backgroundColor: '#fff', paddingBottom: 10}}>
+          style={{flex: 1, backgroundColor: '#fff', paddingBottom: 5}}>
           <ScrollView style={{flex: 1}}>{this.renderData()}</ScrollView>
         </SafeAreaView>
       </View>

@@ -1,6 +1,7 @@
 import * as ActionTypes from '../actions/ActionTypes';
 const initialState = {
   videoBody: '',
+  freeVideos: [],
 };
 
 const visibleReducer = (state = initialState, action) => {
@@ -9,6 +10,11 @@ const visibleReducer = (state = initialState, action) => {
       return {
         ...state,
         videoBody: action.payload,
+      };
+    case ActionTypes.FETCH_FREE_VIDEOS:
+      return {
+        ...state,
+        freeVideos: action.payload,
       };
 
     default:

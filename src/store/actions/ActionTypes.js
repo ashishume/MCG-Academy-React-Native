@@ -15,3 +15,6 @@ export const GET_MY_COURSE_IDS = 'GET_MY_COURSE_IDS';
 
 
 export const TOGGLE_VIDEO = 'TOGGLE_VIDEO';
+export const FETCH_FREE_VIDEOS = 'FETCH_FREE_VIDEOS';
+
+export const FETCH_ALL_LIBRARY = 'FETCH_ALL_LIBRARY';

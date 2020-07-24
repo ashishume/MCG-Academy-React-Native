@@ -6,8 +6,8 @@ class App extends Component {
   render() {
     return (
       <Fragment>
-        <LoaderComponent />
         <MainRouting />
+        <LoaderComponent />
       </Fragment>
     );
   }

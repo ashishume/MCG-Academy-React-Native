@@ -8,11 +8,11 @@ class LoaderComponent extends Component {
   componentDidMount() {
     const self = this;
     http.interceptors.request.use(
-      request => {
+      (request) => {
         self.props.loading(true);
         return request;
       },
-      error => {
+      (error) => {
         self.props.loading(false);
 
         return Promise.reject(error);
@@ -20,11 +20,11 @@ class LoaderComponent extends Component {
     );
 
     http.interceptors.response.use(
-      response => {
+      (response) => {
         self.props.loading(false);
         return response;
       },
-      error => {
+      (error) => {
         self.props.loading(false);
         return Promise.reject(error);
       },
@@ -34,8 +34,18 @@ class LoaderComponent extends Component {
     return (
       <Fragment>
         {this.props.loader ? (
-          <View style={styles.loaderContainer}>
-            <ActivityIndicator size="large" />
+          <View
+            style={{
+              position: 'absolute',
+              left: 0,
+              right: 0,
+              top: 0,
+              bottom: 0,
+              alignItems: 'center',
+              justifyContent: 'center',
+              zIndex: 999,
+            }}>
+            <ActivityIndicator size="large" color="#000" />
           </View>
         ) : null}
       </Fragment>
@@ -43,20 +53,9 @@ class LoaderComponent extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     loader: state.loader,
   };
 };
-export default connect(
-  mapStateToProps,
-  {loading},
-)(LoaderComponent);
-
-const styles = StyleSheet.create({
-  loaderContainer: {
-    // flex: 1,
-    // alignItems: 'center',
-    // justifyContent: 'center',
-  },
-});
+export default connect(mapStateToProps, {loading})(LoaderComponent);
