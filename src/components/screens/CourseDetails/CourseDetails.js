@@ -24,7 +24,7 @@ class CourseDetails extends Component {
   render() {
     return (
       <ScrollView>
-        <CourseDetailsCard content={this.props.route.params} />
+        <CourseDetailsCard {...this.props} content={this.props.route.params} />
       </ScrollView>
     );
   }

@@ -1,13 +1,12 @@
-import React, {Fragment, useState} from 'react';
-import {View, Text, StyleSheet, Image, Dimensions} from 'react-native';
-import {Icon, Divider, Badge} from 'react-native-elements';
-import {TouchableOpacity, ScrollView} from 'react-native-gesture-handler';
-import {IconStyles} from '../../Styles';
+import React, {Fragment, useState, useEffect} from 'react';
+import {View, Text, StyleSheet, Dimensions} from 'react-native';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 import CourseDetailsListItem from './CourseDetailsListItems';
-
 import {activateVideo, deActivateVideo} from '../../../store/actions/video';
 import {connect} from 'react-redux';
-
+import {fetchMyCourseIds} from '../../../store/actions/courses';
+import AsyncStorage from '@react-native-community/async-storage';
+import {ToastAndroid} from 'react-native';
 const {height, width} = Dimensions.get('window');
 const BuyCourseCard = (props) => {
   const videoClickEventHandler = (e) => {
@@ -15,8 +14,37 @@ const BuyCourseCard = (props) => {
       introVideoUrl: e.url,
       courseTitle: e.title,
     };
-
     props.activateVideo(body);
+  };
+
+  const [Bought, setBought] = useState(false);
+
+  useEffect(() => {
+    const fetchMyCourses = async () => {
+      try {
+        const userId = await AsyncStorage.getItem('userId');
+        await props.fetchMyCourseIds(userId);
+        await checkCourseBuyStatus(props.courseIds);
+      } catch (e) {
+        ToastAndroid.show('Something went wrong', ToastAndroid.SHORT);
+      }
+    };
+    fetchMyCourses();
+  }, []);
+
+  const checkCourseBuyStatus = (data) => {
+    data.map((value) => {
+      if (value == props.content._id) setBought(true);
+    });
+  };
+
+  const courseEventHandler = () => {
+    // const body = {
+    //   introVideoUrl: '',
+    //   courseTitle: '',
+    // };
+    // props.deActivateVideo(body);
+    props.navigation.navigate('CourseContent', props.content);
   };
 
   return (
@@ -33,11 +61,22 @@ const BuyCourseCard = (props) => {
           <Text style={styles.price}>₹{props.content.price}</Text>
         </View>
 
-        <View style={styles.buyNowContainer}>
-          <TouchableOpacity style={styles.buyNowButton}>
-            <Text style={styles.buyNowButtonText}>Buy Now</Text>
-          </TouchableOpacity>
-        </View>
+        {Bought === false ? (
+          <View style={styles.buyNowContainer}>
+            <TouchableOpacity style={styles.buyNowButton}>
+              <Text style={styles.buyNowButtonText}>Buy Now</Text>
+            </TouchableOpacity>
+          </View>
+        ) : (
+          <View style={styles.goToCourseContainer}>
+            <TouchableOpacity
+              onPress={() => courseEventHandler()}
+              style={styles.buyNowButton}>
+              <Text style={styles.buyNowButtonText}>Go to course</Text>
+            </TouchableOpacity>
+          </View>
+        )}
+
         <View style={{marginTop: 20}}>
           <Text style={styles.subHeading}>Course Details</Text>
           <Text style={{fontSize: 15}}>
@@ -61,6 +100,16 @@ const BuyCourseCard = (props) => {
     </Fragment>
   );
 };
+const mapStateToProps = (state) => {
+  return {
+    courseIds: state.courses.myCourseIds,
+  };
+};
+export default connect(mapStateToProps, {
+  activateVideo,
+  fetchMyCourseIds,
+  deActivateVideo,
+})(BuyCourseCard);
 
 const styles = StyleSheet.create({
   container: {
@@ -120,6 +169,22 @@ const styles = StyleSheet.create({
     elevation: 5,
     shadowRadius: 5,
   },
+  goToCourseContainer: {
+    alignSelf: 'center',
+    marginTop: 10,
+    backgroundColor: '#35c464',
+    paddingLeft: 30,
+    paddingRight: 30,
+    paddingTop: 10,
+    paddingBottom: 10,
+    borderRadius: 15,
+    shadowOpacity: 1,
+    shadowOffset: {
+      height: 10,
+    },
+    elevation: 5,
+    shadowRadius: 5,
+  },
   buyNowButton: {width: width - 70, height: 40, justifyContent: 'center'},
   buyNowButtonText: {color: '#fff', fontSize: 20, alignSelf: 'center'},
   subHeading: {fontSize: 25, marginTop: 10, fontWeight: 'bold'},
@@ -130,5 +195,3 @@ const styles = StyleSheet.create({
     textAlign: 'justify',
   },
 });
-
-export default connect('', {activateVideo, deActivateVideo})(BuyCourseCard);

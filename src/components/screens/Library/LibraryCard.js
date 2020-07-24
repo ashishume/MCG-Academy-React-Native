@@ -5,6 +5,12 @@ import {Divider, Icon} from 'react-native-elements';
 import {IconStyles} from '../../Styles';
 
 const LibraryCard = (props) => {
+  let title = '';
+  if (props.content.fileName.length > 32) {
+    title = props.content.fileName.substring(0, 32).concat('...');
+  } else {
+    title = props.content.fileName;
+  }
   return (
     <TouchableOpacity activeOpacity={0.8} onPress={props.onClickLibrayItem}>
       <View
@@ -15,7 +21,7 @@ const LibraryCard = (props) => {
         }}>
         <View style={{flex: 1}}>
           <Text style={{textAlign: 'left', fontSize: 20, fontWeight: 'bold'}}>
-            {props.content.fileName}
+            {title}
           </Text>
         </View>
         <View style={{alignSelf: 'flex-end'}}>
