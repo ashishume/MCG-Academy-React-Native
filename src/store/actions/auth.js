@@ -11,9 +11,9 @@ export const login = (values, props) => async (dispatch) => {
       type: ActionType.LOGIN,
       payload: response.data,
     });
-    setLoginStatus(response.data);
     if (response.status === 200) {
-      props.navigation.navigate('Dashboard');
+      setLoginStatus(response.data);
+      props.navigation.navigate('InitialSetup');
     }
   } catch (err) {
     ToastAndroid.show('Login Failed', ToastAndroid.SHORT);
@@ -29,5 +29,17 @@ const setLoginStatus = async (value) => {
     await AsyncStorage.setItem('category', JSON.stringify(value.category));
   } catch (e) {
     ToastAndroid.show('Something went wrong', ToastAndroid.SHORT);
+  }
+};
+export const fetchUserData = () => async (dispatch) => {
+  try {
+    const userId = await AsyncStorage.getItem('userId');
+    const response = await HttpService.get(API_NAME.USER_DATA + '/' + userId);
+    dispatch({
+      type: ActionType.GET_USER_DATA,
+      payload: response.data,
+    });
+  } catch (err) {
+    ToastAndroid.show('Login Failed', ToastAndroid.SHORT);
   }
 };

@@ -15,6 +15,8 @@ import YoutubePlayerUI from '../components/Shared/YoutubePlayer';
 import Profile from '../components/screens/Profile';
 import CourseContent from '../components/screens/CourseContent/ContentTabs';
 import FreeVideosContent from '../components/screens/FreeVideos/FreeVideosContent';
+import InitialSetup from '../components/screens/InitialSetup';
+import AddVideos from '../components/screens/Teacher/AddVideos';
 const Stack = createStackNavigator();
 const config = {
   animation: 'spring',
@@ -54,6 +56,13 @@ const MainRouting = (props) => {
           }}
         />
         <Stack.Screen
+          name="InitialSetup"
+          component={InitialSetup}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
           name="Splash"
           component={SplashScreen}
           options={{
@@ -69,6 +78,7 @@ const MainRouting = (props) => {
             cardStyle: {backgroundColor: '#fff'},
           }}
         />
+
         <Stack.Screen
           name="CourseContent"
           component={CourseContent}

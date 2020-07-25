@@ -26,5 +26,5 @@ export default StyleSheet.create({
 export const IconStyles = {
   iconColor: '#6b42e5',
   iconType: 'ionicon',
-  iconSize:26
+  iconSize: 26,
 };

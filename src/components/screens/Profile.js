@@ -1,5 +1,5 @@
 import React, {Component, Fragment} from 'react';
-import {Text, Button, View, StyleSheet} from 'react-native';
+import {Text, Button, View, StyleSheet, ToastAndroid} from 'react-native';
 import {Icon, Divider} from 'react-native-elements';
 import {IconStyles} from '../Styles';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -35,6 +35,23 @@ class Profile extends Component {
   componentDidMount() {
     this.getName();
   }
+
+  signOutHandler = async () => {
+    const arrayKeys = [
+      'email',
+      'name',
+      'userType',
+      'userId',
+      'phone',
+      'category',
+    ];
+    try {
+      await AsyncStorage.multiRemove(arrayKeys);
+      await this.props.navigation.navigate('Login');
+    } catch (e) {
+      ToastAndroid.show('Logout failed', ToastAndroid.SHORT);
+    }
+  };
   render() {
     return (
       <Fragment>
@@ -56,7 +73,7 @@ class Profile extends Component {
             <Text style={styles.emailText}>{this.state.email}</Text>
             <Divider />
           </View>
-          {this.MenuListItems.map((value,i) => {
+          {this.MenuListItems.map((value, i) => {
             return (
               <View style={styles.list} key={i}>
                 <TouchableOpacity>
@@ -77,7 +94,7 @@ class Profile extends Component {
             );
           })}
           <View style={styles.signoutButtonContainer}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => this.signOutHandler()}>
               <Text style={styles.signoutButton}>Sign out</Text>
             </TouchableOpacity>
           </View>

@@ -3,6 +3,7 @@ import http from '../API/HttpService';
 import {loading} from '../store/actions/loader';
 import {connect} from 'react-redux';
 import {ActivityIndicator, View, StyleSheet} from 'react-native';
+import { IconStyles } from './Styles';
 
 class LoaderComponent extends Component {
   componentDidMount() {

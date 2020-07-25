@@ -1,6 +1,7 @@
 import React, {Fragment, useEffect} from 'react';
 import {View, ImageBackground, ActivityIndicator, Text} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
+import {IconStyles} from '../Styles';
 
 const SplashScreen = (props) => {
   useEffect(() => {
@@ -41,7 +42,11 @@ const SplashScreen = (props) => {
             Welcome to MCG Academy
           </Text>
         </View>
-        <ActivityIndicator size={'large'} color={'#fff'} style={{flex: 1}} />
+        <ActivityIndicator
+          size={'large'}
+          color={IconStyles.iconColor}
+          style={{flex: 1}}
+        />
       </ImageBackground>
     </Fragment>
   );

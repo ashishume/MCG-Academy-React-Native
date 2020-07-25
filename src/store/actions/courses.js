@@ -1,9 +1,14 @@
 import * as ActionType from './ActionTypes';
 import HttpService from '../../API/HttpService';
 import {API_NAME} from '../../API/ApiPaths';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export const fetchAllCourses = () => async (dispatch) => {
-  const response = await HttpService.get(API_NAME.COURSES);
+  const category = await AsyncStorage.getItem('category');
+  const body = {
+    category: JSON.parse(category),
+  };
+  const response = await HttpService.post(API_NAME.COURSES, body);
 
   dispatch({
     type: ActionType.GET_ALL_COURSES,

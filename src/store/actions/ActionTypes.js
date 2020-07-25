@@ -7,6 +7,7 @@ export const HIDE_LOADER = 'HIDE_LOADER';
 
 export const LOGIN = 'LOGIN';
 export const LOGIN_STATUS = 'LOGIN_STATUS';
+export const GET_USER_DATA = 'GET_USER_DATA';
 
 
 export const GET_ALL_COURSES = 'GET_ALL_COURSES';
@@ -18,3 +19,6 @@ export const TOGGLE_VIDEO = 'TOGGLE_VIDEO';
 export const FETCH_FREE_VIDEOS = 'FETCH_FREE_VIDEOS';
 
 export const FETCH_ALL_LIBRARY = 'FETCH_ALL_LIBRARY';
+
+
+export const GET_ALL_CATEGORY = 'GET_ALL_CATEGORY';

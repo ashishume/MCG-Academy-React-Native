@@ -1,8 +1,10 @@
 export const API_NAME = {
   LOGIN: 'auth/login',
-  COURSES: 'courses',
+  USER_DATA: 'auth/data',
+  COURSES: 'courses/allCourses',
   MY_COURSES: 'courses/myCourses',
   MY_COURSE_IDS: 'courses',
-  VIDEOS: 'videos',
-  LIBRARY: 'library',
+  VIDEOS: 'videos/fetch',
+  LIBRARY: 'library/fetch',
+  CATEGORY: 'category',
 };

@@ -2,16 +2,24 @@ import React, {Component, Fragment} from 'react';
 import Explore from './Explore/Explore';
 import AllCourses from './AllCourses/AllCourses';
 import TopHeader from '../Shared/Header';
-import {View} from 'react-native';
+import {View, ToastAndroid} from 'react-native';
+import {fetchMyCourseIds} from '../../store/actions/courses';
+import AsyncStorage from '@react-native-community/async-storage';
 import {connect} from 'react-redux';
-// import {deActivateVideo} from '../../store/actions/video';
+
 class Dashboard extends Component {
   onClickHandler = () => {
     this.props.navigation.navigate('Profile');
   };
-  // componentDidMount() {
-  //   // this.props.deActivateVideo();
-  // }
+
+  async componentDidMount() {
+    try {
+      const userId = await AsyncStorage.getItem('userId');
+      await this.props.fetchMyCourseIds(userId);
+    } catch (e) {
+      ToastAndroid.show('Something went wrong', ToastAndroid.SHORT);
+    }
+  }
   render() {
     return (
       <Fragment>
@@ -29,4 +37,4 @@ class Dashboard extends Component {
   }
 }
 
-export default Dashboard;
+export default connect('', {fetchMyCourseIds})(Dashboard);

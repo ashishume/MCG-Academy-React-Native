@@ -4,9 +4,6 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import CourseDetailsListItem from './CourseDetailsListItems';
 import {activateVideo, deActivateVideo} from '../../../store/actions/video';
 import {connect} from 'react-redux';
-import {fetchMyCourseIds} from '../../../store/actions/courses';
-import AsyncStorage from '@react-native-community/async-storage';
-import {ToastAndroid} from 'react-native';
 const {height, width} = Dimensions.get('window');
 const BuyCourseCard = (props) => {
   const videoClickEventHandler = (e) => {
@@ -20,16 +17,7 @@ const BuyCourseCard = (props) => {
   const [Bought, setBought] = useState(false);
 
   useEffect(() => {
-    const fetchMyCourses = async () => {
-      try {
-        const userId = await AsyncStorage.getItem('userId');
-        await props.fetchMyCourseIds(userId);
-        await checkCourseBuyStatus(props.courseIds);
-      } catch (e) {
-        ToastAndroid.show('Something went wrong', ToastAndroid.SHORT);
-      }
-    };
-    fetchMyCourses();
+    checkCourseBuyStatus(props.courseIds);
   }, []);
 
   const checkCourseBuyStatus = (data) => {
@@ -39,11 +27,6 @@ const BuyCourseCard = (props) => {
   };
 
   const courseEventHandler = () => {
-    // const body = {
-    //   introVideoUrl: '',
-    //   courseTitle: '',
-    // };
-    // props.deActivateVideo(body);
     props.navigation.navigate('CourseContent', props.content);
   };
 
@@ -101,13 +84,14 @@ const BuyCourseCard = (props) => {
   );
 };
 const mapStateToProps = (state) => {
+  console.log(state.courses.myCourseIds);
+
   return {
     courseIds: state.courses.myCourseIds,
   };
 };
 export default connect(mapStateToProps, {
   activateVideo,
-  fetchMyCourseIds,
   deActivateVideo,
 })(BuyCourseCard);
 

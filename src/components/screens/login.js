@@ -7,6 +7,8 @@ import {
   StyleSheet,
   Text,
   ToastAndroid,
+  Alert,
+  BackHandler,
 } from 'react-native';
 
 import {TouchableOpacity} from 'react-native-gesture-handler';
@@ -22,8 +24,26 @@ class Login extends Component {
   };
 
   async componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.backAction);
+
     const email = await AsyncStorage.getItem('email');
     if (email != null) this.props.navigation.navigate('Dashboard');
+  }
+
+  backAction = () => {
+    Alert.alert('Hold on!', 'Are you sure you want to exit?', [
+      {
+        text: 'Cancel',
+        onPress: () => null,
+        style: 'cancel',
+      },
+      {text: 'YES', onPress: () => BackHandler.exitApp()},
+    ]);
+    return true;
+  };
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.backAction);
   }
   loginHandler = () => {
     const body = {
@@ -38,6 +58,7 @@ class Login extends Component {
       this.props.login(body, this.props);
     }
   };
+
   render() {
     return (
       <ImageBackground
