@@ -1,5 +1,4 @@
 package com.mcgacademyapp;
-// import com.razorpay.rn.RazorpayPackage;
 
 import android.app.Application;
 import android.content.Context;

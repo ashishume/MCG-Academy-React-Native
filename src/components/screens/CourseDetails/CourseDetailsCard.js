@@ -17,7 +17,7 @@ const BuyCourseCard = (props) => {
   const [Bought, setBought] = useState(false);
 
   useEffect(() => {
-    checkCourseBuyStatus(props.courseIds);
+    if (props.courseIds) checkCourseBuyStatus(props.courseIds);
   }, []);
 
   const checkCourseBuyStatus = (data) => {
