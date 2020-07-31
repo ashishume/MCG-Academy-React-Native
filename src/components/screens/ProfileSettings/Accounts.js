@@ -112,7 +112,7 @@ class Accounts extends Component {
             </TouchableOpacity>
           </View>
           <Text style={{fontSize: 25, fontWeight: 'bold', marginTop: 50}}>
-            Change Password
+            Reset Password
           </Text>
           <Divider style={{margin: 10}} />
           <View>
