@@ -26,16 +26,17 @@ class YoutubePlayerUI extends Component {
   render() {
     return (
       <View style={{paddingTop: 0}}>
-        <YoutubePlayer
-          loop
-          topBar={this.TopBar}
-          videoId={this.state.id}
-          onStateChange={this.props.video}
-          // autoPlay
-          onFullScreen={(e) => console.log(e)}
-          onStart={() => console.log('video started')}
-          onEnd={() => console.log('video Ended')}
-        />
+        {this.state.id ? (
+          <YoutubePlayer
+            loop
+            topBar={this.TopBar}
+            videoId={this.state.id}
+            // autoPlay
+            // onFullScreen={(e) => console.log(e)}
+            // onStart={() => console.log('video started')}
+            // onEnd={() => console.log('video Ended')}
+          />
+        ) : null}
       </View>
     );
   }

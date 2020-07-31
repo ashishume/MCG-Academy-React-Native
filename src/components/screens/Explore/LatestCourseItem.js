@@ -1,5 +1,5 @@
 import React, {Fragment} from 'react';
-import {View, Text, StyleSheet, Image} from 'react-native';
+import {View, Text, StyleSheet, Image, ActivityIndicator} from 'react-native';
 import AmountBadge from '../../Shared/AmountBadge';
 import Styles from '../../Styles';
 const LatestCourseItem = (props) => {
@@ -15,6 +15,7 @@ const LatestCourseItem = (props) => {
     <View style={styles.cardContainer}>
       <View style={{flex: 1}}>
         <Image
+          PlaceholderContent={<ActivityIndicator color="#000" />}
           source={{uri: props.content.courseImage}}
           style={styles.imageCard}
         />

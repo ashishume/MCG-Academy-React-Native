@@ -84,8 +84,6 @@ const BuyCourseCard = (props) => {
   );
 };
 const mapStateToProps = (state) => {
-  console.log(state.courses.myCourseIds);
-
   return {
     courseIds: state.courses.myCourseIds,
   };

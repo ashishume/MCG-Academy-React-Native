@@ -4,12 +4,16 @@ import AllCourseCard from './AllCoursesCard';
 import {fetchAllCourses} from '../../../store/actions/courses';
 import {connect} from 'react-redux';
 import Styles from '../../Styles';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 class AllCourses extends Component {
   componentDidMount() {
     this.props.fetchAllCourses();
   }
 
+  onRouteToCourseDetailsHandler = (value) => {
+    this.props.navigation.navigate('CourseDetails', value);
+  };
   render() {
     return (
       <SafeAreaView style={styles.container}>
@@ -19,7 +23,14 @@ class AllCourses extends Component {
             <View style={{marginTop: 0}}>
               <View style={styles.scrollContainer}>
                 {this.props.courses.map((value, i) => {
-                  return <AllCourseCard key={i} content={value} />;
+                  return (
+                    <TouchableOpacity
+                      activeOpacity={0.7}
+                      key={i}
+                      onPress={() => this.onRouteToCourseDetailsHandler(value)}>
+                      <AllCourseCard key={i} content={value} />
+                    </TouchableOpacity>
+                  );
                 })}
               </View>
             </View>

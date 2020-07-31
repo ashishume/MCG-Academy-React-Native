@@ -12,11 +12,11 @@ import CourseDetails from '../components/screens/CourseDetails/CourseDetails';
 import {NavigationContainer} from '@react-navigation/native';
 import {connect} from 'react-redux';
 import YoutubePlayerUI from '../components/Shared/YoutubePlayer';
-import Profile from '../components/screens/Profile';
+import Profile from '../components/screens/ProfileSettings/Profile';
 import CourseContent from '../components/screens/CourseContent/ContentTabs';
 import FreeVideosContent from '../components/screens/FreeVideos/FreeVideosContent';
 import InitialSetup from '../components/screens/InitialSetup';
-import AddVideos from '../components/screens/Teacher/AddVideos';
+import Accounts from '../components/screens/ProfileSettings/Accounts';
 const Stack = createStackNavigator();
 const config = {
   animation: 'spring',
@@ -73,6 +73,14 @@ const MainRouting = (props) => {
         <Stack.Screen
           name="Profile"
           component={Profile}
+          options={{
+            headerShown: true,
+            cardStyle: {backgroundColor: '#fff'},
+          }}
+        />
+        <Stack.Screen
+          name="Accounts"
+          component={Accounts}
           options={{
             headerShown: true,
             cardStyle: {backgroundColor: '#fff'},

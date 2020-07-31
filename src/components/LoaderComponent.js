@@ -2,8 +2,7 @@ import React, {Component, Fragment} from 'react';
 import http from '../API/HttpService';
 import {loading} from '../store/actions/loader';
 import {connect} from 'react-redux';
-import {ActivityIndicator, View, StyleSheet} from 'react-native';
-import { IconStyles } from './Styles';
+import {ActivityIndicator, View, ToastAndroid} from 'react-native';
 
 class LoaderComponent extends Component {
   componentDidMount() {
@@ -15,7 +14,7 @@ class LoaderComponent extends Component {
       },
       (error) => {
         self.props.loading(false);
-
+        ToastAndroid.show(error.message, ToastAndroid.SHORT);
         return Promise.reject(error);
       },
     );
@@ -26,6 +25,7 @@ class LoaderComponent extends Component {
         return response;
       },
       (error) => {
+        ToastAndroid.show(error.message, ToastAndroid.LONG);
         self.props.loading(false);
         return Promise.reject(error);
       },

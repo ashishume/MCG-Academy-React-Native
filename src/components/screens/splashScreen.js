@@ -1,5 +1,11 @@
 import React, {Fragment, useEffect} from 'react';
-import {View, ImageBackground, ActivityIndicator, Text} from 'react-native';
+import {
+  View,
+  ImageBackground,
+  ActivityIndicator,
+  ToastAndroid,
+  Text,
+} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import {IconStyles} from '../Styles';
 
@@ -22,7 +28,7 @@ const SplashScreen = (props) => {
         props.navigation.navigate('Dashboard');
       }
     } catch (e) {
-      console.log(e);
+      ToastAndroid.show('Something went wrong', ToastAndroid.SHORT);
     }
   };
 

@@ -8,6 +8,8 @@ export const HIDE_LOADER = 'HIDE_LOADER';
 export const LOGIN = 'LOGIN';
 export const LOGIN_STATUS = 'LOGIN_STATUS';
 export const GET_USER_DATA = 'GET_USER_DATA';
+export const UPDATE_USER_DATA = 'UPDATE_USER_DATA';
+export const CHANGE_PASSWORD = 'CHANGE_PASSWORD';
 
 
 export const GET_ALL_COURSES = 'GET_ALL_COURSES';

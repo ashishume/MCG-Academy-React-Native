@@ -1,5 +1,5 @@
 import React, {Fragment} from 'react';
-import {View, Text, Image, StyleSheet} from 'react-native';
+import {View, Text, Image, StyleSheet, ActivityIndicator} from 'react-native';
 import BadgeType from '../../Shared/Badge';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
@@ -19,7 +19,11 @@ const CourseCardListItem = ({content, onClickCourseItem}) => {
         <View style={styles.container}>
           <View style={styles.innerContainer}>
             <View style={{justifyContent: 'center'}}>
-              <Image source={{uri: content.courseImage}} style={styles.image} />
+              <Image
+                PlaceholderContent={<ActivityIndicator color="#000" />}
+                source={{uri: content.courseImage}}
+                style={styles.image}
+              />
             </View>
             <View style={styles.contentContainer}>
               <Text style={styles.title}>{shortTitle}</Text>

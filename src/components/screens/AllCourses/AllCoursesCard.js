@@ -1,5 +1,12 @@
 import React, {Component, useState, useEffect} from 'react';
-import {View, Text, StyleSheet, Image, Dimensions} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  Dimensions,
+  ActivityIndicator,
+} from 'react-native';
 import BadgeType from '../../Shared/Badge';
 import AmountBadge from '../../Shared/AmountBadge';
 import Styles from '../../Styles';
@@ -16,7 +23,11 @@ const AllCourseCard = ({content}) => {
   return (
     <View style={styles.container}>
       <View style={{flex: 1}}>
-        <Image style={styles.image} source={{uri: content.courseImage}} />
+        <Image
+          PlaceholderContent={<ActivityIndicator color="#000" />}
+          style={styles.image}
+          source={{uri: content.courseImage}}
+        />
       </View>
       <View style={styles.contentContainer}>
         <BadgeType name={content.category} />

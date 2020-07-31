@@ -9,7 +9,6 @@ const Description = (props) => {
   };
   return (
     <ScrollView style={{backgroundColor: '#fff'}}>
-      {console.log(props.content)}
       <View style={styles.container}>
         <View style={{marginTop: 20}}>
           <Text style={styles.author}>Author: {props.content.author}</Text>

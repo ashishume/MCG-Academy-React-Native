@@ -16,6 +16,16 @@ const loginReducer = (state = initialState, action) => {
         ...state,
         userData: action.payload,
       };
+    case ActionTypes.UPDATE_USER_DATA:
+      return {
+        ...state,
+        userData: action.payload,
+      };
+    case ActionTypes.CHANGE_PASSWORD:
+      return {
+        ...state,
+        userData: action.payload,
+      };
     default:
       return state;
   }

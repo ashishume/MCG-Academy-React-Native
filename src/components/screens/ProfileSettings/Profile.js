@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import {Text, Button, View, StyleSheet, ToastAndroid} from 'react-native';
 import {Icon, Divider} from 'react-native-elements';
-import {IconStyles} from '../Styles';
+import {IconStyles} from '../../Styles';
 import AsyncStorage from '@react-native-community/async-storage';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 class Profile extends Component {
@@ -17,7 +17,7 @@ class Profile extends Component {
         email: await AsyncStorage.getItem('email'),
       });
     } catch (e) {
-      console.log(e);
+      ToastAndroid.show('Something went wrong', ToastAndroid.SHORT);
     }
     return name;
   };
@@ -52,22 +52,28 @@ class Profile extends Component {
       ToastAndroid.show('Logout failed', ToastAndroid.SHORT);
     }
   };
+
+  profileMenuHandler = (value) => {
+    if(value=='Account'){
+        this.props.navigation.navigate('Accounts');
+      }
+  };
   render() {
     return (
       <Fragment>
         <View style={styles.container}>
-          <TouchableOpacity activeOpacity={0.8}>
-            <View style={styles.profileIcon}>
-              <Icon
-                round={true}
-                size={60}
-                type={IconStyles.iconType}
-                color={'purple'}
-                raised
-                name="ios-person"
-              />
-            </View>
-          </TouchableOpacity>
+          {/* <TouchableOpacity activeOpacity={0.8}> */}
+          <View style={styles.profileIcon}>
+            <Icon
+              round={true}
+              size={60}
+              type={IconStyles.iconType}
+              color={'purple'}
+              raised
+              name="ios-person"
+            />
+          </View>
+          {/* </TouchableOpacity> */}
           <View>
             <Text style={styles.nameText}>{this.state.name}</Text>
             <Text style={styles.emailText}>{this.state.email}</Text>
@@ -76,7 +82,8 @@ class Profile extends Component {
           {this.MenuListItems.map((value, i) => {
             return (
               <View style={styles.list} key={i}>
-                <TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => this.profileMenuHandler(value)}>
                   <View style={{flex: 1}}>
                     <Text style={styles.listItem}>{value}</Text>
                   </View>
