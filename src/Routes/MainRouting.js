@@ -16,7 +16,13 @@ import Profile from '../components/screens/ProfileSettings/Profile';
 import CourseContent from '../components/screens/CourseContent/ContentTabs';
 import FreeVideosContent from '../components/screens/FreeVideos/FreeVideosContent';
 import InitialSetup from '../components/screens/InitialSetup';
+
+//sub routes of profile
 import Accounts from '../components/screens/ProfileSettings/Accounts';
+import PrivacyPolicy from '../components/screens/ProfileSettings/PrivacyPolicy';
+import TermsAndCondition from '../components/screens/ProfileSettings/TermsAndCondition';
+import AboutUs from '../components/screens/ProfileSettings/AboutUs';
+import Preference from '../components/screens/ProfileSettings/Preference';
 const Stack = createStackNavigator();
 const config = {
   animation: 'spring',
@@ -81,6 +87,38 @@ const MainRouting = (props) => {
         <Stack.Screen
           name="Accounts"
           component={Accounts}
+          options={{
+            headerShown: true,
+            cardStyle: {backgroundColor: '#fff'},
+          }}
+        />
+        <Stack.Screen
+          name="Privacy Policy"
+          component={PrivacyPolicy}
+          options={{
+            headerShown: true,
+            cardStyle: {backgroundColor: '#fff'},
+          }}
+        />
+        <Stack.Screen
+          name="Terms and condition"
+          component={TermsAndCondition}
+          options={{
+            headerShown: true,
+            cardStyle: {backgroundColor: '#fff'},
+          }}
+        />
+        {/* <Stack.Screen
+          name="Preference"
+          component={Preference}
+          options={{
+            headerShown: true,
+            cardStyle: {backgroundColor: '#fff'},
+          }}
+        /> */}
+        <Stack.Screen
+          name="About us"
+          component={AboutUs}
           options={{
             headerShown: true,
             cardStyle: {backgroundColor: '#fff'},

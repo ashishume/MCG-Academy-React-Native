@@ -11,13 +11,15 @@ class MyCourses extends Component {
     try {
       const userId = await AsyncStorage.getItem('userId');
       await this.props.fetchMyCourseIds(userId);
-      if (this.props.myCoursesIds.length) {
+      if (this.props.myCoursesIds) {
         const body = {
           courses: this.props.myCoursesIds,
         };
         await this.props.fetchMyCourses(body);
       }
     } catch (e) {
+      console.log(e);
+      
       ToastAndroid.show('Something went wrong', ToastAndroid.SHORT);
     }
   }

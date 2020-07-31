@@ -1,14 +1,28 @@
 import React, {Component, Fragment} from 'react';
-import {Text, Button, View, StyleSheet, ToastAndroid} from 'react-native';
+import {
+  Text,
+  Button,
+  View,
+  StyleSheet,
+  ToastAndroid,
+  Linking,
+} from 'react-native';
 import {Icon, Divider} from 'react-native-elements';
 import {IconStyles} from '../../Styles';
 import AsyncStorage from '@react-native-community/async-storage';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import Preference from './Preference';
+import {fetchAllCategories} from '../../../store/actions/category';
+import {updateUserData, fetchUserData} from '../../../store/actions/auth';
+import {connect} from 'react-redux';
 class Profile extends Component {
   state = {
     name: '',
     email: '',
+    visible: false,
+    prefilledCategories: '',
   };
+
   getName = async () => {
     let name = '';
     try {
@@ -34,6 +48,7 @@ class Profile extends Component {
 
   componentDidMount() {
     this.getName();
+    this.props.fetchAllCategories();
   }
 
   signOutHandler = async () => {
@@ -52,11 +67,40 @@ class Profile extends Component {
       ToastAndroid.show('Logout failed', ToastAndroid.SHORT);
     }
   };
-
+  renderPreferenceItems = async (value) => {
+    let category = [];
+    if (value.length) {
+      value.map((v) => {
+        category.push(v.value);
+      });
+    }
+    const body = {
+      name: await AsyncStorage.getItem('name'),
+      phone: await AsyncStorage.getItem('phone'),
+      userId: await AsyncStorage.getItem('userId'),
+      category: category,
+    };
+    await this.props.updateUserData(body);
+    await this.props.fetchUserData(this.props);
+  };
   profileMenuHandler = (value) => {
-    if(value=='Account'){
-        this.props.navigation.navigate('Accounts');
-      }
+    if (value == 'Account') {
+      this.props.navigation.navigate('Accounts');
+    } else if (value == 'Chat with us') {
+      Linking.openURL('https://wa.me/918557098095');
+    } else if (value == 'Rate us') {
+      Linking.openURL('https://play.google.com');
+    } else if (value == 'Privacy Policy') {
+      this.props.navigation.navigate('Privacy Policy');
+    } else if (value == 'Terms and condition') {
+      this.props.navigation.navigate('Terms and condition');
+    } else if (value == 'About us') {
+      this.props.navigation.navigate('About us');
+    } else if (value == 'Preference') {
+      this.setState({
+        visible: true,
+      });
+    }
   };
   render() {
     return (
@@ -106,10 +150,31 @@ class Profile extends Component {
             </TouchableOpacity>
           </View>
         </View>
+
+        <Preference
+          passItems={(e) => this.renderPreferenceItems(e)}
+          visible={this.state.visible}
+          category={this.props.category}
+          closeModal={() =>
+            this.setState({
+              visible: false,
+            })
+          }
+        />
       </Fragment>
     );
   }
 }
+const mapStateToProps = (state) => {
+  return {
+    category: state.category.category,
+  };
+};
+export default connect(mapStateToProps, {
+  fetchAllCategories,
+  updateUserData,
+  fetchUserData,
+})(Profile);
 
 const styles = StyleSheet.create({
   container: {backgroundColor: '#fff', height: '100%'},
@@ -156,5 +221,3 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
 });
-
-export default Profile;

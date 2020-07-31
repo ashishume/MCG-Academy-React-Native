@@ -149,12 +149,6 @@ class Accounts extends Component {
   }
 }
 
-// const mapStateToProps = (state) => {
-//   return {
-//     categories: state.category.category,
-//   };
-// };
-
 export default connect('', {updateUserData, fetchUserData, updatePassword})(
   Accounts,
 );
