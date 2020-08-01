@@ -4,6 +4,21 @@ import {API_NAME} from '../../API/ApiPaths';
 import {ToastAndroid} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 
+export const signupUser = (values, props) => async (dispatch) => {
+  try {
+    const response = await HttpService.post(API_NAME.SIGNUP, values);
+    dispatch({
+      type: ActionType.SIGNUP,
+      payload: response.data,
+    });
+    if (response.status === 200) {
+      setLoginStatus(response.data);
+      props.navigation.navigate('InitialSetup');
+    }
+  } catch (err) {
+    ToastAndroid.show('Signup failed', ToastAndroid.LONG);
+  }
+};
 export const login = (values, props) => async (dispatch) => {
   try {
     const response = await HttpService.post(API_NAME.LOGIN, values);
@@ -16,7 +31,7 @@ export const login = (values, props) => async (dispatch) => {
       props.navigation.navigate('InitialSetup');
     }
   } catch (err) {
-    ToastAndroid.show('Login Failed', ToastAndroid.SHORT);
+    ToastAndroid.show('Login Failed', ToastAndroid.LONG);
   }
 };
 const setLoginStatus = async (value) => {
@@ -28,7 +43,7 @@ const setLoginStatus = async (value) => {
     await AsyncStorage.setItem('phone', value.phone);
     await AsyncStorage.setItem('category', JSON.stringify(value.category));
   } catch (e) {
-    ToastAndroid.show('Something went wrong', ToastAndroid.SHORT);
+    ToastAndroid.show('Something went wrong', ToastAndroid.LONG);
   }
 };
 export const fetchUserData = (props) => async (dispatch) => {
@@ -49,7 +64,7 @@ export const fetchUserData = (props) => async (dispatch) => {
       props.navigation.navigate('Dashboard');
     }
   } catch (err) {
-    ToastAndroid.show('Something went Wrong', ToastAndroid.SHORT);
+    ToastAndroid.show('Something went Wrong', ToastAndroid.LONG);
   }
 };
 export const updateUserData = (body) => async (dispatch) => {
@@ -60,7 +75,7 @@ export const updateUserData = (body) => async (dispatch) => {
       payload: response.data,
     });
   } catch (err) {
-    ToastAndroid.show('Something went wrong', ToastAndroid.SHORT);
+    ToastAndroid.show('Something went wrong', ToastAndroid.LONG);
   }
 };
 export const updatePassword = (body, props) => async (dispatch) => {
@@ -75,6 +90,6 @@ export const updatePassword = (body, props) => async (dispatch) => {
       props.navigation.navigate('Dashboard');
     }
   } catch (err) {
-    ToastAndroid.show('Password change failed', ToastAndroid.SHORT);
+    ToastAndroid.show('Password change failed', ToastAndroid.LONG);
   }
 };

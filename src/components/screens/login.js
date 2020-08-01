@@ -11,7 +11,10 @@ import {
   BackHandler,
 } from 'react-native';
 
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import {
+  TouchableOpacity,
+  TouchableHighlight,
+} from 'react-native-gesture-handler';
 import LoginValidation from '../Utils/LoginValidation';
 import {connect} from 'react-redux';
 import {login} from '../../store/actions/auth';
@@ -99,6 +102,14 @@ class Login extends Component {
             style={styles.buttonContainer}>
             <Text style={styles.buttonText}>Login</Text>
           </TouchableOpacity>
+          <View style={{marginTop: 20}}>
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate('Signup')}>
+              <Text style={{color: '#fff', textAlign: 'center'}}>
+                Don't have an account?
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </ImageBackground>
     );

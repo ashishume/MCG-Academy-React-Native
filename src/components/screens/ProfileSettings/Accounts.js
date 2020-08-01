@@ -1,6 +1,5 @@
 import React, {Component, Fragment} from 'react';
 import {View, TextInput, StyleSheet, Text, ToastAndroid} from 'react-native';
-import {Picker} from '@react-native-community/picker';
 import AsyncStorage from '@react-native-community/async-storage';
 import {connect} from 'react-redux';
 import {TouchableOpacity, ScrollView} from 'react-native-gesture-handler';

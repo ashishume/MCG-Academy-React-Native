@@ -22,7 +22,8 @@ import Accounts from '../components/screens/ProfileSettings/Accounts';
 import PrivacyPolicy from '../components/screens/ProfileSettings/PrivacyPolicy';
 import TermsAndCondition from '../components/screens/ProfileSettings/TermsAndCondition';
 import AboutUs from '../components/screens/ProfileSettings/AboutUs';
-import Preference from '../components/screens/ProfileSettings/Preference';
+import Signup from '../components/screens/Auth/Signup';
+import PreferencePicker from '../components/screens/Auth/PreferencePicker';
 const Stack = createStackNavigator();
 const config = {
   animation: 'spring',
@@ -108,14 +109,6 @@ const MainRouting = (props) => {
             cardStyle: {backgroundColor: '#fff'},
           }}
         />
-        {/* <Stack.Screen
-          name="Preference"
-          component={Preference}
-          options={{
-            headerShown: true,
-            cardStyle: {backgroundColor: '#fff'},
-          }}
-        /> */}
         <Stack.Screen
           name="About us"
           component={AboutUs}
@@ -142,6 +135,20 @@ const MainRouting = (props) => {
         <Stack.Screen
           name="Login"
           component={Login}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="Signup"
+          component={Signup}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="Preference"
+          component={PreferencePicker}
           options={{
             headerShown: false,
           }}
