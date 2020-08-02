@@ -12,8 +12,12 @@ export const signupUser = (values, props) => async (dispatch) => {
       payload: response.data,
     });
     if (response.status === 200) {
-      setLoginStatus(response.data);
-      props.navigation.navigate('InitialSetup');
+      if (response.data.userType !== 2) {
+        setLoginStatus(response.data);
+        props.navigation.navigate('InitialSetup');
+      } else {
+        props.navigation.navigate('TeacherWaitingPage');
+      }
     }
   } catch (err) {
     ToastAndroid.show('Signup failed', ToastAndroid.LONG);

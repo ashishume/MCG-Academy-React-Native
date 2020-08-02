@@ -1,5 +1,5 @@
-import React, {Component, Fragment, useEffect} from 'react';
-import {Text, View, Linking} from 'react-native';
+import React, {Fragment, useEffect} from 'react';
+import {View, Linking} from 'react-native';
 import {fetchAllLibrary} from '../../../store/actions/library';
 import {connect} from 'react-redux';
 import LibraryCard from './LibraryCard';

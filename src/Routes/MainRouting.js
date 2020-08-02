@@ -24,6 +24,7 @@ import TermsAndCondition from '../components/screens/ProfileSettings/TermsAndCon
 import AboutUs from '../components/screens/ProfileSettings/AboutUs';
 import Signup from '../components/screens/Auth/Signup';
 import PreferencePicker from '../components/screens/Auth/PreferencePicker';
+import TeacherWaitingPage from '../components/screens/TeacherWaitingPage';
 const Stack = createStackNavigator();
 const config = {
   animation: 'spring',
@@ -65,6 +66,13 @@ const MainRouting = (props) => {
         <Stack.Screen
           name="InitialSetup"
           component={InitialSetup}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="TeacherWaitingPage"
+          component={TeacherWaitingPage}
           options={{
             headerShown: false,
           }}

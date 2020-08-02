@@ -17,6 +17,7 @@ class Profile extends Component {
     visible: false,
     prefilledCategories: '',
     image: '',
+    userType: '',
   };
 
   getName = async () => {
@@ -42,9 +43,22 @@ class Profile extends Component {
     'About us',
   ];
 
-  async componentDidMount() {
+  componentDidMount() {
     this.getName();
     this.props.fetchAllCategories();
+
+    // try {
+    //   const type = await AsyncStorage.getItem('userType');
+    //   console.log(type);
+
+    //   if (type) {
+    //     this.setState({
+    //       userType: type,
+    //     });
+    //   }
+    // } catch (e) {
+    //   ToastAndroid.show('Something went wrong', ToastAndroid.LONG);
+    // }
   }
 
   signOutHandler = async () => {
