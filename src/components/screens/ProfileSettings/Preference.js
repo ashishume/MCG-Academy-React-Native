@@ -32,13 +32,19 @@ const Preference = (props) => {
               buttonText="hello"
               checkboxStyle={{height: 20, width: 20}}
             />
-
-            <TouchableHighlight
-              disabled={!selectedItems.length ? true : false}
-              onPress={() => selectCategoryHandler()}
-              style={{...styles.openButton, backgroundColor: '#2196F3'}}>
-              <Text style={styles.textStyle}>Done</Text>
-            </TouchableHighlight>
+            <View style={{flexDirection: 'row'}}>
+              <TouchableHighlight
+                disabled={!selectedItems.length ? true : false}
+                onPress={() => selectCategoryHandler()}
+                style={{...styles.openButton, backgroundColor: '#2196F3'}}>
+                <Text style={styles.textStyle}>Done</Text>
+              </TouchableHighlight>
+              <TouchableHighlight
+                onPress={() => props.closeModal()}
+                style={{...styles.openButton, backgroundColor: '#fff'}}>
+                <Text style={styles.textStyle}>Close</Text>
+              </TouchableHighlight>
+            </View>
           </View>
         </View>
       </Modal>
@@ -77,6 +83,6 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   textStyle: {
-    color: '#fff',
+    color: '#000',
   },
 });

@@ -1,12 +1,5 @@
 import React, {Component, Fragment} from 'react';
-import {
-  Text,
-  Button,
-  View,
-  StyleSheet,
-  ToastAndroid,
-  Linking,
-} from 'react-native';
+import {Text, View, StyleSheet, ToastAndroid, Linking} from 'react-native';
 import {Icon, Divider} from 'react-native-elements';
 import {IconStyles} from '../../Styles';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -15,12 +8,15 @@ import Preference from './Preference';
 import {fetchAllCategories} from '../../../store/actions/category';
 import {updateUserData, fetchUserData} from '../../../store/actions/auth';
 import {connect} from 'react-redux';
+import ProfileImage from './ProfileImage';
+
 class Profile extends Component {
   state = {
     name: '',
     email: '',
     visible: false,
     prefilledCategories: '',
+    image: '',
   };
 
   getName = async () => {
@@ -46,7 +42,7 @@ class Profile extends Component {
     'About us',
   ];
 
-  componentDidMount() {
+  async componentDidMount() {
     this.getName();
     this.props.fetchAllCategories();
   }
@@ -67,6 +63,7 @@ class Profile extends Component {
       ToastAndroid.show('Logout failed', ToastAndroid.SHORT);
     }
   };
+
   renderPreferenceItems = async (value) => {
     let category = [];
     if (value.length) {
@@ -102,22 +99,12 @@ class Profile extends Component {
       });
     }
   };
+
   render() {
     return (
       <Fragment>
         <View style={styles.container}>
-          {/* <TouchableOpacity activeOpacity={0.8}> */}
-          <View style={styles.profileIcon}>
-            <Icon
-              round={true}
-              size={60}
-              type={IconStyles.iconType}
-              color={'purple'}
-              raised
-              name="ios-person"
-            />
-          </View>
-          {/* </TouchableOpacity> */}
+          <ProfileImage {...this.props} />
           <View>
             <Text style={styles.nameText}>{this.state.name}</Text>
             <Text style={styles.emailText}>{this.state.email}</Text>
@@ -178,7 +165,6 @@ export default connect(mapStateToProps, {
 
 const styles = StyleSheet.create({
   container: {backgroundColor: '#fff', height: '100%'},
-  profileIcon: {alignSelf: 'center'},
   nameText: {
     fontSize: 20,
     fontWeight: 'bold',
@@ -193,7 +179,6 @@ const styles = StyleSheet.create({
 
   list: {flexDirection: 'column', margin: 10},
   listItem: {
-    padding: 3,
     marginLeft: 20,
     marginRight: 20,
     fontSize: 20,
