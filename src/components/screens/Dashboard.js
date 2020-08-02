@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from 'react';
+import React, {Component} from 'react';
 import Explore from './Explore/Explore';
 import AllCourses from './AllCourses/AllCourses';
 import TopHeader from '../Shared/Header';
@@ -22,7 +22,7 @@ class Dashboard extends Component {
   }
   render() {
     return (
-      <Fragment>
+      <View style={{flex: 1}}>
         <View style={{flex: 1, backgroundColor: '#fff'}}>
           <TopHeader
             {...this.props}
@@ -32,7 +32,7 @@ class Dashboard extends Component {
           <Explore {...this.props} />
           <AllCourses {...this.props} />
         </View>
-      </Fragment>
+      </View>
     );
   }
 }

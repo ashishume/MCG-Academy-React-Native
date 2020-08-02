@@ -45,12 +45,8 @@ const ProfileImage = (props) => {
   };
   const imageUploadHandler = async () => {
     await ImagePicker.showImagePicker(options, (response) => {
-      if (response.didCancel) {
-        console.log('User cancelled image picker');
-      } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
-      } else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
+      if (response.error) {
+        ToastAndroid.show('Something went wrong', ToastAndroid.LONG);
       } else {
         const source = {uri: response.uri};
 

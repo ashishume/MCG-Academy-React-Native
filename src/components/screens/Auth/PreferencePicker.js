@@ -27,7 +27,6 @@ const PreferencePicker = (props) => {
       ...props.route.params,
       category,
     };
-    console.log(body);
     await props.signupUser(body, props);
   };
 

@@ -1,5 +1,5 @@
 import React, {Component, Fragment} from 'react';
-import {Text, View, SafeAreaView, ScrollView,ToastAndroid} from 'react-native';
+import {Text, View, SafeAreaView, ScrollView, ToastAndroid} from 'react-native';
 import TopHeader from '../../Shared/Header';
 import CourseCardListItem from './CourseCardListItem';
 import {connect} from 'react-redux';
@@ -18,8 +18,6 @@ class MyCourses extends Component {
         await this.props.fetchMyCourses(body);
       }
     } catch (e) {
-      console.log(e);
-      
       ToastAndroid.show('Something went wrong', ToastAndroid.SHORT);
     }
   }
