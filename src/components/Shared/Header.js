@@ -7,31 +7,29 @@ const TopHeader = (props) => {
     <Fragment>
       <View style={styles.menuContainer}>
         <View style={styles.leftItem}>
-          <Text style={styles.headerText}>
-            {props.name}
-            {props.backIcon ? (
-              <Icon
-                onPress={props.onBackIconClick}
-                round={true}
-                size={30}
-                type={IconStyles.iconType}
-                color={'#000'}
-                name="ios-arrow-back-sharp"
-              />
-            ) : null}
-          </Text>
+          <Text style={styles.headerText}>{props.name}</Text>
         </View>
         <View style={styles.rightItem}>
           {props.IconName ? (
-            <Icon
-              onPress={props.onIconClick}
-              round={true}
-              size={20}
-              type={IconStyles.iconType}
-              color={'#000'}
-              raised
-              name={props.IconName}
-            />
+            <View style={{flexDirection: 'row'}}>
+              <Icon
+                onPress={props.onSearchHandler}
+                size={20}
+                type={IconStyles.iconType}
+                color={'#000'}
+                raised
+                name="search-sharp"
+              />
+              <Icon
+                onPress={props.onIconClick}
+                round={true}
+                size={20}
+                type={IconStyles.iconType}
+                color={'#000'}
+                raised
+                name={props.IconName}
+              />
+            </View>
           ) : null}
         </View>
       </View>

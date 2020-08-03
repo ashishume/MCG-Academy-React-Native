@@ -30,12 +30,15 @@ const Dashboard = (props) => {
 
     return unsubscribe;
   }, [props.navigation]);
-
+  const onSearchHandler = () => {
+    props.navigation.navigate('Search');
+  };
   return (
     <View style={{flex: 1}}>
       <View style={{flex: 1, backgroundColor: '#fff'}}>
         <TopHeader
           {...props}
+          onSearchHandler={() => onSearchHandler()}
           IconName="ios-person"
           onIconClick={() => onClickHandler()}
         />

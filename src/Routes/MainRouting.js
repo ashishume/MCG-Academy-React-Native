@@ -25,6 +25,7 @@ import AboutUs from '../components/screens/ProfileSettings/AboutUs';
 import Signup from '../components/screens/Auth/Signup';
 import PreferencePicker from '../components/screens/Auth/PreferencePicker';
 import TeacherWaitingPage from '../components/screens/TeacherWaitingPage';
+import Search from '../components/screens/Search';
 const Stack = createStackNavigator();
 const config = {
   animation: 'spring',
@@ -73,6 +74,13 @@ const MainRouting = (props) => {
         <Stack.Screen
           name="TeacherWaitingPage"
           component={TeacherWaitingPage}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="Search"
+          component={Search}
           options={{
             headerShown: false,
           }}
