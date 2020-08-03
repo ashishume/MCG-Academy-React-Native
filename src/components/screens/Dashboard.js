@@ -6,6 +6,8 @@ import {View, ToastAndroid} from 'react-native';
 import {fetchMyCourseIds} from '../../store/actions/courses';
 import AsyncStorage from '@react-native-community/async-storage';
 import {connect} from 'react-redux';
+import DashboardSlideshow from './DashboardSlideshow';
+import {ScrollView} from 'react-native-gesture-handler';
 
 const Dashboard = (props) => {
   const onClickHandler = () => {
@@ -37,8 +39,11 @@ const Dashboard = (props) => {
           IconName="ios-person"
           onIconClick={() => onClickHandler()}
         />
-        <Explore {...props} />
-        <AllCourses {...props} />
+        <ScrollView>
+          <Explore {...props} />
+          <DashboardSlideshow {...props} />
+          <AllCourses {...props} />
+        </ScrollView>
       </View>
     </View>
   );

@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     paddingTop: 10,
   },
   latestCourseTitle: {
-    fontSize: 20,
+    fontSize: 25,
     ...Styles.fontFamily,
     fontWeight: '700',
     paddingHorizontal: 20,
