@@ -13,7 +13,7 @@ const FreeVideos = (props) => {
     return unsubscribe;
   }, [props.navigation]);
   const videoEventHandler = (value) => {
-    this.props.navigation.navigate('FreeVideoContent', value);
+    props.navigation.navigate('FreeVideoContent', value);
   };
 
   return (

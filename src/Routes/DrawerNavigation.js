@@ -1,4 +1,4 @@
-import React, {Component, useEffect, useState} from 'react';
+import React from 'react';
 import Dashboard from '../components/screens/Dashboard';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Icon} from 'react-native-elements';
@@ -6,25 +6,10 @@ import MyCourses from '../components/screens/MyCourses/MyCourses';
 import {IconStyles} from '../components/Styles';
 import Library from '../components/screens/Library/Library';
 import FreeVideos from '../components/screens/FreeVideos/FreeVideos';
-import AsyncStorage from '@react-native-community/async-storage';
-import {ToastAndroid} from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
 const DrawerNavigation = () => {
-  const [userType, setUserType] = useState(3); //3 is for customer
-  useEffect(() => {
-    const fetchUserType = async () => {
-      try {
-        const type = await AsyncStorage.getItem('userType');
-        setUserType(parseInt(type));
-      } catch (e) {
-        ToastAndroid.show('Something went wrong', ToastAndroid.SHORT);
-      }
-    };
-    fetchUserType();
-  }, []);
-
   return (
     <Tab.Navigator
       screenOptions={({route}) => ({
