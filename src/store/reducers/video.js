@@ -11,6 +11,11 @@ const visibleReducer = (state = initialState, action) => {
         ...state,
         videoBody: action.payload,
       };
+    case ActionTypes.DESTROY_VIDEO:
+      return {
+        ...state,
+        videoBody: action.payload,
+      };
     case ActionTypes.FETCH_FREE_VIDEOS:
       return {
         ...state,

@@ -1,11 +1,8 @@
 import React, {Component, Fragment} from 'react';
 import CourseContentCard from './CourseContentCard';
-import {Text} from 'react-native';
 import {activateVideo, deActivateVideo} from '../../../store/actions/video';
 import {connect} from 'react-redux';
-import {ScrollView} from 'react-native-gesture-handler';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-// import CourseDetails from '../CourseDetails/CourseDetails';
 import Description from './Description';
 
 class ContentTabs extends Component {
@@ -38,7 +35,7 @@ class ContentTabs extends Component {
     return (
       <Tab.Navigator lazy={true}>
         <Tab.Screen name="Videos" component={CourseContentCardComponent} />
-        <Tab.Screen name="Descrition" component={DescriptionComponent} />
+        <Tab.Screen name="Description" component={DescriptionComponent} />
       </Tab.Navigator>
     );
   }

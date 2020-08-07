@@ -10,7 +10,7 @@ export const activateVideo = (video) => async (dispatch) => {
 };
 export const deActivateVideo = (video) => async (dispatch) => {
   dispatch({
-    type: ActionType.TOGGLE_VIDEO,
+    type: ActionType.DESTROY_VIDEO,
     payload: video,
   });
 };

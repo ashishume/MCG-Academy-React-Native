@@ -14,6 +14,7 @@ import {
 import {
   TouchableOpacity,
   TouchableHighlight,
+  TouchableWithoutFeedback,
 } from 'react-native-gesture-handler';
 import LoginValidation from '../Utils/LoginValidation';
 import {connect} from 'react-redux';
@@ -61,6 +62,9 @@ class Login extends Component {
       this.props.login(body, this.props);
     }
   };
+  routeForgotPassword = () => {
+    this.props.navigation.navigate('ForgotPassword');
+  };
 
   render() {
     return (
@@ -102,11 +106,24 @@ class Login extends Component {
             style={styles.buttonContainer}>
             <Text style={styles.buttonText}>Login</Text>
           </TouchableOpacity>
-          <View style={{marginTop: 20}}>
+          <View
+            style={{
+              marginTop: 20,
+              flex: 1,
+              flexDirection: 'row',
+              alignContent: 'center',
+              alignSelf: 'center',
+            }}>
             <TouchableOpacity
               onPress={() => this.props.navigation.navigate('Signup')}>
               <Text style={{color: '#fff', textAlign: 'center'}}>
-                Don't have an account?
+                Don't have an account? |
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => this.routeForgotPassword()}>
+              <Text
+                style={{color: '#fff', textAlign: 'center', paddingLeft: 5}}>
+                Forgot password?
               </Text>
             </TouchableOpacity>
           </View>
