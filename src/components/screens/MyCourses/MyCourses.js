@@ -1,26 +1,14 @@
 import React, {useEffect} from 'react';
-import {View, SafeAreaView, ScrollView, ToastAndroid} from 'react-native';
+import {View, SafeAreaView, ScrollView} from 'react-native';
 import TopHeader from '../../Shared/Header';
 import CourseCardListItem from './CourseCardListItem';
 import {connect} from 'react-redux';
-import {fetchMyCourses, fetchMyCourseIds} from '../../../store/actions/courses';
-import AsyncStorage from '@react-native-community/async-storage';
+import {fetchMyCourses, fetchCourseById} from '../../../store/actions/courses';
 
 const MyCourses = (props) => {
   useEffect(() => {
-    const fetchCourseData = async () => {
-      try {
-        const userId = await AsyncStorage.getItem('userId');
-        await props.fetchMyCourseIds(userId);
-        if (props.myCoursesIds) {
-          const body = {
-            courses: props.myCoursesIds,
-          };
-          await props.fetchMyCourses(body);
-        }
-      } catch (e) {
-        ToastAndroid.show('Something went wrong', ToastAndroid.SHORT);
-      }
+    const fetchCourseData = () => {
+      props.fetchMyCourses();
     };
     const unsubscribe = props.navigation.addListener('focus', () => {
       fetchCourseData();
@@ -29,7 +17,7 @@ const MyCourses = (props) => {
   }, [props.navigation]);
 
   const courseEventHandler = (value) => {
-    props.navigation.navigate('CourseContent', value);
+    props.fetchCourseById(value.courseId, props);
   };
 
   const renderData = () => {
@@ -55,10 +43,10 @@ const MyCourses = (props) => {
 };
 const mapStateToProps = (state) => {
   return {
-    myCoursesIds: state.courses.myCourseIds,
+    oneCourse: state.courses.oneCourse,
     courses: state.courses.myCourses,
   };
 };
-export default connect(mapStateToProps, {fetchMyCourseIds, fetchMyCourses})(
+export default connect(mapStateToProps, {fetchMyCourses, fetchCourseById})(
   MyCourses,
 );

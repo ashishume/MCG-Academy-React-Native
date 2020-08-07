@@ -3,6 +3,7 @@ const initialState = {
   courses: [],
   myCourses: [],
   myCourseIds: [],
+  oneCourse: '',
 };
 
 const courseReducer = (state = initialState, action) => {
@@ -17,10 +18,10 @@ const courseReducer = (state = initialState, action) => {
         ...state,
         myCourses: action.payload,
       };
-    case ActionTypes.GET_MY_COURSE_IDS:
+    case ActionTypes.GET_COURSE_BY_ID:
       return {
         ...state,
-        myCourseIds: action.payload,
+        oneCourse: action.payload,
       };
     default:
       return state;

@@ -6,7 +6,7 @@ export const API_NAME = {
   CHANGE_PASSWORD: 'auth/reset',
   COURSES: 'courses/allCourses',
   MY_COURSES: 'courses/myCourses',
-  MY_COURSE_IDS: 'courses',
+  MY_COURSE_IDS: 'courses/oneCourse',
   VIDEOS: 'videos/fetch',
   LIBRARY: 'library/fetch',
   IMAGES: 'images/',

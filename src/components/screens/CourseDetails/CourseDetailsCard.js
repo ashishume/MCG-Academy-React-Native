@@ -17,12 +17,12 @@ const BuyCourseCard = (props) => {
   const [Bought, setBought] = useState(false);
 
   useEffect(() => {
-    if (props.courseIds) checkCourseBuyStatus(props.courseIds);
+    if (props.myCourses.length) checkCourseBuyStatus(props.myCourses);
   }, []);
 
   const checkCourseBuyStatus = (data) => {
     data.map((value) => {
-      if (value == props.content._id) setBought(true);
+      if (value.courseId == props.content._id) setBought(true);
     });
   };
 
@@ -85,7 +85,7 @@ const BuyCourseCard = (props) => {
 };
 const mapStateToProps = (state) => {
   return {
-    courseIds: state.courses.myCourseIds,
+    myCourses: state.courses.myCourses,
   };
 };
 export default connect(mapStateToProps, {
