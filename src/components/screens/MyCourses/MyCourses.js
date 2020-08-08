@@ -24,6 +24,7 @@ const MyCourses = (props) => {
     return props.courses.map((value, i) => {
       return (
         <CourseCardListItem
+          isExpired={true}
           key={i}
           onClickCourseItem={() => courseEventHandler(value)}
           content={value}
