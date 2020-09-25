@@ -4,6 +4,7 @@ import LoaderComponent from './components/LoaderComponent';
 import {StatusBar} from 'react-native';
 import {fcmService} from './Services/FCMService';
 import {localNotificationService} from './Services/LocalNotificationService';
+import {AddFCMToken} from './store/actions/fcmService';
 const App = () => {
   useEffect(() => {
     // fcmService.registerAppWithFCM()
@@ -12,6 +13,7 @@ const App = () => {
 
     function onRegister(token) {
       console.log('[App] onRegister: ', token);
+      AddFCMToken(token);
     }
 
     function onNotification(notify) {
