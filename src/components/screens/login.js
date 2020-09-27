@@ -109,7 +109,6 @@ class Login extends Component {
           <View
             style={{
               marginTop: 20,
-              flex: 1,
               flexDirection: 'row',
               alignContent: 'center',
               alignSelf: 'center',
