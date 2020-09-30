@@ -7,8 +7,9 @@ import {
   Dimensions,
   ActivityIndicator,
 } from 'react-native';
+import TypeBadge from '../../Shared/TypeBadge';
 import BadgeType from '../../Shared/Badge';
-import AmountBadge from '../../Shared/AmountBadge';
+// import Badge from '../../Shared/Badge';
 import Styles from '../../Styles';
 const {height, width} = Dimensions.get('window');
 
@@ -32,10 +33,10 @@ const AllCourseCard = ({content}) => {
       <View style={styles.contentContainer}>
         <BadgeType name={content.category} />
         <Text style={styles.title}>{title}</Text>
-        <Text style={styles.courseType}>{content.courseType}</Text>
+        <Text style={styles.courseType}>₹{content.price}</Text>
         <Text style={styles.author}>{content.author}</Text>
-        <View>
-          <AmountBadge name={content.price} color="#4fb524" />
+        <View style={{marginTop: 3}}>
+          <TypeBadge name={content.courseType} color="#4fb524" />
         </View>
       </View>
     </View>
@@ -49,14 +50,14 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     padding: 5,
     width: width / 2 - 30,
-    height: width / 2 + 100,
+    height: width / 3 + 100,
     borderWidth: 0.5,
     borderColor: '#dddddd',
   },
   image: {
-    flex: 1,
-    width: null,
-    height: null,
+    // flex: 1,
+    width: '100%',
+    height: 100,
     resizeMode: 'cover',
   },
   contentContainer: {
@@ -66,10 +67,9 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
   },
   courseType: {
-    fontSize: 12,
+    fontSize: 15,
   },
-  author: {fontSize: 13},
-
+  author: {fontSize: 13, marginBottom: 2},
   title: {fontSize: 15, height: 40, fontWeight: 'bold', ...Styles.fontFamily},
   price: {fontSize: 13, ...Styles.fontFamily},
 });

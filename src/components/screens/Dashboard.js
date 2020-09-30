@@ -36,8 +36,8 @@ const Dashboard = (props) => {
           onIconClick={() => onClickHandler()}
         />
         <ScrollView>
-          <Explore {...props} />
           <DashboardSlideshow {...props} />
+          <Explore {...props} />
           <AllCourses {...props} />
         </ScrollView>
       </View>

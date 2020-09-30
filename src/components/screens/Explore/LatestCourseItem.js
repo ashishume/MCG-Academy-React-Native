@@ -1,6 +1,6 @@
 import React, {Fragment} from 'react';
 import {View, Text, StyleSheet, Image, ActivityIndicator} from 'react-native';
-import AmountBadge from '../../Shared/AmountBadge';
+import TypeBadge from '../../Shared/TypeBadge';
 import Styles from '../../Styles';
 const LatestCourseItem = (props) => {
   let title = '';
@@ -23,9 +23,9 @@ const LatestCourseItem = (props) => {
       <View style={styles.innerContainer}>
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.author}>{props.content.author}</Text>
-        <Text style={styles.courseType}>{props.content.courseType}</Text>
+        <Text style={styles.courseType}>₹ {props.content.price}</Text>
         <View style={styles.badgeContainer}>
-          <AmountBadge color="#4fb524" name={props.content.price} />
+          <TypeBadge color="#4fb524" name={props.content.courseType} />
         </View>
       </View>
     </View>
@@ -44,15 +44,15 @@ const styles = StyleSheet.create({
   },
   imageCard: {
     flex: 1,
-    width: 110,
-    height: 110,
+    width: 200,
+    resizeMode: 'cover',
     alignSelf: 'center',
   },
   innerContainer: {flex: 1, paddingLeft: 10, paddingTop: 0},
   title: {fontSize: 15, height: 40, fontWeight: 'bold', ...Styles.fontFamily},
-  author: {fontSize: 13},
+  author: {fontSize: 15},
   courseType: {
-    fontSize: 12,
+    fontSize: 17,
   },
   badgeContainer: {flex: 1, flexDirection: 'row'},
 });

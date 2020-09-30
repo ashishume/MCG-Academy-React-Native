@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "844135105839",
-    "firebase_url": "https://mcg-academy.firebaseio.com",
-    "project_id": "mcg-academy",
-    "storage_bucket": "mcg-academy.appspot.com"
+    "project_number": "1022471298229",
+    "firebase_url": "https://mcg-academy-40050.firebaseio.com",
+    "project_id": "mcg-academy-40050",
+    "storage_bucket": "mcg-academy-40050.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:844135105839:android:dd6969778c3596e17c0dda",
+        "mobilesdk_app_id": "1:1022471298229:android:06887783cee495cfb3b2fc",
         "android_client_info": {
           "package_name": "com.mcgacademyapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "844135105839-dso2vsa2i1m4e5r15pag1p1goen2b23q.apps.googleusercontent.com",
+          "client_id": "1022471298229-rkq1m69tgknmlgfdd8dsucf9k9ee24pp.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.mcgacademyapp",
@@ -23,20 +23,20 @@
           }
         },
         {
-          "client_id": "844135105839-4pc85ec3k5mfpaqe811cpckc63ckj2g7.apps.googleusercontent.com",
+          "client_id": "1022471298229-9hkrtafvrhb1vsmifr28nhpubjh4jjgk.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAIz608Lp0_E3hbt2hGdQ3IqsRY_F0_I_c"
+          "current_key": "AIzaSyBCTVTRfdIwjYOoAkwo1E7nmzlyFBZV1bA"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "844135105839-4pc85ec3k5mfpaqe811cpckc63ckj2g7.apps.googleusercontent.com",
+              "client_id": "1022471298229-9hkrtafvrhb1vsmifr28nhpubjh4jjgk.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

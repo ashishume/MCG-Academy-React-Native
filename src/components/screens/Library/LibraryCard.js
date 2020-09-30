@@ -29,7 +29,7 @@ const LibraryCard = (props) => {
             size={25}
             type={IconStyles.iconType}
             color={'#000'}
-            name="file-tray"
+            name="cloud-download"
           />
         </View>
       </View>

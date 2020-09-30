@@ -1,8 +1,15 @@
 import React, {Fragment} from 'react';
-import {View, Text, Image, StyleSheet, ActivityIndicator} from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  Dimensions,
+  StyleSheet,
+  ActivityIndicator,
+} from 'react-native';
 import BadgeType from '../../Shared/Badge';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-
+const {height, width} = Dimensions.get('window');
 const FreeVideosCard = ({content, onClickVideoItem}) => {
   let shortTitle = content.title;
   let shortAuthor = content.author;
@@ -26,9 +33,9 @@ const FreeVideosCard = ({content, onClickVideoItem}) => {
             </View>
             <View style={styles.contentContainer}>
               <Text style={styles.title}>{shortTitle}</Text>
-              <Text style={styles.author}>{shortAuthor}</Text>
               <View style={styles.type}>
                 <BadgeType name={content.category} />
+                <Text style={styles.author}>{shortAuthor}</Text>
               </View>
             </View>
           </View>
@@ -40,42 +47,44 @@ const FreeVideosCard = ({content, onClickVideoItem}) => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingLeft: 3,
-    paddingRight: 3,
-    marginLeft: 5,
-    marginRight: 5,
-    borderColor: '#fff',
-    height: 130,
-    shadowColor: '#000',
+    paddingVertical: 10,
+    shadowColor: '#fff',
     shadowOffset: {
       width: 0,
       height: 2,
     },
+    marginVertical: 10,
     shadowOpacity: 0.23,
     shadowRadius: 2.62,
     borderBottomWidth: 1,
-    borderBottomColor: 'lightgray',
+    borderBottomColor: '#eaeaea',
     borderRadius: 10,
     backgroundColor: '#fff',
+    elevation: 10,
   },
   innerContainer: {
-    flex: 1,
-    flexDirection: 'row',
+    // flex: 2,
+    // flexDirection: 'row',
   },
   image: {
-    width: 100,
-    height: 100,
-    marginLeft: 5,
-    borderRadius: 100,
+    // flex: 1,
+    width: width - 20,
+    height: 170,
+    marginTop: 15,
     resizeMode: 'cover',
+    alignSelf: 'center',
+    // padding:200,
+    // marginLeft: 5,
+    // borderRadius: 100,
   },
   contentContainer: {
     flex: 1,
-    marginTop: 10,
-    marginLeft: 10,
+    marginHorizontal: 10,
+    // marginTop: 10,
+    // marginLeft: 10,
   },
-  title: {fontSize: 17, fontWeight: 'bold', height: 50},
-  author: {fontSize: 15, fontWeight: '500'},
+  title: {fontSize: 20, fontWeight: '100'},
+  author: {fontSize: 16, fontWeight: '500', marginLeft: 20},
   type: {flex: 1, flexDirection: 'row', paddingTop: 5},
 });
 
