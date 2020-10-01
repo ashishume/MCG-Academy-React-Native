@@ -16,6 +16,7 @@ export const CHANGE_PASSWORD = 'CHANGE_PASSWORD';
 export const GET_ALL_COURSES = 'GET_ALL_COURSES';
 export const GET_MY_COURSES = 'GET_MY_COURSES';
 export const GET_COURSE_BY_ID = 'GET_COURSE_BY_ID';
+export const BUY_NEW_COURSE = 'BUY_NEW_COURSE';
 
 
 export const TOGGLE_VIDEO = 'TOGGLE_VIDEO';

@@ -27,6 +27,7 @@ import PreferencePicker from '../components/screens/Auth/PreferencePicker';
 import TeacherWaitingPage from '../components/screens/TeacherWaitingPage';
 import Search from '../components/screens/Search';
 import ForgotPassword from '../components/screens/ForgotPassword';
+import Payment from '../components/payment';
 const Stack = createStackNavigator();
 const config = {
   animation: 'spring',
@@ -175,6 +176,13 @@ const MainRouting = (props) => {
           component={PreferencePicker}
           options={{
             headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="Payment"
+          component={Payment}
+          options={{
+            headerShown: true,
           }}
         />
         <Stack.Screen

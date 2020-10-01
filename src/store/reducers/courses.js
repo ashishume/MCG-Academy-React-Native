@@ -23,6 +23,11 @@ const courseReducer = (state = initialState, action) => {
         ...state,
         oneCourse: action.payload,
       };
+    case ActionTypes.BUY_NEW_COURSE:
+      return {
+        ...state,
+        oneCourse: action.payload,
+      };
     default:
       return state;
   }

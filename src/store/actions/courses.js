@@ -16,6 +16,18 @@ export const fetchAllCourses = () => async (dispatch) => {
     payload: response.data,
   });
 };
+export const buyNewCourse = (courseId) => async (dispatch) => {
+  const user = await AsyncStorage.getItem('userId');
+  const body = {
+    userId: user,
+    courseId: courseId,
+  };
+  const response = await HttpService.put(API_NAME.BUY_NEW_COURSES, body);
+  dispatch({
+    type: ActionType.BUY_NEW_COURSE,
+    payload: response.data,
+  });
+};
 export const fetchMyCourses = () => async (dispatch) => {
   try {
     const userId = await AsyncStorage.getItem('userId');

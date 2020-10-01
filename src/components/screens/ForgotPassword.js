@@ -56,7 +56,7 @@ const ForgotPassword = (props) => {
               onChangeText={(data) => setPin(data)}
               style={styles.input}
               keyboardType={'number-pad'}
-              placeholderTextColor="#fff"
+              placeholderTextColor="#000"
             />
             <Text style={styles.errorText}>{error}</Text>
           </View>
@@ -101,30 +101,30 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   headerText: {
-    color: '#fff',
+    color: '#000',
     fontSize: 20,
     fontWeight: 'bold',
   },
   subHeaderText: {
     fontSize: 15,
-    color: '#fff',
+    color: '#000',
   },
   label: {
-    color: '#fff',
+    color: '#000',
     marginBottom: -10,
   },
   input: {
-    color: 'white',
+    color: '#000',
     borderBottomWidth: 1,
     fontSize: 15,
     paddingLeft: 0,
-    borderBottomColor: '#fff',
+    borderBottomColor: '#000',
   },
   buttonContainer: {
     marginTop: 20,
-    backgroundColor: '#fff',
+    backgroundColor: '#c20202',
     padding: 15,
-    shadowColor: '#fff',
+    shadowColor: '#000',
     borderRadius: 5,
     shadowOffset: {
       width: 0,
@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
     elevation: 15,
   },
   buttonText: {
-    color: '#000',
+    color: '#fff',
     fontWeight: 'bold',
     fontSize: 15,
     textAlign: 'center',
@@ -145,6 +145,6 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
   },
   errorText: {
-    color: 'white',
+    color: '#000',
   },
 });

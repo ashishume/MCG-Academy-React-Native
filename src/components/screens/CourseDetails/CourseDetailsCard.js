@@ -29,9 +29,14 @@ const BuyCourseCard = (props) => {
   const courseEventHandler = () => {
     props.navigation.navigate('CourseContent', props.content);
   };
-  // const goToBoughtCourseHandler = () => {
-  //   props.navigation.navigate('CourseContent', props.content);
-  // };
+  const buyNewCourseHandler = (e) => {
+    const body = {
+      introVideoUrl: e.url,
+      courseTitle: e.title,
+    };
+    props.deActivateVideo(body);
+    props.navigation.navigate('Payment', props.content);
+  };
 
   return (
     <Fragment>
@@ -49,7 +54,9 @@ const BuyCourseCard = (props) => {
 
         {Bought === false ? (
           <View style={styles.buyNowContainer}>
-            <TouchableOpacity style={styles.buyNowButton}>
+            <TouchableOpacity
+              onPress={() => buyNewCourseHandler(props.content)}
+              style={styles.buyNowButton}>
               <Text style={styles.buyNowButtonText}>Buy Now</Text>
             </TouchableOpacity>
           </View>

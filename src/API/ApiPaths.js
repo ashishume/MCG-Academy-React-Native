@@ -5,6 +5,7 @@ export const API_NAME = {
   UPDATE_USER: 'auth/update',
   CHANGE_PASSWORD: 'auth/reset',
   COURSES: 'courses/allCourses',
+  BUY_NEW_COURSES: 'courses/',
   MY_COURSES: 'courses/myCourses',
   MY_COURSE_IDS: 'courses/oneCourse',
   VIDEOS: 'videos/fetch',

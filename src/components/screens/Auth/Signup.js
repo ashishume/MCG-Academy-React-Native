@@ -67,7 +67,7 @@ class Signup extends Component {
                 style={styles.input}
                 autoCompleteType="email"
                 keyboardType={'email-address'}
-                placeholderTextColor="#fff"
+                placeholderTextColor="#000"
               />
               <Text style={styles.errorText}>{this.state.errors.email}</Text>
             </View>
@@ -76,7 +76,7 @@ class Signup extends Component {
               <TextInput
                 onChangeText={(name) => this.setState({name})}
                 style={styles.input}
-                placeholderTextColor="#fff"
+                placeholderTextColor="#000"
               />
               <Text style={styles.errorText}>{this.state.errors.name}</Text>
             </View>
@@ -86,7 +86,7 @@ class Signup extends Component {
                 onChangeText={(password) => this.setState({password})}
                 style={styles.input}
                 secureTextEntry={true}
-                placeholderTextColor="#fff"
+                placeholderTextColor="#000"
               />
               <Text style={styles.errorText}>{this.state.errors.password}</Text>
             </View>
@@ -96,7 +96,7 @@ class Signup extends Component {
                 keyboardType="phone-pad"
                 onChangeText={(phone) => this.setState({phone})}
                 style={styles.input}
-                placeholderTextColor="#fff"
+                placeholderTextColor="#000"
               />
               <Text style={styles.errorText}>{this.state.errors.phone}</Text>
             </View>
@@ -126,7 +126,7 @@ class Signup extends Component {
                         this.state.userType == value.value ? 'red' : 'teal'
                       }
                     />
-                    <Text style={{color: '#fff'}}>{value.label}</Text>
+                    <Text style={{color: '#000'}}>{value.label}</Text>
                     <Text style={styles.errorText}>
                       {this.state.errors.userType}
                     </Text>
@@ -140,10 +140,10 @@ class Signup extends Component {
               <Text style={styles.buttonText}>Next</Text>
             </TouchableOpacity>
 
-            <View style={{color: '#fff', marginTop: 10}}>
+            <View style={{color: '#000', marginTop: 10}}>
               <TouchableOpacity
                 onPress={() => this.props.navigation.navigate('Login')}>
-                <Text style={{color: '#fff', textAlign: 'center'}}>
+                <Text style={{color: '#000', textAlign: 'center'}}>
                   Already have an account? login
                 </Text>
               </TouchableOpacity>
@@ -170,19 +170,19 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   headerText: {
-    color: '#fff',
+    color: '#000',
     fontSize: 20,
     fontWeight: 'bold',
   },
   subHeaderText: {
     fontSize: 15,
-    color: '#fff',
+    color: '#000',
   },
   buttonContainer: {
     marginTop: 20,
-    backgroundColor: '#fff',
+    backgroundColor: '#c20202',
     padding: 15,
-    shadowColor: '#fff',
+    shadowColor: '#000',
     borderRadius: 5,
     shadowOffset: {
       width: 0,
@@ -193,27 +193,27 @@ const styles = StyleSheet.create({
     elevation: 15,
   },
   buttonText: {
-    color: '#000',
+    color: '#fff',
     fontWeight: 'bold',
     fontSize: 15,
     textAlign: 'center',
   },
   label: {
-    color: '#fff',
+    color: '#000',
     marginBottom: -10,
   },
   input: {
-    color: 'white',
+    color: '#000',
     borderBottomWidth: 1,
     fontSize: 15,
     paddingLeft: 0,
-    borderBottomColor: '#fff',
+    borderBottomColor: '#000',
   },
   backgroundImage: {
     flex: 1,
     resizeMode: 'cover',
   },
   errorText: {
-    color: 'white',
+    color: '#000',
   },
 });
