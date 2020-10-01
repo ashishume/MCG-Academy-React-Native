@@ -40,7 +40,7 @@ const ForgotPassword = (props) => {
   };
   return (
     <ImageBackground
-      source={require('../../assets/login.jpg')}
+      source={require('../../assets/Login-Page-Screen.png')}
       style={styles.backgroundImage}>
       {isSent == true ? (
         <View style={styles.container}>

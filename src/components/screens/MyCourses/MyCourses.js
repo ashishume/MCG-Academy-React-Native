@@ -17,7 +17,7 @@ const MyCourses = (props) => {
   }, [props.navigation]);
 
   const courseEventHandler = (value) => {
-    props.fetchCourseById(value.courseId, props);
+    props.fetchCourseById(value._id, props);
   };
 
   const renderData = () => {
@@ -26,8 +26,8 @@ const MyCourses = (props) => {
         <CourseCardListItem
           isExpired={true}
           key={i}
-          onClickCourseItem={() => courseEventHandler(value)}
-          content={value}
+          onClickCourseItem={() => courseEventHandler(value.course)}
+          content={value.course}
         />
       );
     });

@@ -1,5 +1,5 @@
 import messaging from '@react-native-firebase/messaging'
-import {Platform} from 'react-native';
+import {Platform, ToastAndroid} from 'react-native';
 
 class FCMService {
 
@@ -26,7 +26,7 @@ class FCMService {
                 this.requestPermission(onRegister)
             }
         }).catch(error => {
-            console.log("[FCMService] Permission rejected ", error)
+            // console.log("[FCMService] Permission rejected ", error)
         })
     }
 
@@ -36,10 +36,11 @@ class FCMService {
             if (fcmToken) {
                 onRegister(fcmToken)
             }else {
-                console.log("[FCMService] User does not have a device token")
+                // ToastAndroid.SHORT('user does not exist')
+                // console.log("[FCMService] User does not have a device token")
             }
         }).catch(error => {
-            console.log("[FCMService] getToken rejected ", error)
+            // console.log("[FCMService] getToken rejected ", error)
         })
     }
 
@@ -48,15 +49,15 @@ class FCMService {
         .then(() => {
             this.getToken(onRegister)
         }).catch(error => {
-            console.log("[FCMService] Request Permission rejected ", error)
+            // console.log("[FCMService] Request Permission rejected ", error)
         })
     }
 
     deleteToken = () => {
-        console.log("[FCMService] deleteToken ")
+        // console.log("[FCMService] deleteToken ")
         messaging().deleteToken()
         .catch(error => {
-            console.log("[FCMService] Delete token error ", error)
+            // console.log("[FCMService] Delete token error ", error)
         })
     }
 
@@ -65,7 +66,7 @@ class FCMService {
         // When the application is running, but in the background
         messaging()
         .onNotificationOpenedApp(remoteMessage => {
-            console.log('[FCMService] onNotificationOpenedApp Notification caused app to open from background state:',remoteMessage)
+            // console.log('[FCMService] onNotificationOpenedApp Notification caused app to open from background state:',remoteMessage)
             if (remoteMessage) {
                 const notification = remoteMessage.notification
                 onOpenNotification(notification)
@@ -77,7 +78,7 @@ class FCMService {
         messaging()
         .getInitialNotification()
         .then(remoteMessage => {
-            console.log('[FCMService] getInitialNotification Notification caused app to open from quit state:',remoteMessage)
+            // console.log('[FCMService] getInitialNotification Notification caused app to open from quit state:',remoteMessage)
 
             if (remoteMessage) {
                 const notification = remoteMessage.notification
@@ -88,7 +89,7 @@ class FCMService {
 
         // Foreground state messages
         this.messageListener = messaging().onMessage(async remoteMessage => {
-            console.log('[FCMService] A new FCM message arrived!', remoteMessage);
+            // console.log('[FCMService] A new FCM message arrived!', remoteMessage);
             if (remoteMessage) {
                 let notification = null
                 if (Platform.OS === 'ios') {
@@ -102,7 +103,7 @@ class FCMService {
 
         // Triggered when have new token
         messaging().onTokenRefresh(fcmToken => {
-            console.log("[FCMService] New token refresh: ", fcmToken)
+            // console.log("[FCMService] New token refresh: ", fcmToken)
             onRegister(fcmToken)
         })
 

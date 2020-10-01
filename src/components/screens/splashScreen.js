@@ -36,7 +36,7 @@ const SplashScreen = (props) => {
     <Fragment>
       <ImageBackground
         style={{flex: 1, resizeMode: 'cover'}}
-        source={require('../../assets/splash.jpg')}>
+        source={require('../../assets/Splash-Screen.png')}>
         <View style={{marginTop: '50%'}}>
           <Text
             style={{

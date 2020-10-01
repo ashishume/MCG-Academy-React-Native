@@ -8,17 +8,17 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1022471298229:android:06887783cee495cfb3b2fc",
+        "mobilesdk_app_id": "1:1022471298229:android:ddc782eb0ee54af7b3b2fc",
         "android_client_info": {
-          "package_name": "com.mcgacademyapp"
+          "package_name": "com.mcgeducation"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1022471298229-rkq1m69tgknmlgfdd8dsucf9k9ee24pp.apps.googleusercontent.com",
+          "client_id": "1022471298229-lkq1l2vk5rg3qasghnu6m57imcu24ms7.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.mcgacademyapp",
+            "package_name": "com.mcgeducation",
             "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
           }
         },

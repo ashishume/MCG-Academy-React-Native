@@ -12,12 +12,13 @@ const App = () => {
     localNotificationService.configure(onOpenNotification);
 
     function onRegister(token) {
-      console.log('[App] onRegister: ', token);
+      // console.log('[App] onRegister: ', token);
+      console.log(token);
       AddFCMToken(token);
     }
 
     function onNotification(notify) {
-      console.log('[App] onNotification: ', notify);
+      // console.log('[App] onNotification: ', notify);
       const options = {
         soundName: 'default',
         playSound: true, //,
@@ -34,12 +35,12 @@ const App = () => {
     }
 
     function onOpenNotification(notify) {
-      console.log('[App] onOpenNotification: ', notify);
+      // console.log('[App] onOpenNotification: ', notify);
       // alert('Open Notification: ' + notify.body);
     }
 
     return () => {
-      console.log('[App] unRegister');
+      // console.log('[App] unRegister');
       fcmService.unRegister();
       localNotificationService.unregister();
     };

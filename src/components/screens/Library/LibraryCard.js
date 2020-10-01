@@ -1,8 +1,9 @@
 import React, {Fragment} from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, Image, Dimensions} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {Divider, Icon} from 'react-native-elements';
 import {IconStyles} from '../../Styles';
+const {height, width} = Dimensions.get('window');
 
 const LibraryCard = (props) => {
   let title = '';
@@ -16,11 +17,25 @@ const LibraryCard = (props) => {
       <View
         style={{
           flexDirection: 'row',
-          margin: 10,
+          justifyContent: 'center',
+          alignContent: 'center',
+          alignItems: 'center',
+          alignSelf: 'center',
           paddingVertical: 10,
+          marginHorizontal: 10,
         }}>
         <View style={{flex: 1}}>
-          <Text style={{textAlign: 'left', fontSize: 20, fontWeight: 'bold'}}>
+          <Image
+            source={{uri: props.content.thumbnail}}
+            style={{width: width - 20, height: 250}}
+          />
+          <Text
+            style={{
+              textAlign: 'left',
+              fontSize: 23,
+              marginTop: 5,
+              fontWeight: 'normal',
+            }}>
             {title}
           </Text>
         </View>

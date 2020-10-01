@@ -69,7 +69,7 @@ class Login extends Component {
   render() {
     return (
       <ImageBackground
-        source={require('../../assets/login.jpg')}
+        source={require('../../assets/Login-Page-Screen.png')}
         style={styles.backgroundImage}>
         <View style={styles.container}>
           <View style={styles.headerContainer}>
@@ -86,7 +86,7 @@ class Login extends Component {
               style={styles.input}
               autoCompleteType="email"
               keyboardType={'email-address'}
-              placeholderTextColor="#fff"
+              placeholderTextColor="#000"
             />
             <Text style={styles.errorText}>{this.state.errors.email}</Text>
           </View>
@@ -96,7 +96,7 @@ class Login extends Component {
               onChangeText={(password) => this.setState({password})}
               style={styles.input}
               secureTextEntry={true}
-              placeholderTextColor="#fff"
+              placeholderTextColor="#000"
             />
             <Text style={styles.errorText}>{this.state.errors.password}</Text>
           </View>
@@ -115,13 +115,13 @@ class Login extends Component {
             }}>
             <TouchableOpacity
               onPress={() => this.props.navigation.navigate('Signup')}>
-              <Text style={{color: '#fff', textAlign: 'center'}}>
+              <Text style={{color: '#000', textAlign: 'center'}}>
                 Don't have an account? |
               </Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => this.routeForgotPassword()}>
               <Text
-                style={{color: '#fff', textAlign: 'center', paddingLeft: 5}}>
+                style={{color: '#000', textAlign: 'center', paddingLeft: 5}}>
                 Forgot password?
               </Text>
             </TouchableOpacity>
@@ -153,30 +153,30 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   headerText: {
-    color: '#fff',
+    color: '#000',
     fontSize: 20,
     fontWeight: 'bold',
   },
   subHeaderText: {
     fontSize: 15,
-    color: '#fff',
+    color: '#000',
   },
   label: {
-    color: '#fff',
+    color: '#000',
     marginBottom: -10,
   },
   input: {
-    color: 'white',
+    color: '#000',
     borderBottomWidth: 1,
     fontSize: 15,
     paddingLeft: 0,
-    borderBottomColor: '#fff',
+    borderBottomColor: '#000',
   },
   buttonContainer: {
     marginTop: 20,
-    backgroundColor: '#fff',
+    backgroundColor: '#c20202',
     padding: 15,
-    shadowColor: '#fff',
+    shadowColor: '#000',
     borderRadius: 5,
     shadowOffset: {
       width: 0,
@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
     elevation: 15,
   },
   buttonText: {
-    color: '#000',
+    color: '#fff',
     fontWeight: 'bold',
     fontSize: 15,
     textAlign: 'center',

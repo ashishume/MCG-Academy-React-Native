@@ -12,12 +12,12 @@ const Search = (props) => {
     setTimeout(async () => {
       if (previousSearchTermRef.current === value) {
         try {
-          console.log(value);
+          // console.log(value);
           const query = {
             search: value,
           };
           Http.get('search/', {params: query}).then((data) => {
-            console.log(data.data);
+            // console.log(data.data);
             setData(data.data);
           });
         } finally {

@@ -22,13 +22,16 @@ const BuyCourseCard = (props) => {
 
   const checkCourseBuyStatus = (data) => {
     data.map((value) => {
-      if (value.courseId == props.content._id) setBought(true);
+      if (value.course._id == props.content._id) setBought(true);
     });
   };
 
   const courseEventHandler = () => {
     props.navigation.navigate('CourseContent', props.content);
   };
+  // const goToBoughtCourseHandler = () => {
+  //   props.navigation.navigate('CourseContent', props.content);
+  // };
 
   return (
     <Fragment>

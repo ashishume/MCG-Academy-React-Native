@@ -50,7 +50,7 @@ class Signup extends Component {
   render() {
     return (
       <ImageBackground
-        source={require('../../../assets/login.jpg')}
+        source={require('../../../assets/Login-Page-Screen.png')}
         style={styles.backgroundImage}>
         <ScrollView>
           <View style={styles.container}>

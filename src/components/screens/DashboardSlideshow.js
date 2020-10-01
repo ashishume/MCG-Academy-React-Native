@@ -22,7 +22,6 @@ const DashboardSlideshow = (props) => {
   const _renderItem = ({item, index}) => {
     return (
       <View>
-        {console.log(item)}
         <Image
           source={{uri: item.imageUrl}}
           style={{width: '100%', height: 200, resizeMode: 'cover'}}
