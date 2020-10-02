@@ -39,7 +39,6 @@ const Search = (props) => {
       />
       <View>
         <ScrollView>
-          {console.log(data)}
           {data.map((value, i) => {
             return (
               <CourseCardListItem
@@ -66,7 +65,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     padding: 15,
     shadowColor: '#fff',
-    borderRadius: 5,
+    borderRadius: 20,
     shadowOffset: {
       width: 0,
       height: 6,

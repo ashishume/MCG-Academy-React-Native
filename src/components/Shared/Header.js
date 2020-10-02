@@ -25,7 +25,7 @@ const TopHeader = (props) => {
                       borderWidth: 1,
                       borderColor: 'lightgray',
                       height: 40,
-                      borderRadius: 10,
+                      borderRadius: 20,
                       paddingLeft: 10,
                       paddingTop: 10,
                     }}>
