@@ -28,6 +28,7 @@ const MyCourses = (props) => {
           key={i}
           onClickCourseItem={() => courseEventHandler(value.course)}
           contentData={value.course}
+          expiryDateData={value.expiryDate}
         />
       );
     });

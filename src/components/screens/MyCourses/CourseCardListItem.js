@@ -3,9 +3,14 @@ import {View, Text, Image, StyleSheet, ActivityIndicator} from 'react-native';
 import BadgeType from '../../Shared/Badge';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
-const CourseCardListItem = ({contentData, onClickCourseItem, isExpired}) => {
+const CourseCardListItem = ({
+  contentData,
+  onClickCourseItem,
+  isExpired,
+  expiryDateData,
+}) => {
   const content = contentData;
-  const expiryDate = contentData.expiryDate;
+  // const expiryDate = contentData.expiryDate;
   let shortTitle = content.courseTitle;
   let shortAuthor = content.author;
   if (content.courseTitle.length > 50) {
@@ -39,7 +44,7 @@ const CourseCardListItem = ({contentData, onClickCourseItem, isExpired}) => {
                       fontWeight: 'bold',
                       fontSize: 11,
                     }}>
-                    Validity: {new Date(expiryDate).toDateString()}
+                    Validity: {new Date(expiryDateData).toDateString()}
                   </Text>
                 ) : null}
               </View>
