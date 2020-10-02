@@ -1,7 +1,10 @@
 import React, {Fragment} from 'react';
-import {View, Image, StyleSheet, Text} from 'react-native';
+import {View, Image, StyleSheet, Dimensions, Text} from 'react-native';
 import {Icon} from 'react-native-elements';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 import {IconStyles} from '../Styles';
+
+const {width, height} = Dimensions.get('window');
 const TopHeader = (props) => {
   return (
     <Fragment>
@@ -12,14 +15,33 @@ const TopHeader = (props) => {
         <View style={styles.rightItem}>
           {props.IconName ? (
             <View style={{flexDirection: 'row'}}>
-              <Icon
-                onPress={props.onSearchHandler}
-                size={20}
-                type={IconStyles.iconType}
-                color={'#000'}
-                raised
-                name="search-sharp"
-              />
+              <View style={{justifyContent: 'center', paddingLeft: 50}}>
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  onPress={props.onSearchHandler}>
+                  <Text
+                    style={{
+                      width: width - 120,
+                      borderWidth: 1,
+                      borderColor: 'lightgray',
+                      height: 40,
+                      borderRadius: 10,
+                      paddingLeft: 10,
+                      paddingTop: 10,
+                    }}>
+                    {/* <Icon
+                    onPress={props.onSearchHandler}
+                    size={20}
+                    type={IconStyles.iconType}
+                    color={'#000'}
+                    raised
+                    name="search-sharp"
+                  /> */}
+                    Search...
+                  </Text>
+                </TouchableOpacity>
+              </View>
+
               <Icon
                 onPress={props.onIconClick}
                 round={true}

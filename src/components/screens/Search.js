@@ -26,7 +26,7 @@ const Search = (props) => {
     }, 500);
   };
   const courseEventHandler = (value) => {
-    props.navigation.navigate('CourseContent', value);
+    props.navigation.navigate('CourseDetails', value);
   };
   return (
     <View style={{backgroundColor: '#fff', height: '100%'}}>
@@ -39,12 +39,13 @@ const Search = (props) => {
       />
       <View>
         <ScrollView>
+          {console.log(data)}
           {data.map((value, i) => {
             return (
               <CourseCardListItem
                 key={i}
                 onClickCourseItem={() => courseEventHandler(value)}
-                content={value}
+                contentData={value}
               />
             );
           })}

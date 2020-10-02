@@ -4,7 +4,7 @@ import BadgeType from '../../Shared/Badge';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const CourseCardListItem = ({contentData, onClickCourseItem, isExpired}) => {
-  const content = contentData.course;
+  const content = contentData;
   const expiryDate = contentData.expiryDate;
   let shortTitle = content.courseTitle;
   let shortAuthor = content.author;

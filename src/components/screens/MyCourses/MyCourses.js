@@ -27,7 +27,7 @@ const MyCourses = (props) => {
           isExpired={true}
           key={i}
           onClickCourseItem={() => courseEventHandler(value.course)}
-          contentData={value}
+          contentData={value.course}
         />
       );
     });
