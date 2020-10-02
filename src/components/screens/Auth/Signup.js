@@ -1,6 +1,13 @@
 import React, {Component} from 'react';
 import SignupValidaton from '../../Utils/SignupValidation';
-import {View, ImageBackground, TextInput, StyleSheet, Text} from 'react-native';
+import {
+  View,
+  ImageBackground,
+  TextInput,
+  StyleSheet,
+  Text,
+  Image,
+} from 'react-native';
 import {signupUser} from '../../../store/actions/auth';
 import {Button} from 'react-native-elements';
 import {connect} from 'react-redux';
@@ -55,6 +62,15 @@ class Signup extends Component {
         <ScrollView>
           <View style={styles.container}>
             <View style={styles.headerContainer}>
+              <View
+                style={{
+                  alignSelf: 'center',
+                }}>
+                <Image
+                  source={require('../../../assets/logo.jpg')}
+                  style={{width: 100, height: 100}}
+                />
+              </View>
               <Text style={styles.headerText}>Welcome</Text>
               <Text style={styles.subHeaderText}>
                 Enter your details to signup to your account
@@ -171,12 +187,14 @@ const styles = StyleSheet.create({
   },
   headerText: {
     color: '#000',
+    textAlign: 'center',
     fontSize: 20,
     fontWeight: 'bold',
   },
   subHeaderText: {
     fontSize: 15,
     color: '#000',
+    textAlign: 'center',
   },
   buttonContainer: {
     marginTop: 20,

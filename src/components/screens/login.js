@@ -8,6 +8,7 @@ import {
   Text,
   ToastAndroid,
   Alert,
+  Image,
   BackHandler,
 } from 'react-native';
 
@@ -73,6 +74,15 @@ class Login extends Component {
         style={styles.backgroundImage}>
         <View style={styles.container}>
           <View style={styles.headerContainer}>
+            <View
+              style={{
+                alignSelf: 'center',
+              }}>
+              <Image
+                source={require('../../assets/logo.jpg')}
+                style={{width: 100, height: 100}}
+              />
+            </View>
             <Text style={styles.headerText}>Welcome back</Text>
             <Text style={styles.subHeaderText}>
               Enter your details to signin to your account
@@ -155,10 +165,12 @@ const styles = StyleSheet.create({
   headerText: {
     color: '#000',
     fontSize: 20,
+    textAlign: 'center',
     fontWeight: 'bold',
   },
   subHeaderText: {
     fontSize: 15,
+    textAlign: 'center',
     color: '#000',
   },
   label: {

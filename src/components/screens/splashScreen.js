@@ -13,7 +13,7 @@ const SplashScreen = (props) => {
   useEffect(() => {
     setTimeout(() => {
       loginStatusHandler(props);
-    }, 1);
+    }, 700);
   }, []);
 
   const loginStatusHandler = async (props) => {
@@ -37,7 +37,7 @@ const SplashScreen = (props) => {
       <ImageBackground
         style={{flex: 1, resizeMode: 'cover'}}
         source={require('../../assets/Splash-Screen.png')}>
-        <View style={{marginTop: '50%'}}>
+        {/* <View style={{marginTop: '50%'}}>
           <Text
             style={{
               textAlign: 'center',
@@ -47,12 +47,12 @@ const SplashScreen = (props) => {
             }}>
             Welcome to MCG Academy
           </Text>
-        </View>
-        <ActivityIndicator
+        </View> */}
+        {/* <ActivityIndicator
           size={'large'}
           color={IconStyles.iconColor}
           style={{flex: 1}}
-        />
+        /> */}
       </ImageBackground>
     </Fragment>
   );

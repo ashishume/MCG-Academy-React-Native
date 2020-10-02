@@ -19,15 +19,16 @@ const LibraryCard = (props) => {
           flexDirection: 'row',
           justifyContent: 'center',
           alignContent: 'center',
-          alignItems: 'center',
-          alignSelf: 'center',
           paddingVertical: 10,
           marginHorizontal: 10,
+          borderWidth: 1,
+          borderColor: 'lightgray',
+          marginVertical: 5,
         }}>
         <View style={{flex: 1}}>
           <Image
             source={{uri: props.content.thumbnail}}
-            style={{width: width - 20, height: 250}}
+            style={{width: width - 20, height: 200, resizeMode: 'cover'}}
           />
           <Text
             style={{

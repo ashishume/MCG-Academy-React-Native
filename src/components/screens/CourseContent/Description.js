@@ -24,13 +24,14 @@ const Description = (props) => {
             {props.content.courseDescription}
           </Text>
           <View style={{alignItems: 'center'}}>
+            <Text>Doubt Clearance</Text>
             <Icon
               onPress={() => onClickUrl()}
               size={25}
               raised
               type={IconStyles.iconType}
               color={'#000'}
-              name="link"
+              name="hand-left"
             />
           </View>
         </View>
