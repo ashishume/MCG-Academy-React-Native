@@ -30,8 +30,8 @@ const DashboardSlideshow = (props) => {
     );
   };
   return (
-    <View style={{marginVertical: 5}}>
-      <View
+    <View style={{marginVertical: 5, flex: 1}}>
+      {/* <View
         style={{
           paddingHorizontal: 20,
           paddingBottom: 10,
@@ -46,7 +46,7 @@ const DashboardSlideshow = (props) => {
           }}>
           Special offers
         </Text>
-      </View>
+      </View> */}
       {/* <ScrollView
         horizontal={true}
         showsHorizontalScrollIndicator={false}

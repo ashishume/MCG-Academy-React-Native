@@ -19,7 +19,7 @@ const Library = (props) => {
   };
   return (
     <Fragment>
-      <TopHeader name="Library files" />
+      <TopHeader name="Library" />
       <View
         style={{height: '100%', backgroundColor: '#fff', paddingBottom: 70}}>
         <ScrollView scrollEventThrottle={25} indicatorStyle="black">

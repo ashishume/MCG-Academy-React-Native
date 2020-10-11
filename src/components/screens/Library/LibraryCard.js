@@ -33,7 +33,7 @@ const LibraryCard = (props) => {
           <Text
             style={{
               textAlign: 'left',
-              fontSize: 23,
+              fontSize: 17,
               marginTop: 5,
               fontWeight: 'normal',
             }}>

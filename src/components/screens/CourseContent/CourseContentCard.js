@@ -1,8 +1,11 @@
 import React, {Fragment} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, ScrollView, Linking} from 'react-native';
 import PaidContentList from './PaidContentList';
 import {activateVideo, deActivateVideo} from '../../../store/actions/video';
 import {connect} from 'react-redux';
+import {Icon} from 'react-native-elements';
+import {IconStyles} from '../../Styles';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const CourseContentCard = (props) => {
   const videoClickEventHandler = (e, index) => {
@@ -12,6 +15,9 @@ const CourseContentCard = (props) => {
     };
 
     props.activateVideo(body);
+  };
+  const onClickUrl = () => {
+    Linking.openURL(props.content.otherUrl);
   };
 
   return (
@@ -24,12 +30,36 @@ const CourseContentCard = (props) => {
           <Text style={styles.courseType}>{props.content.courseType}</Text>
         </View>
 
-        <View>
-          <PaidContentList
-            videoClickEventHandler={(e, i) => videoClickEventHandler(e, i)}
-            data={props.content.content}
-          />
-        </View>
+        <Fragment>
+          <View
+            style={{
+              alignItems: 'center',
+              flexDirection: 'row',
+              position: 'absolute',
+              zIndex: 1,
+              backgroundColor: '#fff',
+              right: 0,
+              bottom: 0,
+            }}>
+            {/* <Text>Doubt Clearance</Text> */}
+            <TouchableOpacity onPress={() => onClickUrl()}>
+              <Icon
+                size={25}
+                raised
+                type={IconStyles.iconType}
+                color={'#000'}
+                name="hand-left"
+              />
+            </TouchableOpacity>
+          </View>
+          <ScrollView>
+            <PaidContentList
+              videoClickEventHandler={(e, i) => videoClickEventHandler(e, i)}
+              data={props.content.content}
+            />
+            <View style={{marginVertical: 50}}></View>
+          </ScrollView>
+        </Fragment>
       </View>
     </Fragment>
   );

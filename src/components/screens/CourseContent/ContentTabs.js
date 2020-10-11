@@ -25,12 +25,14 @@ class ContentTabs extends Component {
   render() {
     const Tab = createMaterialTopTabNavigator();
 
-    const CourseContentCardComponent = () => (
-      <CourseContentCard content={this.props.route.params} {...this.props} />
-    );
-    const DescriptionComponent = () => (
-      <Description content={this.props.route.params} {...this.props} />
-    );
+    const CourseContentCardComponent = () => {
+      return (
+        <CourseContentCard content={this.props.route.params} {...this.props} />
+      );
+    };
+    const DescriptionComponent = () => {
+      return <Description content={this.props.route.params} {...this.props} />;
+    };
 
     return (
       <Tab.Navigator lazy={true}>

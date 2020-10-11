@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
   buyNowContainer: {
     alignSelf: 'center',
     marginTop: 10,
-    backgroundColor: '#db306c',
+    backgroundColor: '#c20202',
     paddingLeft: 30,
     paddingRight: 30,
     paddingTop: 10,
@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
   goToCourseContainer: {
     alignSelf: 'center',
     marginTop: 10,
-    backgroundColor: '#35c464',
+    backgroundColor: '#c20202',
     paddingLeft: 30,
     paddingRight: 30,
     paddingTop: 10,

@@ -41,7 +41,7 @@ const PreferencePicker = (props) => {
           onSelectionsChange={(ele) => setSelectedItems(ele)}
           selectedItems={selectedItems}
           buttonStyle={{
-            height: 100,
+            // height: 100,
             justifyContent: 'center',
             alignItems: 'center',
           }}

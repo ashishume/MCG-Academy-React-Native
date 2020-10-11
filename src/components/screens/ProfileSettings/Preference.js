@@ -1,8 +1,15 @@
 import React, {useState, useEffect} from 'react';
-import {Modal, StyleSheet, Text, TouchableHighlight, View} from 'react-native';
+import {
+  Modal,
+  StyleSheet,
+  Text,
+  Dimensions,
+  TouchableHighlight,
+  View,
+} from 'react-native';
 import {MultipleSelectPicker} from 'react-native-multi-select-picker';
 import {ScrollView} from 'react-native-gesture-handler';
-
+const width = Dimensions.get('screen').width;
 const Preference = (props) => {
   const [selectedItems, setSelectedItems] = useState([]);
   let tempArray = [];
@@ -24,8 +31,11 @@ const Preference = (props) => {
               items={tempArray}
               onSelectionsChange={(ele) => setSelectedItems(ele)}
               selectedItems={selectedItems}
+              style={{
+                width: width - 30,
+                marginBottom: 10,
+              }}
               buttonStyle={{
-                height: 100,
                 justifyContent: 'center',
                 alignItems: 'center',
               }}
@@ -37,12 +47,12 @@ const Preference = (props) => {
                 disabled={!selectedItems.length ? true : false}
                 onPress={() => selectCategoryHandler()}
                 style={{...styles.openButton, backgroundColor: '#2196F3'}}>
-                <Text style={styles.textStyle}>Done</Text>
+                <Text style={styles.textStyleDone}>Done</Text>
               </TouchableHighlight>
               <TouchableHighlight
                 onPress={() => props.closeModal()}
                 style={{...styles.openButton, backgroundColor: '#fff'}}>
-                <Text style={styles.textStyle}>Close</Text>
+                <Text style={styles.textStyleClose}>Close</Text>
               </TouchableHighlight>
             </View>
           </View>
@@ -75,6 +85,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
+    width: width - 20,
   },
   openButton: {
     backgroundColor: '#F194FF',
@@ -82,7 +93,10 @@ const styles = StyleSheet.create({
     padding: 10,
     elevation: 2,
   },
-  textStyle: {
+  textStyleDone: {
+    color: '#fff',
+  },
+  textStyleClose: {
     color: '#000',
   },
 });
