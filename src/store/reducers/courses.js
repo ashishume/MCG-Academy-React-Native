@@ -4,6 +4,7 @@ const initialState = {
   myCourses: [],
   myCourseIds: [],
   oneCourse: '',
+  featured: [],
 };
 
 const courseReducer = (state = initialState, action) => {
@@ -27,6 +28,11 @@ const courseReducer = (state = initialState, action) => {
       return {
         ...state,
         oneCourse: action.payload,
+      };
+    case ActionTypes.GET_FEATURED_COURSE:
+      return {
+        ...state,
+        featured: action.payload,
       };
     default:
       return state;

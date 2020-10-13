@@ -19,6 +19,9 @@ export const GET_COURSE_BY_ID = 'GET_COURSE_BY_ID';
 export const BUY_NEW_COURSE = 'BUY_NEW_COURSE';
 
 
+export const GET_FEATURED_COURSE = 'GET_FEATURED_COURSE';
+
+
 export const TOGGLE_VIDEO = 'TOGGLE_VIDEO';
 export const DESTROY_VIDEO = 'DESTROY_VIDEO';
 export const FETCH_FREE_VIDEOS = 'FETCH_FREE_VIDEOS';

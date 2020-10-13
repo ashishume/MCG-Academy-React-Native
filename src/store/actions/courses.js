@@ -16,6 +16,14 @@ export const fetchAllCourses = () => async (dispatch) => {
     payload: response.data,
   });
 };
+export const fetchFeaturedCourses = () => async (dispatch) => {
+  const response = await HttpService.get(API_NAME.FEATURED);
+
+  dispatch({
+    type: ActionType.GET_FEATURED_COURSE,
+    payload: response.data,
+  });
+};
 export const buyNewCourse = (courseId) => async (dispatch) => {
   const user = await AsyncStorage.getItem('userId');
   const body = {

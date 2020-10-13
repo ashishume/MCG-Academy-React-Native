@@ -12,4 +12,5 @@ export const API_NAME = {
   LIBRARY: 'library/fetch',
   IMAGES: 'images/',
   CATEGORY: 'category',
+  FEATURED: 'courses/featured',
 };
