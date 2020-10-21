@@ -28,6 +28,7 @@ import TeacherWaitingPage from '../components/screens/TeacherWaitingPage';
 import Search from '../components/screens/Search';
 import ForgotPassword from '../components/screens/ForgotPassword';
 import Payment from '../components/payment';
+import AddNewPassword from '../components/screens/AddNewPassword';
 const Stack = createStackNavigator();
 const config = {
   animation: 'spring',
@@ -123,6 +124,14 @@ const MainRouting = (props) => {
           component={PrivacyPolicy}
           options={{
             headerShown: true,
+            cardStyle: {backgroundColor: '#fff'},
+          }}
+        />
+        <Stack.Screen
+          name="AddNewPassword"
+          component={AddNewPassword}
+          options={{
+            headerShown: false,
             cardStyle: {backgroundColor: '#fff'},
           }}
         />

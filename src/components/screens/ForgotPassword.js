@@ -7,32 +7,45 @@ import {
   StyleSheet,
   Text,
   ToastAndroid,
+  Alert,
 } from 'react-native';
+import {Input} from 'react-native-elements';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-
+import HttpService from '../../API/HttpService';
 const ForgotPassword = (props) => {
   const [pin, setPin] = useState('');
   const [error, setError] = useState('');
   const [isSent, setIsSent] = useState(false);
+  const [email, setEmail] = useState('');
   const pincodeHandler = async () => {
-    if (pin.length !== 4) {
+    if (pin.length !== 6) {
       setError('Please enter a valid OTP');
       return false;
     } else {
       setError('');
-    //   console.log(pin);
+      console.log(pin);
       try {
         const otp = await AsyncStorage.getItem('otpGeneration');
-        console.log(otp);
+        if (otp == pin) {
+          console.log('success');
+          props.navigation.navigate('AddNewPassword', {email});
+        } else {
+          ToastAndroid.show('In correct OTP', ToastAndroid.LONG);
+        }
       } catch (e) {
         ToastAndroid.show('Something went wrong', ToastAndroid.LONG);
       }
     }
   };
   const sendOTPHandler = async () => {
-    const randomOTP = parseInt(1000 + Math.random() * 9000);
-    setIsSent(true);
+    const randomOTP = parseInt(100000 + Math.random() * 900000);
+    const body = {
+      email,
+      resetCode: randomOTP,
+    };
     try {
+      await HttpService.post('auth/forgot', body);
+      setIsSent(true);
       await AsyncStorage.setItem('otpGeneration', randomOTP.toString());
     } catch (e) {
       ToastAndroid.show('Something went wrong', ToastAndroid.LONG);
@@ -71,8 +84,15 @@ const ForgotPassword = (props) => {
         <View style={styles.container}>
           <View style={styles.headerContainer}>
             <Text style={styles.subHeaderText}>
-              Send OTP to the registered phone No.
+              Send OTP to the registered email address
             </Text>
+            {/* <Text style={styles.label}>OTP</Text> */}
+            <TextInput
+              onChangeText={(data) => setEmail(data)}
+              style={styles.input}
+              keyboardType={'email-address'}
+              placeholderTextColor="#000"
+            />
           </View>
 
           <TouchableOpacity
