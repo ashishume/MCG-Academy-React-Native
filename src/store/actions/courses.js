@@ -17,7 +17,11 @@ export const fetchAllCourses = () => async (dispatch) => {
   });
 };
 export const fetchFeaturedCourses = () => async (dispatch) => {
-  const response = await HttpService.get(API_NAME.FEATURED);
+  const category = await AsyncStorage.getItem('category');
+  const body = {
+    category: JSON.parse(category),
+  };
+  const response = await HttpService.post(API_NAME.FEATURED, body);
 
   dispatch({
     type: ActionType.GET_FEATURED_COURSE,

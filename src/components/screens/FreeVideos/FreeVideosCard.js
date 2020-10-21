@@ -7,8 +7,10 @@ import {
   StyleSheet,
   ActivityIndicator,
 } from 'react-native';
-import BadgeType from '../../Shared/Badge';
+import BadgeType from '../../Shared/TypeBadge';
+import Badge from '../../Shared/Badge';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import AmountBadge from '../../Shared/AmountBadge';
 const {height, width} = Dimensions.get('window');
 const FreeVideosCard = ({content, onClickVideoItem}) => {
   let shortTitle = content.title;
@@ -26,7 +28,7 @@ const FreeVideosCard = ({content, onClickVideoItem}) => {
           <View style={styles.innerContainer}>
             <View style={{justifyContent: 'center'}}>
               <Image
-                PlaceholderContent={<ActivityIndicator color="#000" />}
+                PlaceholderContent={<ActivityIndicator color="#c20202" />}
                 source={{uri: content.videoImage}}
                 style={styles.image}
               />
@@ -34,7 +36,8 @@ const FreeVideosCard = ({content, onClickVideoItem}) => {
             <View style={styles.contentContainer}>
               <Text style={styles.title}>{shortTitle}</Text>
               <View style={styles.type}>
-                <BadgeType name={content.category} />
+                <Badge name={content.category} />
+                <BadgeType name={content.videoType} color="#c20202" />
                 <Text style={styles.author}>{shortAuthor}</Text>
               </View>
             </View>

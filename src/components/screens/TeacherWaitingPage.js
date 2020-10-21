@@ -6,7 +6,7 @@ const TeacherWaitingPage = () => {
   return (
     <View style={{flex: 1, justifyContent: 'center'}}>
       <Text style={{fontSize: 20, textAlign: 'center'}}>
-        Please contact admin for further verification process
+        We will update you Soon
       </Text>
       <View style={{flexDirection: 'row', alignSelf: 'center'}}>
         <Text style={{padding: 5}}>

@@ -15,7 +15,7 @@ const LatestCourseItem = (props) => {
     <View style={styles.cardContainer}>
       <View style={{flex: 1}}>
         <Image
-          PlaceholderContent={<ActivityIndicator color="#000" />}
+          PlaceholderContent={<ActivityIndicator color="#c20202" />}
           source={{uri: props.content.courseImage}}
           style={styles.imageCard}
         />

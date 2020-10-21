@@ -46,7 +46,7 @@ class LoaderComponent extends Component {
               justifyContent: 'center',
               zIndex: 999,
             }}>
-            <ActivityIndicator size="large" color="#000" />
+            <ActivityIndicator size="large" color="#c20202" />
           </View>
         ) : null}
       </Fragment>

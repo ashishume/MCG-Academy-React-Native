@@ -15,8 +15,8 @@ const DrawerNavigation = () => {
       screenOptions={({route}) => ({
         tabBarIcon: ({focused, color, size}) => {
           let iconName;
-          if (route.name === 'Explore') {
-            iconName = 'ios-navigate';
+          if (route.name === 'Home') {
+            iconName = 'ios-home';
           } else if (route.name === 'Free Videos') {
             iconName = 'videocam';
           } else if (route.name === 'Library') {
@@ -38,7 +38,7 @@ const DrawerNavigation = () => {
         activeTintColor: IconStyles.iconColor,
         inactiveTintColor: 'gray',
       }}>
-      <Tab.Screen name="Explore" component={Dashboard} />
+      <Tab.Screen name="Home" component={Dashboard} />
       <Tab.Screen name="Free Videos" component={FreeVideos} />
       <Tab.Screen name="My Courses" component={MyCourses} />
       <Tab.Screen name="Library" component={Library} />

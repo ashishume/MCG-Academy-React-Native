@@ -67,11 +67,11 @@ class Signup extends Component {
                   alignSelf: 'center',
                 }}>
                 <Image
-                  source={require('../../../assets/logo.jpg')}
+                  source={require('../../../assets/logo.png')}
                   style={{width: 100, height: 100}}
                 />
               </View>
-              <Text style={styles.headerText}>Welcome</Text>
+              <Text style={styles.headerText}>Welcome to MCG Academy</Text>
               <Text style={styles.subHeaderText}>
                 Enter your details to signup to your account
               </Text>

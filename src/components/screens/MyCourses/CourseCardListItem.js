@@ -27,7 +27,7 @@ const CourseCardListItem = ({
           <View style={styles.innerContainer}>
             <View style={{justifyContent: 'center'}}>
               <Image
-                PlaceholderContent={<ActivityIndicator color="#000" />}
+                PlaceholderContent={<ActivityIndicator color="#c20202" />}
                 source={{uri: content.courseImage}}
                 style={styles.image}
               />

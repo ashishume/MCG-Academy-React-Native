@@ -17,8 +17,11 @@ import Styles from '../../Styles';
 const {height, width} = Dimensions.get('window');
 
 class Explore extends Component {
-  async componentDidMount() {
-    await this.props.fetchFeaturedCourses();
+  componentDidMount() {
+    this.props.navigation.addListener('focus', () => {
+      // console.log('focused on explore');
+      this.props.fetchFeaturedCourses();
+    });
     this.startHeaderHeight = 80;
     if (Platform.OS == 'android') {
       this.startHeaderHeight = 100 + StatusBar.currentHeight;

@@ -25,7 +25,7 @@ const AllCourseCard = ({content}) => {
     <View style={styles.container}>
       <View style={{flex: 1}}>
         <Image
-          PlaceholderContent={<ActivityIndicator color="#000" />}
+          PlaceholderContent={<ActivityIndicator color="#c20202" />}
           style={styles.image}
           source={{uri: content.courseImage}}
         />

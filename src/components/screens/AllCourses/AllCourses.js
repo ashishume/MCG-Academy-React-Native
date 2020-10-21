@@ -8,7 +8,9 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 
 class AllCourses extends Component {
   componentDidMount() {
-    this.props.fetchAllCourses();
+    this.props.navigation.addListener('focus', () => {
+      this.props.fetchAllCourses();
+    });
   }
 
   onRouteToCourseDetailsHandler = (value) => {
