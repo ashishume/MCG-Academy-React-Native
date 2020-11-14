@@ -27,8 +27,7 @@ const ForgotPassword = (props) => {
       try {
         const otp = await AsyncStorage.getItem('otpGeneration');
         if (otp == pin) {
-          console.log('success');
-          props.navigation.navigate('AddNewPassword', {email});
+         await props.navigation.navigate('AddNewPassword', {email});
         } else {
           ToastAndroid.show('In correct OTP', ToastAndroid.LONG);
         }

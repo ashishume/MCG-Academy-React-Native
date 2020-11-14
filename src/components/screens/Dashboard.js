@@ -18,12 +18,17 @@ const Dashboard = (props) => {
     const fetchMyCourseData = () => {
       props.fetchMyCourses();
     };
-    requestCameraPermission();
-    requestWriteStoragePermission();
-    requestReadStoragePermission();
     const unsubscribe = props.navigation.addListener('focus', () => {
       fetchMyCourseData();
     });
+
+    const requestPermission = async () => {
+      await requestCameraPermission();
+      await requestWriteStoragePermission();
+      await requestReadStoragePermission();
+    };
+
+    requestPermission();
 
     return unsubscribe;
   }, [props.navigation]);

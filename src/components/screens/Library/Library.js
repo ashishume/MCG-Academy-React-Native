@@ -20,18 +20,26 @@ const Library = (props) => {
   return (
     <Fragment>
       <TopHeader name="Library" />
-      <View
-        style={{height: '100%', backgroundColor: '#fff', paddingBottom: 70}}>
+      <View style={{backgroundColor: '#fff', paddingVertical: 10}}>
         <ScrollView scrollEventThrottle={25} indicatorStyle="black">
-          {props.library.map((value, i) => {
-            return (
-              <LibraryCard
-                content={value}
-                key={i}
-                onClickLibrayItem={() => clickLibraryItem(value)}
-              />
-            );
-          })}
+          <View
+            style={{
+              paddingHorizontal: 10,
+              flex: 1,
+              justifyContent: 'space-between',
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+            }}>
+            {props.library.map((value, i) => {
+              return (
+                <LibraryCard
+                  content={value}
+                  key={i}
+                  onClickLibrayItem={() => clickLibraryItem(value)}
+                />
+              );
+            })}
+          </View>
         </ScrollView>
       </View>
     </Fragment>

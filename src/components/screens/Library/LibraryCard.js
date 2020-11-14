@@ -1,8 +1,6 @@
 import React, {Fragment} from 'react';
 import {View, Text, Image, Dimensions} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import {Divider, Icon} from 'react-native-elements';
-import {IconStyles} from '../../Styles';
 const {height, width} = Dimensions.get('window');
 
 const LibraryCard = (props) => {
@@ -13,43 +11,28 @@ const LibraryCard = (props) => {
     title = props.content.fileName;
   }
   return (
-    <TouchableOpacity activeOpacity={0.8} onPress={props.onClickLibrayItem}>
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'center',
-          alignContent: 'center',
-          paddingVertical: 10,
-          marginHorizontal: 10,
-          borderWidth: 1,
-          borderColor: 'lightgray',
-          marginVertical: 5,
-        }}>
-        <View style={{flex: 1}}>
-          <Image
-            source={{uri: props.content.thumbnail}}
-            style={{width: width - 20, height: 200, resizeMode: 'cover'}}
-          />
-          <Text
-            style={{
-              textAlign: 'left',
-              fontSize: 17,
-              marginTop: 5,
-              fontWeight: 'normal',
-            }}>
-            {title}
-          </Text>
-        </View>
-        <View style={{alignSelf: 'flex-end'}}>
-          <Icon
-            size={25}
-            type={IconStyles.iconType}
-            color={'#000'}
-            name="cloud-download"
-          />
-        </View>
+    <TouchableOpacity
+      activeOpacity={0.8}
+      onPress={props.onClickLibrayItem}
+      style={{
+        width: width / 2 - 30,
+        height: 150,
+        marginLeft: 10,
+      }}>
+      <View>
+        <Image
+          source={{uri: props.content.thumbnail}}
+          style={{width: '100%', height: 100, resizeMode: 'cover'}}
+        />
+        <Text
+          style={{
+            textAlign: 'left',
+            fontSize: 17,
+            fontWeight: 'normal',
+          }}>
+          {title}
+        </Text>
       </View>
-      <Divider />
     </TouchableOpacity>
   );
 };

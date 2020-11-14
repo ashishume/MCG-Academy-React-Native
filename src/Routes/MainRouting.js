@@ -29,6 +29,7 @@ import Search from '../components/screens/Search';
 import ForgotPassword from '../components/screens/ForgotPassword';
 import Payment from '../components/payment';
 import AddNewPassword from '../components/screens/AddNewPassword';
+import EmailVerification from '../components/screens/Auth/EmailVerification';
 const Stack = createStackNavigator();
 const config = {
   animation: 'spring',
@@ -176,6 +177,13 @@ const MainRouting = (props) => {
         <Stack.Screen
           name="Signup"
           component={Signup}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="EmailVerification"
+          component={EmailVerification}
           options={{
             headerShown: false,
           }}

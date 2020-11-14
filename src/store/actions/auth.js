@@ -46,6 +46,8 @@ const setLoginStatus = async (value) => {
     await AsyncStorage.setItem('userId', value.userId);
     await AsyncStorage.setItem('phone', value.phone);
     await AsyncStorage.setItem('category', JSON.stringify(value.category));
+    await AsyncStorage.removeItem('emailVerifyCode');
+
   } catch (e) {
     ToastAndroid.show('Something went wrong', ToastAndroid.LONG);
   }

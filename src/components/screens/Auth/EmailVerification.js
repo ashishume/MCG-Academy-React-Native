@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-community/async-storage';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   ImageBackground,
@@ -11,48 +11,75 @@ import {
 } from 'react-native';
 import {Input} from 'react-native-elements';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import HttpService from '../../API/HttpService';
-const AddNewPassword = (props) => {
-  const [password, setPassword] = useState('');
+import {connect} from 'react-redux';
+import HttpService from '../../../API/HttpService';
+import {signupUser} from '../../../store/actions/auth';
+const EmailVerification = (props) => {
+  const [pin, setPin] = useState('');
   const [error, setError] = useState('');
 
-  const changeNewPasswordHandler = async () => {
-    if (password.length < 6) {
-      setError('Minimum length 6 digits');
-      return false;
-    }
-    setError('');
-    const body = {
-      email: props.route.params.email,
-      password,
+  useEffect(() => {
+    const sendEmailOTP = async () => {
+      const randomOTP = parseInt(100000 + Math.random() * 900000);
+      const body = {
+        email: props.route.params.email,
+        verifyCode: randomOTP,
+      };
+      try {
+        console.log('meil sent');
+        await HttpService.post('email/verify', body);
+        await AsyncStorage.setItem('emailVerifyCode', randomOTP.toString());
+      } catch (e) {
+        ToastAndroid.show('Something went wrong', ToastAndroid.LONG);
+      }
     };
 
-    try {
-      await HttpService.put('auth/addNewPassword', body);
-      await AsyncStorage.removeItem('otpGeneration');
-      props.navigation.navigate('Login');
-    } catch (e) {
-      ToastAndroid.show('Something went wrong', ToastAndroid.LONG);
+    sendEmailOTP();
+  }, []);
+
+  const verifyCodeHandler = async () => {
+    if (pin.length !== 6) {
+      setError('Please enter a valid code');
+      return false;
+    } else {
+      setError('');
+      try {
+        const otp = await AsyncStorage.getItem('emailVerifyCode');
+        if (otp == pin) {
+          await props.signupUser(props.route.params, props);
+        } else {
+          ToastAndroid.show('In correct verification code', ToastAndroid.LONG);
+        }
+      } catch (e) {
+        ToastAndroid.show('Something went wrong', ToastAndroid.LONG);
+      }
     }
   };
+
   return (
     <ImageBackground
-      source={require('../../assets/Login-Page-Screen.png')}
+      source={require('../../../assets/Login-Page-Screen.png')}
       style={styles.backgroundImage}>
       <View style={styles.container}>
+        <Text style={styles.headerText}>Verify your email</Text>
         <View style={styles.headerContainer}>
-          <Text style={styles.subHeaderText}>Please enter new password</Text>
+          <Text style={styles.subHeaderText}>
+            Enter the verification code to continue
+          </Text>
+        </View>
+
+        <View style={{marginBottom: 10}}>
           <TextInput
-            onChangeText={(data) => setPassword(data)}
+            onChangeText={(data) => setPin(data)}
             style={styles.input}
-            secureTextEntry={true}
+            keyboardType={'number-pad'}
             placeholderTextColor="#000"
           />
           <Text style={styles.errorText}>{error}</Text>
         </View>
 
         <TouchableOpacity
-          onPress={() => changeNewPasswordHandler()}
+          onPress={() => verifyCodeHandler()}
           style={styles.buttonContainer}>
           <Text style={styles.buttonText}>Submit</Text>
         </TouchableOpacity>
@@ -61,7 +88,9 @@ const AddNewPassword = (props) => {
   );
 };
 
-export default AddNewPassword;
+export default connect('', {
+  signupUser,
+})(EmailVerification);
 
 const styles = StyleSheet.create({
   container: {

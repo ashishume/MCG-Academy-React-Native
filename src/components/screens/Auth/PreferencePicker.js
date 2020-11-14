@@ -27,7 +27,9 @@ const PreferencePicker = (props) => {
       ...props.route.params,
       category,
     };
-    await props.signupUser(body, props);
+
+    props.navigation.navigate('EmailVerification', body);
+    // await props.signupUser(body, props);
   };
 
   return (
