@@ -9,7 +9,7 @@ const Description = (props) => {
           <Text style={styles.author}>Author: {props.content.author}</Text>
           <Text style={styles.subHeading}>Course Details</Text>
           <Text style={{fontSize: 15}}>
-            Time limit: {props.content.timeLimit}
+            Time limit: {props.content.timeLimit} days
           </Text>
           <Text style={{fontSize: 15}}>
             Course type: {props.content.category}
