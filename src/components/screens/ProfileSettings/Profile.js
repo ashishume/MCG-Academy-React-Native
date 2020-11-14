@@ -98,9 +98,11 @@ class Profile extends Component {
     if (value == 'Account') {
       this.props.navigation.navigate('Accounts');
     } else if (value == 'Chat with us') {
-      Linking.openURL('https://wa.me/918557098095');
+      Linking.openURL('https://wa.me/917000213858');
     } else if (value == 'Rate us') {
-      Linking.openURL('https://play.google.com');
+      Linking.openURL(
+        'https://play.google.com/store/apps/details?id=com.mcgeducation',
+      );
     } else if (value == 'Privacy Policy') {
       this.props.navigation.navigate('Privacy Policy');
     } else if (value == 'Terms and condition') {
@@ -150,6 +152,7 @@ class Profile extends Component {
               <Text style={styles.signoutButton}>Sign out</Text>
             </TouchableOpacity>
           </View>
+          <Text style={{textAlign: 'center', marginTop: 20}}>Version v1.0</Text>
         </View>
 
         <Preference

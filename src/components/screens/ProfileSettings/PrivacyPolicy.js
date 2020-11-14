@@ -6,28 +6,28 @@ const PrivacyPolicy = () => {
   return (
     <ScrollView>
       <Text style={{textAlign: 'justify', margin: 20, fontSize: 20}}>
-        Privacy policy Table of contents : A. General B. Applicability C. Access
-        D. Personal Information E. Automatic Information Collection F.
-        Information Security G. Use of your personal information H. Exceptions
-        A. General In this policy, the words "we", "our", and "us" refer to MCG
-        Academy and the privacy mechanism outlined identify personally
-        identifiable or personal information that may be collected, how such
-        information is used, and the choices you have regarding our use of this
-        information. In addition to the terms stated in Terms of Service
-        provided under this Website/mobile application (together “Platform”), we
-        are committed to protecting your privacy. Authorized representatives of
-        MCG Academy on a need to know basis only use any information received
-        from you. We constantly review our systems and data to secure your
-        personal information. We will investigate any complaint or such actions
-        with a view to prosecuting and/or taking civil proceedings to recover
-        damages against those responsible. Any User who does not agree with any
-        provisions of this Privacy Policy and the Terms of Service is required
-        to leave the Platform immediately. Should you disagree with this Policy
-        (defined below) and still continue to access the Platform and provide
-        your personal information, MCG Academy disclaim all the liabilities
-        arising therefrom and it shall be assumed by your continued use of the
-        Platform that you have accepted the Policy and any other online terms
-        and conditions available on the Platform. B. Applicability This privacy
+        Table of contents : A. General B. Applicability C. Access D. Personal
+        Information E. Automatic Information Collection F. Information Security
+        G. Use of your personal information H. Exceptions A. General In this
+        policy, the words "we", "our", and "us" refer to MCG Academy and the
+        privacy mechanism outlined identify personally identifiable or personal
+        information that may be collected, how such information is used, and the
+        choices you have regarding our use of this information. In addition to
+        the terms stated in Terms of Service provided under this Website/mobile
+        application (together “Platform”), we are committed to protecting your
+        privacy. Authorized representatives of MCG Academy on a need to know
+        basis only use any information received from you. We constantly review
+        our systems and data to secure your personal information. We will
+        investigate any complaint or such actions with a view to prosecuting
+        and/or taking civil proceedings to recover damages against those
+        responsible. Any User who does not agree with any provisions of this
+        Privacy Policy and the Terms of Service is required to leave the
+        Platform immediately. Should you disagree with this Policy (defined
+        below) and still continue to access the Platform and provide your
+        personal information, MCG Academy disclaim all the liabilities arising
+        therefrom and it shall be assumed by your continued use of the Platform
+        that you have accepted the Policy and any other online terms and
+        conditions available on the Platform. B. Applicability This privacy
         policy (“Policy”) applies to all Users who access the Platform and are
         therefore required to read and understand the Policy before submitting
         any Personal Information (defined hereinafter). If you have
@@ -222,9 +222,8 @@ const PrivacyPolicy = () => {
         made to the privacy policy. Should you have any concern or reject the
         changes in the privacy policy you can refuse to accept the amendments
         and opt for withdrawing your Personal Information by writing to us at
-        mcgacademy1@gmail.com. If you have any compliant or grievances with
-        respect to Website or Privacy Policy please write to us
-        mcgacademy1@gmail.com
+        [object Object]. If you have any compliant or grievances with respect to
+        Website or Privacy Policy please write to us mcgacademy1@gmail.com
       </Text>
     </ScrollView>
   );
