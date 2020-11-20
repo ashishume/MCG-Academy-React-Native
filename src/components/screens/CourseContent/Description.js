@@ -6,7 +6,7 @@ const Description = (props) => {
     <ScrollView style={{backgroundColor: '#fff'}}>
       <View style={styles.container}>
         <View style={{marginTop: 20}}>
-          <Text style={styles.author}>Author: {props.content.author}</Text>
+          <Text style={styles.author}>Educator: {props.content.author}</Text>
           <Text style={styles.subHeading}>Course Details</Text>
           <Text style={{fontSize: 15}}>
             Time limit: {props.content.timeLimit} days
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   courseDescription: {
     fontSize: 15,
     marginTop: 10,
-    fontSize: 17,
+    // fontSize: 17,
     textAlign: 'justify',
   },
 });

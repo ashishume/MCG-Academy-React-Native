@@ -64,7 +64,9 @@ const ProfileImage = (props) => {
       const {uri} = image;
       const task = storage().ref(`profileImages/${imageName}`).putFile(uri);
 
-      task.on('state_changed', (snapshot) => {});
+      task.on('state_changed', (snapshot) => {
+        console.log(snapshot);
+      });
       try {
         await task;
         storage()
