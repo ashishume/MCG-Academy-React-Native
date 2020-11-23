@@ -14,7 +14,7 @@ const TeacherWaitingPage = () => {
             name="logo-whatsapp"
             raised
             onPress={() => {
-              Linking.openURL('https://wa.me/918557098095');
+              Linking.openURL('https://wa.me/918463038257');
             }}
             size={30}
             reverse
@@ -26,7 +26,7 @@ const TeacherWaitingPage = () => {
             name="call"
             raised
             onPress={() => {
-              Linking.openURL(`tel:${1234567890}`);
+              Linking.openURL(`tel:${8463038257}`);
             }}
             size={30}
             reverse

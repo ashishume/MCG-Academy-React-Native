@@ -98,7 +98,7 @@ class Profile extends Component {
     if (value == 'Account') {
       this.props.navigation.navigate('Accounts');
     } else if (value == 'Chat with us') {
-      Linking.openURL('https://wa.me/917000213858');
+      Linking.openURL('https://wa.me/918463038257');
     } else if (value == 'Rate us') {
       Linking.openURL(
         'https://play.google.com/store/apps/details?id=com.mcgeducation',
