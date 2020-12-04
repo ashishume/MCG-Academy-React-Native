@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import Explore from './Explore/Explore';
 import AllCourses from './AllCourses/AllCourses';
 import TopHeader from '../Shared/Header';
-import {View, ToastAndroid, PermissionsAndroid} from 'react-native';
+import {View, PermissionsAndroid, Platform} from 'react-native';
 import {connect} from 'react-redux';
 import DashboardSlideshow from './DashboardSlideshow';
 import {ScrollView} from 'react-native-gesture-handler';
@@ -23,9 +23,7 @@ const Dashboard = (props) => {
     });
 
     const requestPermission = async () => {
-      await requestCameraPermission();
-      await requestWriteStoragePermission();
-      await requestReadStoragePermission();
+      await GetAllPermissions();
     };
 
     requestPermission();
@@ -33,74 +31,20 @@ const Dashboard = (props) => {
     return unsubscribe;
   }, [props.navigation]);
 
-  const requestCameraPermission = async () => {
+  const GetAllPermissions = async () => {
     try {
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.CAMERA,
-        {
-          title: 'Profile picture camera permission',
-          message:
-            'App needs access to your camera ' +
-            'so you can take awesome profile pictures.',
-          buttonNeutral: 'Ask Me Later',
-          buttonNegative: 'Cancel',
-          buttonPositive: 'OK',
-        },
-      );
-      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        console.log('You can use the camera');
-      } else {
-        console.log('Camera permission denied');
+      if (Platform.OS === 'android') {
+        const userResponse = await PermissionsAndroid.requestMultiple([
+          PermissionsAndroid.PERMISSIONS.CAMERA,
+          PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+          PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+        ]);
+        return userResponse;
       }
     } catch (err) {
-      console.warn(err);
+      Warning(err);
     }
-  };
-  const requestReadStoragePermission = async () => {
-    try {
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
-        {
-          title: 'We need gallery access to upload profile',
-          message:
-            'App needs access to your gallery' +
-            'so you can take awesome profile pictures.',
-          buttonNeutral: 'Ask Me Later',
-          buttonNegative: 'Cancel',
-          buttonPositive: 'OK',
-        },
-      );
-      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        console.log('You can use the camera');
-      } else {
-        console.log('Camera permission denied');
-      }
-    } catch (err) {
-      console.warn(err);
-    }
-  };
-  const requestWriteStoragePermission = async () => {
-    try {
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-        {
-          title: 'We need gallery access to upload profile',
-          message:
-            'App needs access to your gallery' +
-            'so you can take awesome profile pictures.',
-          buttonNeutral: 'Ask Me Later',
-          buttonNegative: 'Cancel',
-          buttonPositive: 'OK',
-        },
-      );
-      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        console.log('You can use the camera');
-      } else {
-        console.log('Camera permission denied');
-      }
-    } catch (err) {
-      console.warn(err);
-    }
+    return null;
   };
 
   const onSearchHandler = () => {

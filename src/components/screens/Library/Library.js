@@ -20,7 +20,8 @@ const Library = (props) => {
   return (
     <Fragment>
       <TopHeader name="Library" />
-      <View style={{backgroundColor: '#fff', paddingVertical: 10}}>
+      <View
+        style={{backgroundColor: '#fff', paddingVertical: 10, height: '100%'}}>
         <ScrollView scrollEventThrottle={25} indicatorStyle="black">
           <View
             style={{

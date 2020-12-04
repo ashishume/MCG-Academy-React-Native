@@ -17,8 +17,9 @@ import Http from '../../../API/HttpService';
 
 const options = {
   title: 'Select Avatar',
+  mediaType: 'photo',
   storageOptions: {
-    skipBackup: true,
+    skipBackup: false,
     path: 'images',
   },
 };
@@ -44,12 +45,11 @@ const ProfileImage = (props) => {
     }
   };
   const imageUploadHandler = async () => {
-    await ImagePicker.showImagePicker(options, (response) => {
+    await ImagePicker.launchImageLibrary(options, (response) => {
       if (response.error) {
         ToastAndroid.show('Something went wrong', ToastAndroid.LONG);
       } else {
-        const source = {uri: response.uri};
-
+        const source = {uri: response.path};
         setImageName(response.fileName);
         setImage(source);
       }

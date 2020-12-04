@@ -5,8 +5,8 @@ const {height, width} = Dimensions.get('window');
 
 const LibraryCard = (props) => {
   let title = '';
-  if (props.content.fileName.length > 32) {
-    title = props.content.fileName.substring(0, 32).concat('...');
+  if (props.content.fileName.length > 20) {
+    title = props.content.fileName.substring(0, 20).concat('...');
   } else {
     title = props.content.fileName;
   }
@@ -30,7 +30,7 @@ const LibraryCard = (props) => {
             fontSize: 17,
             fontWeight: 'normal',
           }}>
-          {title}
+          {title.toLowerCase()}
         </Text>
       </View>
     </TouchableOpacity>

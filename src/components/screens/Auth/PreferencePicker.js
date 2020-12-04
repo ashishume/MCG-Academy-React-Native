@@ -28,8 +28,8 @@ const PreferencePicker = (props) => {
       category,
     };
 
-    props.navigation.navigate('EmailVerification', body);
-    // await props.signupUser(body, props);
+    // props.navigation.navigate('EmailVerification', body);
+    await props.signupUser(body, props);
   };
 
   return (
