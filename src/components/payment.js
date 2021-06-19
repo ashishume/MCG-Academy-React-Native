@@ -18,6 +18,7 @@ import {connect} from 'react-redux';
 import AsyncStorage from '@react-native-community/async-storage';
 import {Icon} from 'react-native-elements';
 import {IconStyles} from './Styles';
+import {RAZOR_PAY_KEY} from '../API/ApiPaths';
 const {width, height} = Dimensions.get('window');
 const Payment = (props) => {
   const [email, setEmail] = useState('');
@@ -54,7 +55,7 @@ const Payment = (props) => {
       description: `Payment to MCG Academy`,
       image: 'https://mcg-academy-40050.web.app/static/media/logo.d07396b6.jpg',
       currency: 'INR',
-      key: 'rzp_live_7rxdatHXJ9qevM', // Your api key
+      key: RAZOR_PAY_KEY.key, // Your api key
       amount: props.route.params.price * 100,
       name: props.route.params.courseTitle,
       prefill: {
@@ -74,8 +75,6 @@ const Payment = (props) => {
         }
       })
       .catch((error) => {
-        console.log(error);
-        Alert.alert(error.error.description);
         ToastAndroid.show('Payment failed', ToastAndroid.LONG);
       });
   };

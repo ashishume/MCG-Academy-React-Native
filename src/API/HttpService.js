@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const http = axios.create({
-  baseURL: 'https://mcg-academy1.herokuapp.com/',
+  baseURL: 'http://18.218.148.66:5000/',
   // baseURL: 'http://192.168.0.103:5000/',
 });
 

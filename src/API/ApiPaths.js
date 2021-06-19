@@ -14,3 +14,7 @@ export const API_NAME = {
   CATEGORY: 'category',
   FEATURED: 'courses/featured/category',
 };
+
+export const RAZOR_PAY_KEY = {
+  key: 'rzp_live_TUrrtQuiQfM1o8',
+};
