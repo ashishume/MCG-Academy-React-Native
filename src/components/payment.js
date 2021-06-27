@@ -15,7 +15,7 @@ import {
 } from 'react-native-gesture-handler';
 import {buyNewCourse} from '../store/actions/courses';
 import {connect} from 'react-redux';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Icon} from 'react-native-elements';
 import {IconStyles} from './Styles';
 import {RAZOR_PAY_KEY} from '../API/ApiPaths';

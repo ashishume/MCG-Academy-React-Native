@@ -1,7 +1,7 @@
 import * as ActionType from './ActionTypes';
 import HttpService from '../../API/HttpService';
 import {API_NAME} from '../../API/ApiPaths';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const fetchAllLibrary = () => async (dispatch) => {
   const data = await AsyncStorage.getItem('category');

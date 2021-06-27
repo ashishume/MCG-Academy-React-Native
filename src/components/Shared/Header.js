@@ -4,7 +4,7 @@ import {Icon} from 'react-native-elements';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {IconStyles} from '../Styles';
 import Http from '../../API/HttpService';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const {width, height} = Dimensions.get('window');
 const TopHeader = (props) => {
   const [imageUrl, setImageUrl] = useState('');

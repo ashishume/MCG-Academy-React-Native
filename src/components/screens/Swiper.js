@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, View, Dimensions, Image, ToastAndroid} from 'react-native';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import {Icon} from 'react-native-elements';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 // import { IconStyles } from '../Styles';
 const {height, width} = Dimensions.get('window');
 

@@ -29,6 +29,7 @@ import Search from '../components/screens/Search';
 import ForgotPassword from '../components/screens/ForgotPassword';
 import Payment from '../components/payment';
 import AddNewPassword from '../components/screens/AddNewPassword';
+import CommentSection from '../components/screens/Comments';
 // import EmailVerification from '../components/screens/Auth/EmailVerification';
 const Stack = createStackNavigator();
 const config = {
@@ -198,6 +199,13 @@ const MainRouting = (props) => {
         <Stack.Screen
           name="Payment"
           component={Payment}
+          options={{
+            headerShown: true,
+          }}
+        />
+        <Stack.Screen
+          name="Comment"
+          component={CommentSection}
           options={{
             headerShown: true,
           }}

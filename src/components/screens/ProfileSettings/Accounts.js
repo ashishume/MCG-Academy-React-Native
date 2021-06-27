@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import {View, TextInput, StyleSheet, Text, ToastAndroid} from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {connect} from 'react-redux';
 import {TouchableOpacity, ScrollView} from 'react-native-gesture-handler';
 import {Divider} from 'react-native-elements';

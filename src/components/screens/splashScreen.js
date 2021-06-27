@@ -6,7 +6,7 @@ import {
   ToastAndroid,
   Text,
 } from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {IconStyles} from '../Styles';
 
 const SplashScreen = (props) => {

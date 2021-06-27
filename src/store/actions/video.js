@@ -1,7 +1,7 @@
 import * as ActionType from './ActionTypes';
 import {API_NAME} from '../../API/ApiPaths';
 import HttpService from '../../API/HttpService';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 export const activateVideo = (video) => async (dispatch) => {
   dispatch({
     type: ActionType.TOGGLE_VIDEO,

@@ -2,7 +2,7 @@ import React, {Component, Fragment} from 'react';
 import {Text, View, StyleSheet, ToastAndroid, Linking} from 'react-native';
 import {Icon, Divider} from 'react-native-elements';
 import {IconStyles} from '../../Styles';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import Preference from './Preference';
 import {fetchAllCategories} from '../../../store/actions/category';

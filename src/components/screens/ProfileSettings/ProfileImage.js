@@ -8,7 +8,7 @@ import {
   ToastAndroid,
 } from 'react-native';
 import {IconStyles} from '../../Styles';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import ImagePicker from 'react-native-image-picker';
 import {Icon} from 'react-native-elements';
