@@ -6,24 +6,15 @@ import {
   Dimensions,
   StyleSheet,
   ActivityIndicator,
+  TouchableOpacity,
 } from 'react-native';
 import BadgeType from '../../Shared/TypeBadge';
 import Badge from '../../Shared/Badge';
-import {TouchableOpacity} from 'react-native-gesture-handler';
-import AmountBadge from '../../Shared/AmountBadge';
 const {height, width} = Dimensions.get('window');
 const FreeVideosCard = ({content, onClickVideoItem}) => {
-  let shortTitle = content.title;
-  let shortAuthor = content.author;
-  if (content.title.length > 50) {
-    shortTitle = content.title.substring(0, 50).trim().concat('...');
-  }
-  if (content.author.length > 35) {
-    shortAuthor = content.author.substring(0, 35).trim().concat('...');
-  }
   return (
     <Fragment>
-      <TouchableOpacity onPress={onClickVideoItem}>
+      <TouchableOpacity activeOpacity={0.9} onPress={onClickVideoItem}>
         <View style={styles.container}>
           <View style={styles.innerContainer}>
             <View style={{justifyContent: 'center'}}>
@@ -34,11 +25,19 @@ const FreeVideosCard = ({content, onClickVideoItem}) => {
               />
             </View>
             <View style={styles.contentContainer}>
-              <Text style={styles.title}>{shortTitle}</Text>
+              <Text numberOfLines={1} style={styles.title}>
+                {content.title
+                  .toLowerCase()
+                  .replace(/\b(\w)/g, (k) => k.toUpperCase())}
+              </Text>
               <View style={styles.type}>
                 <Badge name={content.category} />
                 <BadgeType name={content.videoType} color="#c20202" />
-                <Text style={styles.author}>{shortAuthor}</Text>
+                <Text numberOfLines={1} style={styles.author}>
+                  {content.author
+                    .toLowerCase()
+                    .replace(/\b(\w)/g, (k) => k.toUpperCase())}
+                </Text>
               </View>
             </View>
           </View>
@@ -50,44 +49,41 @@ const FreeVideosCard = ({content, onClickVideoItem}) => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 10,
+    paddingVertical: 5,
     shadowColor: '#fff',
     shadowOffset: {
       width: 0,
       height: 2,
     },
-    marginVertical: 10,
     shadowOpacity: 0.23,
     shadowRadius: 2.62,
     borderBottomWidth: 1,
     borderBottomColor: '#eaeaea',
     borderRadius: 10,
     backgroundColor: '#fff',
-    elevation: 10,
+    // elevation: 10,
   },
   innerContainer: {
     // flex: 2,
     // flexDirection: 'row',
   },
   image: {
-    // flex: 1,
-    width: width - 20,
-    height: 170,
+    width: width - 10,
+    height: 200,
     marginTop: 15,
     resizeMode: 'cover',
     alignSelf: 'center',
-    // padding:200,
-    // marginLeft: 5,
-    // borderRadius: 100,
   },
   contentContainer: {
     flex: 1,
     marginHorizontal: 10,
-    // marginTop: 10,
-    // marginLeft: 10,
   },
-  title: {fontSize: 20, fontWeight: '100'},
-  author: {fontSize: 16, fontWeight: '500', marginLeft: 20},
+  title: {fontSize: 18, fontWeight: '100', paddingTop: 5},
+  author: {
+    fontSize: 16,
+    fontWeight: '500',
+    marginLeft: 20,
+  },
   type: {flex: 1, flexDirection: 'row', paddingTop: 5},
 });
 

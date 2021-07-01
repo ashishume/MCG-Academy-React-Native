@@ -1,4 +1,4 @@
-import React, {Component, useState, useEffect} from 'react';
+import React from 'react';
 import {
   View,
   Text,
@@ -9,18 +9,10 @@ import {
 } from 'react-native';
 import TypeBadge from '../../Shared/TypeBadge';
 import BadgeType from '../../Shared/Badge';
-// import Badge from '../../Shared/Badge';
 import Styles from '../../Styles';
 const {height, width} = Dimensions.get('window');
 
 const AllCourseCard = ({content}) => {
-  let title = '';
-  if (content.courseTitle.length > 33) {
-    title = content.courseTitle.substring(0, 40) + '...';
-  } else {
-    title = content.courseTitle;
-  }
-
   return (
     <View style={styles.container}>
       <View style={{flex: 1}}>
@@ -32,9 +24,15 @@ const AllCourseCard = ({content}) => {
       </View>
       <View style={styles.contentContainer}>
         <BadgeType name={content.category} />
-        <Text style={styles.title}>{title}</Text>
-        <Text style={styles.courseType}>₹{content.price}</Text>
-        <Text style={styles.author}>{content.author}</Text>
+        <Text numberOfLines={1} style={styles.title}>
+          {content.courseTitle.toLowerCase().replace(/\b(\w)/g, (k) => k.toUpperCase())}
+        </Text>
+        <Text numberOfLines={1} style={styles.price}>
+          ₹{content.price}
+        </Text>
+        <Text numberOfLines={1} style={styles.author}>
+          {content.author.toLowerCase().replace(/\b(\w)/g, (k) => k.toUpperCase())}
+        </Text>
         <View style={{marginTop: 3}}>
           <TypeBadge name={content.courseType} color="#4fb524" />
         </View>
@@ -64,14 +62,14 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'flex-start',
     justifyContent: 'space-evenly',
-    paddingLeft: 10,
+    paddingLeft: 5,
   },
   courseType: {
     fontSize: 15,
   },
   author: {fontSize: 13, marginBottom: 2},
-  title: {fontSize: 15, height: 40, fontWeight: 'bold', ...Styles.fontFamily},
-  price: {fontSize: 13, ...Styles.fontFamily},
+  title: {fontSize: 15, fontWeight: 'bold', ...Styles.fontFamily},
+  price: {fontSize: 15, ...Styles.fontFamily, fontWeight: '700'},
 });
 
 export default AllCourseCard;

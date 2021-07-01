@@ -1,5 +1,5 @@
-import React, {useEffect} from 'react';
-import {View, SafeAreaView, ScrollView} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {View, SafeAreaView, RefreshControl, ScrollView} from 'react-native';
 import TopHeader from '../../Shared/Header';
 import CourseCardListItem from './CourseCardListItem';
 import {connect} from 'react-redux';
@@ -33,12 +33,29 @@ const MyCourses = (props) => {
       );
     });
   };
+  const [refreshing, setRefreshing] = useState(false);
+  const wait = (timeout) => {
+    return new Promise((resolve) => setTimeout(resolve, timeout));
+  };
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    props.fetchMyCourses();
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
+
   return (
     <View style={{flex: 1}}>
       <TopHeader name="My Courses" />
       <SafeAreaView
         style={{flex: 1, backgroundColor: '#fff', paddingBottom: 5}}>
-        <ScrollView style={{flex: 1}}>{renderData()}</ScrollView>
+        <ScrollView
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+          style={{flex: 1}}>
+          {renderData()}
+        </ScrollView>
       </SafeAreaView>
     </View>
   );

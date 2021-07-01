@@ -1,18 +1,19 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import {View, Text} from 'react-native';
 
-const BadgeType = props => {
+const BadgeType = (props) => {
   return (
     <View
       style={{
         backgroundColor: '#fc8080',
         borderRadius: 10,
         justifyContent: 'center',
-        paddingLeft: 10,
-        paddingRight: 10,
-        height: 24,
+        paddingHorizontal: 10,
+        height: 20,
       }}>
-      <Text style={{color: '#fff'}}>{props.name}</Text>
+      <Text numberOfLines={1} style={{color: '#fff', fontSize: 12}}>
+        {props.name}
+      </Text>
     </View>
   );
 };

@@ -1,12 +1,15 @@
 import React, {Fragment, useEffect, useState} from 'react';
-import {View, Text, StyleSheet, Linking} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 import {activateVideo, deActivateVideo} from '../../../store/actions/video';
 import {connect} from 'react-redux';
 import {Divider, Icon} from 'react-native-elements';
 import {IconStyles} from '../../Styles';
+import CommentSection from '../Comments/index';
 
 const FreeVideosContent = (props) => {
   const [content, setContent] = useState('');
+  const [visible, setVisible] = useState(false);
+  const [videoData, setVideoData] = useState({});
   useEffect(() => {
     setContent(props.route.params);
     const body = {
@@ -23,10 +26,23 @@ const FreeVideosContent = (props) => {
     };
   }, []);
   const onClickUrl = (e) => {
-    Linking.openURL(e);
+    setVisible(true);
+    setVideoData(e);
+  };
+  const toggleCommentSection = (props) => {
+    setVisible(!visible);
   };
   return (
     <Fragment>
+      {visible ? (
+        <Fragment>
+          <CommentSection
+            toggleCommentSection={toggleCommentSection}
+            visible={visible}
+            videoData={videoData}
+          />
+        </Fragment>
+      ) : null}
       <View style={styles.container}>
         <View>
           <Text style={styles.courseTitle}>{content.title}</Text>
@@ -46,12 +62,12 @@ const FreeVideosContent = (props) => {
           <Text style={styles.description}>{content.videoDescription}</Text>
           <Text style={styles.otherUrl}>
             <Icon
-              onPress={() => onClickUrl(content.otherUrl)}
+              onPress={() => onClickUrl(content)}
               size={25}
               raised
               type={IconStyles.iconType}
               color={'#000'}
-              name="link"
+              name="chatbox"
             />
           </Text>
         </View>

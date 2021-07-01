@@ -43,6 +43,7 @@ const Search = (props) => {
             return (
               <CourseCardListItem
                 key={i}
+                {...props}
                 onClickCourseItem={() => courseEventHandler(value)}
                 contentData={value}
               />

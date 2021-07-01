@@ -1,11 +1,8 @@
 import React, {Fragment} from 'react';
-import {View, Text, StyleSheet, ScrollView, Linking} from 'react-native';
+import {View, Text, StyleSheet, ScrollView} from 'react-native';
 import PaidContentList from './PaidContentList';
 import {activateVideo, deActivateVideo} from '../../../store/actions/video';
 import {connect} from 'react-redux';
-import {Icon} from 'react-native-elements';
-import {IconStyles} from '../../Styles';
-import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const CourseContentCard = (props) => {
   const videoClickEventHandler = (e, index) => {
@@ -15,9 +12,6 @@ const CourseContentCard = (props) => {
     };
 
     props.activateVideo(body);
-  };
-  const onClickUrl = () => {
-    Linking.openURL(props.content.otherUrl);
   };
 
   return (
@@ -40,18 +34,7 @@ const CourseContentCard = (props) => {
               backgroundColor: '#fff',
               right: 0,
               bottom: 0,
-            }}>
-            {/* <Text>Doubt Clearance</Text> */}
-            <TouchableOpacity onPress={() => onClickUrl()}>
-              <Icon
-                size={25}
-                raised
-                type={IconStyles.iconType}
-                color={'#000'}
-                name="hand-left"
-              />
-            </TouchableOpacity>
-          </View>
+            }}></View>
           <ScrollView>
             <PaidContentList
               videoClickEventHandler={(e, i) => videoClickEventHandler(e, i)}

@@ -21,22 +21,20 @@ class AllCourses extends Component {
       <SafeAreaView style={styles.container}>
         <View style={{flex: 1}}>
           <Text style={styles.titleText}>Explore courses</Text>
-          <ScrollView scrollEventThrottle={16}>
-            <View style={{marginTop: 0}}>
-              <View style={styles.scrollContainer}>
-                {this.props.courses.map((value, i) => {
-                  return (
-                    <TouchableOpacity
-                      activeOpacity={0.7}
-                      key={i}
-                      onPress={() => this.onRouteToCourseDetailsHandler(value)}>
-                      <AllCourseCard key={i} content={value} />
-                    </TouchableOpacity>
-                  );
-                })}
-              </View>
+          <View style={{marginTop: 0}}>
+            <View style={styles.scrollContainer}>
+              {this.props.courses.map((value, i) => {
+                return (
+                  <TouchableOpacity
+                    activeOpacity={0.7}
+                    key={i}
+                    onPress={() => this.onRouteToCourseDetailsHandler(value)}>
+                    <AllCourseCard key={i} content={value} />
+                  </TouchableOpacity>
+                );
+              })}
             </View>
-          </ScrollView>
+          </View>
         </View>
       </SafeAreaView>
     );

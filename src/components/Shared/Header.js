@@ -1,5 +1,5 @@
 import React, {Fragment, useEffect, useState} from 'react';
-import {View, Image, StyleSheet, Dimensions, Text} from 'react-native';
+import {View, Image, StyleSheet, Dimensions, ToastAndroid,Text} from 'react-native';
 import {Icon} from 'react-native-elements';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {IconStyles} from '../Styles';

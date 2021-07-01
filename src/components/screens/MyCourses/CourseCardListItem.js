@@ -10,15 +10,6 @@ const CourseCardListItem = ({
   expiryDateData,
 }) => {
   const content = contentData;
-  // const expiryDate = contentData.expiryDate;
-  let shortTitle = content.courseTitle;
-  let shortAuthor = content.author;
-  if (content.courseTitle.length > 50) {
-    shortTitle = content.courseTitle.substring(0, 50).trim().concat('...');
-  }
-  if (content.author.length > 35) {
-    shortAuthor = content.author.substring(0, 35).trim().concat('...');
-  }
 
   return (
     <Fragment>
@@ -33,8 +24,16 @@ const CourseCardListItem = ({
               />
             </View>
             <View style={styles.contentContainer}>
-              <Text style={styles.title}>{shortTitle}</Text>
-              <Text style={styles.author}>{shortAuthor}</Text>
+              <Text numberOfLines={1} style={styles.title}>
+                {content.courseTitle
+                  .toLowerCase()
+                  .replace(/\b(\w)/g, (k) => k.toUpperCase())}
+              </Text>
+              <Text numberOfLines={1} style={styles.author}>
+                {content.author
+                  .toLowerCase()
+                  .replace(/\b(\w)/g, (k) => k.toUpperCase())}
+              </Text>
               <View style={styles.type}>
                 <BadgeType name={content.category} />
                 {isExpired == true ? (
@@ -92,7 +91,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginLeft: 10,
   },
-  title: {fontSize: 17, fontWeight: 'bold', height: 50},
+  title: {fontSize: 17, fontWeight: 'bold'},
   author: {fontSize: 15, fontWeight: '500'},
   type: {flex: 1, flexDirection: 'row', paddingTop: 5},
 });

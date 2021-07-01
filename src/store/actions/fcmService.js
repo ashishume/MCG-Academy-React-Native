@@ -8,6 +8,6 @@ export const AddFCMToken = (token) => {
     deviceId: getUniqueId(),
   };
   axios.post('/fcm', body).then((response) => {
-    console.log(response);
+    // console.log(response);
   });
 };

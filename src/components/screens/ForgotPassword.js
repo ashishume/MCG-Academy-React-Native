@@ -9,7 +9,6 @@ import {
   ToastAndroid,
   Alert,
 } from 'react-native';
-import {Input} from 'react-native-elements';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import HttpService from '../../API/HttpService';
 const ForgotPassword = (props) => {
@@ -23,7 +22,6 @@ const ForgotPassword = (props) => {
       return false;
     } else {
       setError('');
-      console.log(pin);
       try {
         const otp = await AsyncStorage.getItem('otpGeneration');
         if (otp == pin) {

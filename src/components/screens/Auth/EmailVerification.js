@@ -7,9 +7,7 @@ import {
   StyleSheet,
   Text,
   ToastAndroid,
-  Alert,
 } from 'react-native';
-import {Input} from 'react-native-elements';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {connect} from 'react-redux';
 import HttpService from '../../../API/HttpService';
@@ -26,7 +24,6 @@ const EmailVerification = (props) => {
         verifyCode: randomOTP,
       };
       try {
-        console.log('meil sent');
         await HttpService.post('email/verify', body);
         await AsyncStorage.setItem('emailVerifyCode', randomOTP.toString());
       } catch (e) {

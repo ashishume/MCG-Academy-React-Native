@@ -22,10 +22,8 @@ const CourseDetailsListItem = ({data, videoClickEventHandler}) => {
             <TouchableOpacity onPress={() => clickVideoHandler(value, i)}>
               <View style={styles.videoContainer}>
                 <View style={{flex: 1}}>
-                  <Text style={{fontSize: 20}}>
-                    {value.title.length > 25
-                      ? value.title.substring(0, 25).concat('...')
-                      : value.title}
+                  <Text numberOfLines={1} style={{fontSize: 20}}>
+                    {value.title}
                   </Text>
                 </View>
                 <View style={{alignSelf: 'flex-end'}}>
