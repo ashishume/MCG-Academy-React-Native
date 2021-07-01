@@ -6,6 +6,7 @@
 #
 build/
 android/app/build/
+android/app/release/
 *.pbxuser
 !default.pbxuser
 *.mode1v3
