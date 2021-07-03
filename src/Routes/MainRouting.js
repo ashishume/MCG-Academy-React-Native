@@ -30,6 +30,7 @@ import ForgotPassword from '../components/screens/ForgotPassword';
 import Payment from '../components/payment';
 import AddNewPassword from '../components/screens/AddNewPassword';
 import CommentSection from '../components/screens/Comments';
+import VideoPage from '../components/screens/VideoPage';
 // import EmailVerification from '../components/screens/Auth/EmailVerification';
 const Stack = createStackNavigator();
 const config = {
@@ -100,6 +101,14 @@ const MainRouting = (props) => {
         <Stack.Screen
           name="Splash"
           component={SplashScreen}
+          options={{
+            headerShown: false,
+            cardStyle: {backgroundColor: '#fff'},
+          }}
+        />
+        <Stack.Screen
+          name="VideoPage"
+          component={VideoPage}
           options={{
             headerShown: false,
             cardStyle: {backgroundColor: '#fff'},

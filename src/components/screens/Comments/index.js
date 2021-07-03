@@ -5,16 +5,15 @@ import {
   TextInput,
   ToastAndroid,
   TouchableOpacity,
-  Modal,
-  ScrollView,
+  StyleSheet,
 } from 'react-native';
-
 import {Icon} from 'react-native-elements';
 import database from '@react-native-firebase/database';
-import Styles, {IconStyles} from '../../Styles';
+import {IconStyles} from '../../Styles';
 import Chatbox from './Chatbox';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-const CommentSection = ({videoData, visible, toggleCommentSection}) => {
+import {FlatList} from 'react-native-gesture-handler';
+const CommentSection = ({videoData}) => {
   const [commentData, setCommentData] = useState([]);
   const [comment, setComment] = useState('');
   const [disabled, setDisabled] = useState(true);
@@ -24,8 +23,11 @@ const CommentSection = ({videoData, visible, toggleCommentSection}) => {
       .on('value', (snapshot) => {
         if (snapshot.exists()) {
           const commentItem = snapshot.val();
-          let commentsArray = Object.values(commentItem);
-          setCommentData(commentsArray);
+          let tempArray = [];
+          for (const keys in commentItem) {
+            tempArray.push({_id: keys, ...commentItem[keys]});
+          }
+          setCommentData(tempArray);
         } else {
           setCommentData([]);
         }
@@ -75,91 +77,90 @@ const CommentSection = ({videoData, visible, toggleCommentSection}) => {
     else setDisabled(true);
   };
 
+  const commentDeleteHandler = (props) => {
+    database().ref(`/comments/${props.videoId}`).child(props._id).remove();
+  };
   return (
     <View>
-      <Modal
-        animationType="slide"
-        transparent={false}
-        visible={visible}
-        onRequestClose={toggleCommentSection}>
-        <View style={{flex: 1}}>
-          <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <Icon
-              name="arrow-back"
-              raised
-              size={20}
-              onPress={toggleCommentSection}
-              color="#000"
-              type={IconStyles.iconType}
-            />
-            <Text style={{fontWeight: '700', ...Styles.fontFamily}}>
-              {videoData.title}
-            </Text>
-          </View>
+      <View style={styles.container}>
+        <FlatList
+          ListEmptyComponent={
+            <Text style={styles.emptyComments}>No comments available</Text>
+          }
+          keyExtractor={(item, i) => i.toString()}
+          renderItem={(item) => {
+            return (
+              <View style={styles.renderItem}>
+                <Chatbox
+                  commentDeleteHandler={() => commentDeleteHandler(item.item)}
+                  value={item.item}
+                />
+              </View>
+            );
+          }}
+          data={commentData}
+        />
+      </View>
 
-          <ScrollView
-            style={{
-              width: '100%',
-            }}>
-            {commentData.length ? (
-              commentData.map((item, i) => {
-                return (
-                  <View
-                    style={{
-                      flex: 1,
-                      justifyContent: 'flex-start',
-                      alignItems: 'center',
-                      marginHorizontal: 10,
-                    }}
-                    key={i}>
-                    <Chatbox value={item} />
-                  </View>
-                );
-              })
-            ) : (
-              <Text style={{textAlign: 'center'}}>No comments available</Text>
-            )}
-          </ScrollView>
-        </View>
-        <View style={{flexDirection: 'row'}}>
-          <View style={{flex: 4}}>
-            <TextInput
-              placeholder="Enter Comment"
-              value={comment}
-              onChangeText={(e) => onCommentHandler(e)}
-              style={{
-                color: '#000',
-                borderWidth: 1,
-                fontSize: 15,
-                paddingLeft: 10,
-                margin: 10,
-                borderRadius: 10,
-                borderColor: 'rgba(0,0,0,0.3)',
-              }}
-              placeholderTextColor="rgba(0,0,0,0.3)"
-            />
-          </View>
-
-          <View style={{flex: 1}}>
-            <TouchableOpacity
-              activeOpacity={0.8}
-              disabled={!comment.length}
-              onPress={onCommentSubmitHandler}>
-              <Icon
-                size={24}
-                disabled={disabled}
-                type={IconStyles.iconType}
-                color={'blue'}
-                reverse={true}
-                name="play"
-                raised={true}
-              />
-            </TouchableOpacity>
-          </View>
-        </View>
-      </Modal>
+      <View style={styles.inputContainer}>
+        <TextInput
+          multiline={true}
+          placeholder="Enter Comment"
+          value={comment}
+          onSubmitEditing={onCommentSubmitHandler}
+          onChangeText={(e) => onCommentHandler(e)}
+          style={styles.inputTextField}
+          placeholderTextColor="rgba(0,0,0,0.3)"
+        />
+        <TouchableOpacity
+          style={{flex: 1}}
+          activeOpacity={0.8}
+          disabled={!comment.length}
+          onPress={onCommentSubmitHandler}>
+          <Icon
+            size={24}
+            disabled={disabled}
+            type={IconStyles.iconType}
+            color={'blue'}
+            reverse={true}
+            name="play"
+            raised={true}
+          />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    minHeight: '100%',
+    paddingBottom: '20%',
+  },
+  inputContainer: {
+    backgroundColor: '#fff',
+    flexDirection: 'row',
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+  },
+  renderItem: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    marginHorizontal: 10,
+  },
+  inputTextField: {
+    color: '#000',
+    borderWidth: 1,
+    flex: 4,
+    fontSize: 15,
+    paddingLeft: 10,
+    margin: 10,
+    borderRadius: 10,
+    borderColor: 'rgba(0,0,0,0.3)',
+  },
+  emptyComments: {textAlign: 'center', marginTop: 10},
+});
 
 export default CommentSection;

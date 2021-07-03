@@ -40,16 +40,6 @@ const ContentList = ({data, videoClickEventHandler}) => {
                     {value.title}
                   </Text>
                 </View>
-                <TouchableOpacity
-                  onPress={() => toggleCommentSection(value)}
-                  style={{marginHorizontal: 20}}>
-                  <Icon
-                    size={25}
-                    type={IconStyles.iconType}
-                    color={'#000'}
-                    name="chatbox"
-                  />
-                </TouchableOpacity>
                 {value.urlType == 'video' ? (
                   <Icon
                     size={25}
@@ -59,7 +49,7 @@ const ContentList = ({data, videoClickEventHandler}) => {
                   />
                 ) : (
                   <Icon
-                    size={20}
+                    size={25}
                     type={IconStyles.iconType}
                     color={'#000'}
                     name="link"

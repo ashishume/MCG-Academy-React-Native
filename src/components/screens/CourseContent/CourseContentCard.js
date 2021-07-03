@@ -12,6 +12,7 @@ const CourseContentCard = (props) => {
     };
 
     props.activateVideo(body);
+    props.navigation.navigate('VideoPage', e);    //NAVIGATE TO VIDEO AND COMMENTS PAGE
   };
 
   return (
