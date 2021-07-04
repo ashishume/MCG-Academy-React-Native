@@ -8,7 +8,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import {Icon} from 'react-native-elements';
-import database from '@react-native-firebase/database';
+import database, {firebase} from '@react-native-firebase/database';
 import {IconStyles} from '../../Styles';
 import Chatbox from './Chatbox';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -22,12 +22,11 @@ const CommentSection = ({videoData}) => {
       .ref(`/comments/${videoData._id}`)
       .on('value', (snapshot) => {
         if (snapshot.exists()) {
-          const commentItem = snapshot.val();
           let tempArray = [];
-          for (const keys in commentItem) {
-            tempArray.push({_id: keys, ...commentItem[keys]});
-          }
-          setCommentData(tempArray);
+          snapshot.forEach((v) => {
+            tempArray.push({_id: v.key, ...v.val()});
+          });
+          setCommentData(tempArray.reverse());
         } else {
           setCommentData([]);
         }
@@ -50,7 +49,7 @@ const CommentSection = ({videoData}) => {
   };
 
   const onCommentSubmitHandler = () => {
-    let date = new Date().toDateString();
+    let date = firebase.database.ServerValue.TIMESTAMP;
     fetchUserData().then((userData) => {
       const commentObj = {
         ...userData,

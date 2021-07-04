@@ -53,7 +53,7 @@ const Chatbox = ({value, commentDeleteHandler}) => {
       </View>
       <View style={styles.commentData}>
         <Text numberOfLines={1} style={styles.createdDate}>
-          {value.createdAt}
+          {new Date(value.createdAt).toDateString()}
         </Text>
       </View>
       <TouchableOpacity
