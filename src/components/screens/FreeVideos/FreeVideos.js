@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {View, SafeAreaView, ScrollView} from 'react-native';
+import {View, SafeAreaView, FlatList, Text} from 'react-native';
 import TopHeader from '../../Shared/Header';
 import {connect} from 'react-redux';
 import {fetchFreeVideos} from '../../../store/actions/video';
@@ -21,17 +21,19 @@ const FreeVideos = (props) => {
       <TopHeader name="Free Videos" />
       <SafeAreaView
         style={{flex: 1, backgroundColor: '#fff', paddingBottom: 5}}>
-        <ScrollView style={{flex: 1}}>
-          {props.videos.map((value, i) => {
+        <FlatList
+          ListEmptyComponent={<Text>No videos available</Text>}
+          keyExtractor={(item, i) => i.toString()}
+          renderItem={(item) => {
             return (
               <FreeVideosCard
-                key={i}
-                onClickVideoItem={() => videoEventHandler(value)}
-                content={value}
+                onClickVideoItem={() => videoEventHandler(item.item)}
+                content={item.item}
               />
             );
-          })}
-        </ScrollView>
+          }}
+          data={props.videos}
+        />
       </SafeAreaView>
     </View>
   );

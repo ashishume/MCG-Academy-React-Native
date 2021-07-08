@@ -1,5 +1,5 @@
 import React, {Fragment, useEffect, useState} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet,Linking} from 'react-native';
 import {activateVideo, deActivateVideo} from '../../../store/actions/video';
 import {connect} from 'react-redux';
 import {Divider, Icon} from 'react-native-elements';
@@ -25,12 +25,12 @@ const FreeVideosContent = (props) => {
       props.deActivateVideo(body);
     };
   }, []);
-  const onClickUrl = (e) => {
+  const toggleCommentSection = (e) => {
     setVisible(true);
     setVideoData(e);
   };
-  const toggleCommentSection = (props) => {
-    setVisible(!visible);
+  const onClickUrl = (e) => {
+    Linking.openURL(e.otherUrl);
   };
   return (
     <Fragment>
@@ -62,12 +62,20 @@ const FreeVideosContent = (props) => {
           <Text style={styles.description}>{content.videoDescription}</Text>
           <Text style={styles.otherUrl}>
             <Icon
-              onPress={() => onClickUrl(content)}
+              onPress={() => toggleCommentSection(content)}
               size={25}
               raised
               type={IconStyles.iconType}
               color={'#000'}
               name="chatbox"
+            />
+            <Icon
+              onPress={() => onClickUrl(content)}
+              size={25}
+              raised
+              type={IconStyles.iconType}
+              color={'#000'}
+              name="file-tray"
             />
           </Text>
         </View>
