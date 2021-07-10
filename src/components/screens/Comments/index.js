@@ -72,7 +72,7 @@ const CommentSection = ({videoData}) => {
 
   const onCommentHandler = (v) => {
     setComment(v);
-    if (v.length) setDisabled(false);
+    if (v.trim().length) setDisabled(false);
     else setDisabled(true);
   };
 

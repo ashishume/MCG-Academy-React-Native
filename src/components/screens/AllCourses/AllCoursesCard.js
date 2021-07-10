@@ -27,9 +27,9 @@ const AllCourseCard = ({content}) => {
         <Text numberOfLines={1} style={styles.title}>
           {content.courseTitle.toLowerCase().replace(/\b(\w)/g, (k) => k.toUpperCase())}
         </Text>
-        <Text numberOfLines={1} style={styles.price}>
+        {/* <Text numberOfLines={1} style={styles.price}>
           ₹{content.price}
-        </Text>
+        </Text> */}
         <Text numberOfLines={1} style={styles.author}>
           {content.author.toLowerCase().replace(/\b(\w)/g, (k) => k.toUpperCase())}
         </Text>

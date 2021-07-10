@@ -29,27 +29,10 @@ class Login extends Component {
   };
 
   async componentDidMount() {
-    // BackHandler.addEventListener('hardwareBackPress', this.backAction);
-
     const email = await AsyncStorage.getItem('email');
     if (email != null) this.props.navigation.navigate('Dashboard');
   }
 
-  // backAction = () => {
-  //   Alert.alert('Hold on!', 'Are you sure you want to exit?', [
-  //     {
-  //       text: 'Cancel',
-  //       onPress: () => null,
-  //       style: 'cancel',
-  //     },
-  //     {text: 'YES', onPress: () => BackHandler.exitApp()},
-  //   ]);
-  //   return true;
-  // };
-
-  componentWillUnmount() {
-    // BackHandler.removeEventListener('hardwareBackPress', this.backAction);
-  }
   loginHandler = () => {
     const body = {
       email: this.state.email,
@@ -116,7 +99,14 @@ class Login extends Component {
             style={styles.buttonContainer}>
             <Text style={styles.buttonText}>Login</Text>
           </TouchableOpacity>
-          <View
+
+          <Text style={{textAlign: 'center', paddingTop: 10}}>Or</Text>
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate('Signup')}
+            style={styles.registerButtonContainer}>
+            <Text style={styles.buttonText}>Register</Text>
+          </TouchableOpacity>
+          {/* <View
             style={{
               marginTop: 20,
               flexDirection: 'row',
@@ -135,7 +125,7 @@ class Login extends Component {
                 Forgot password?
               </Text>
             </TouchableOpacity>
-          </View>
+          </View> */}
         </View>
       </ImageBackground>
     );
@@ -187,6 +177,20 @@ const styles = StyleSheet.create({
   buttonContainer: {
     marginTop: 20,
     backgroundColor: '#c20202',
+    padding: 15,
+    shadowColor: '#000',
+    borderRadius: 5,
+    shadowOffset: {
+      width: 0,
+      height: 6,
+    },
+    shadowOpacity: 0.37,
+    shadowRadius: 7.49,
+    elevation: 15,
+  },
+  registerButtonContainer: {
+    marginTop: 20,
+    backgroundColor: 'blue',
     padding: 15,
     shadowColor: '#000',
     borderRadius: 5,

@@ -21,9 +21,9 @@ const LatestCourseItem = (props) => {
             .toLowerCase()
             .replace(/\b(\w)/g, (k) => k.toUpperCase())}
         </Text>
-        <Text numberOfLines={1} style={styles.courseType}>
+        {/* <Text numberOfLines={1} style={styles.courseType}>
           ₹ {props.content.price}
-        </Text>
+        </Text> */}
         <View numberOfLines={1} style={styles.badgeContainer}>
           <TypeBadge color="#4fb524" name={props.content.courseType} />
         </View>

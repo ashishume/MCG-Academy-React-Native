@@ -12,6 +12,7 @@ const BuyCourseCard = (props) => {
       courseTitle: e.title,
     };
     props.activateVideo(body);
+    props.navigation.navigate('VideoPage', e);
   };
 
   const [Bought, setBought] = useState(false);
@@ -40,6 +41,7 @@ const BuyCourseCard = (props) => {
 
   return (
     <Fragment>
+      {console.log(props.content)}
       <View style={styles.container}>
         <View>
           <Text style={styles.courseTitle}>{props.content.courseTitle}</Text>
@@ -52,7 +54,7 @@ const BuyCourseCard = (props) => {
           <Text style={styles.price}>₹{props.content.price}</Text>
         </View>
 
-        {Bought === false ? (
+        {Bought === false && props.content.price !== 0 ? (
           <View style={styles.buyNowContainer}>
             <TouchableOpacity
               onPress={() => buyNewCourseHandler(props.content)}
