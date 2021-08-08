@@ -1,40 +1,33 @@
-import React, {Component, Fragment, useEffect, useState} from 'react';
-import {
-  View,
-  Text,
-  Button,
-  Dimensions,
-  StyleSheet,
-  Alert,
-  ToastAndroid,
-} from 'react-native';
+import React, {Fragment, useEffect, useState} from 'react';
+import {View, Text, StyleSheet, ToastAndroid} from 'react-native';
 import RazorpayCheckout from 'react-native-razorpay';
-import {
-  TouchableHighlight,
-  TouchableOpacity,
-} from 'react-native-gesture-handler';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 import {buyNewCourse} from '../store/actions/courses';
 import {connect} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Icon} from 'react-native-elements';
 import {IconStyles} from './Styles';
 import {RAZOR_PAY_KEY} from '../API/ApiPaths';
-const {width, height} = Dimensions.get('window');
+import {buyNewTestSeries} from '../store/actions/testSeries';
 const Payment = (props) => {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [name, setName] = useState('');
   const [isPaid, setPaid] = useState(false);
-  const course = props.route.params;
+  const [userInfoId, setUserId] = useState(false);
+
+  const {_id, price, timeLimit, courseTitle, isTestSeries} = props.route.params;
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const email = await AsyncStorage.getItem('email');
-        setEmail(email);
-        const name = await AsyncStorage.getItem('name');
-        setName(name);
-        const phone = await AsyncStorage.getItem('phone');
-        setPhone(phone);
+        const emailData = await AsyncStorage.getItem('email');
+        setEmail(emailData);
+        const nameData = await AsyncStorage.getItem('name');
+        setName(nameData);
+        const phoneData = await AsyncStorage.getItem('phone');
+        setPhone(phoneData);
+        const userIdData = await AsyncStorage.getItem('userId');
+        setUserId(userIdData);
       } catch (e) {
         ToastAndroid.show('Something went Wrong', ToastAndroid.LONG);
       }
@@ -44,10 +37,20 @@ const Payment = (props) => {
   }, []);
 
   const paymentSuccess = async () => {
-    const id = props.route.params._id;
-    await props.buyNewCourse(id);
-    await props.navigation.navigate('Dashboard');
+    const id = _id;
+    if (isTestSeries) {
+      const dbObj = {
+        test: id,
+        user: userInfoId,
+        amount: price,
+        timeLimit: timeLimit,
+      };
+      await buyNewTestSeries(dbObj);
+    } else {
+      await props.buyNewCourse(id);
+    }
     await setPaid(false);
+    await props.navigation.navigate('Dashboard');
   };
 
   const makePayment = () => {
@@ -56,8 +59,8 @@ const Payment = (props) => {
       image: 'https://mcg-academy-40050.web.app/static/media/logo.d07396b6.jpg',
       currency: 'INR',
       key: RAZOR_PAY_KEY.key, // Your api key
-      amount: props.route.params.price * 100,
-      name: props.route.params.courseTitle,
+      amount: price * 100,
+      name: courseTitle,
       prefill: {
         email: email,
         name: name,
@@ -101,10 +104,14 @@ const Payment = (props) => {
             <Text style={styles.OrderDetailsText}>Order details</Text>
           </View>
           <View style={styles.summaryContainer}>
-            <Text style={styles.summaryText}>Course:{course.courseTitle}</Text>
-            <Text style={styles.summaryText}>Price:₹ {course.price}</Text>
-            <Text style={styles.summaryText}>
-              Course validity:{course.timeLimit} days
+            <Text numberOfLines={1} style={styles.summaryText}>
+              {isTestSeries ? 'Exam' : 'Course'}: {courseTitle}
+            </Text>
+            <Text numberOfLines={1} style={styles.summaryText}>
+              Price: ₹{price}
+            </Text>
+            <Text numberOfLines={1} style={styles.summaryText}>
+              {isTestSeries ? 'Exam' : 'Course'} validity: {timeLimit} days
             </Text>
           </View>
           <TouchableOpacity

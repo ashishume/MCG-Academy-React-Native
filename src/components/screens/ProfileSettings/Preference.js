@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {
   Modal,
   StyleSheet,
@@ -8,7 +8,6 @@ import {
   View,
 } from 'react-native';
 import {MultipleSelectPicker} from 'react-native-multi-select-picker';
-import {ScrollView} from 'react-native-gesture-handler';
 const width = Dimensions.get('screen').width;
 const Preference = (props) => {
   const [selectedItems, setSelectedItems] = useState([]);

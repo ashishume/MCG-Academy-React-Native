@@ -6,6 +6,7 @@ import MyCourses from '../components/screens/MyCourses/MyCourses';
 import {IconStyles} from '../components/Styles';
 import Library from '../components/screens/Library/Library';
 import FreeVideos from '../components/screens/FreeVideos/FreeVideos';
+import TestSeries from '../components/screens/TestSeries';
 
 const Tab = createBottomTabNavigator();
 
@@ -23,6 +24,8 @@ const DrawerNavigation = () => {
             iconName = 'ios-library';
           } else if (route.name === 'My Courses') {
             iconName = 'ios-play';
+          } else if (route.name === 'Test Series') {
+            iconName = 'clipboard';
           }
           return (
             <Icon
@@ -42,23 +45,10 @@ const DrawerNavigation = () => {
       <Tab.Screen name="Free Videos" component={FreeVideos} />
       <Tab.Screen name="My Courses" component={MyCourses} />
       <Tab.Screen name="Library" component={Library} />
+      <Tab.Screen name="Test Series" component={TestSeries} />
     </Tab.Navigator>
   );
 };
 
-//For sample Don't Delete!!!!!!!!!!!
-
-// class DrawerNavigation extends Component {
-//   render() {
-//     const Drawer = createDrawerNavigator();
-//     return (
-//       <Drawer.Navigator initialRouteName="Dashboard">
-//         <Drawer.Screen name="Dashboard" component={Dashboard} />
-//         {/* <Drawer.Screen name="Privacy Policy" component={PrivacyPolicy} /> */}
-//       </Drawer.Navigator>
-//     );
-//   }
-// }
-//For sample Don't Delete!!!!!!!!!!!
 
 export default DrawerNavigation;

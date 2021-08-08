@@ -20,6 +20,7 @@ const App = () => {
       <StatusBar backgroundColor="black" />
       <MainRouting />
       <LoaderComponent />
+      {/* <TestSeries/> */}
     </Fragment>
   );
 };

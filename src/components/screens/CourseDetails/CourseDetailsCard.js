@@ -36,12 +36,14 @@ const BuyCourseCard = (props) => {
       courseTitle: e.title,
     };
     props.deActivateVideo(body);
-    props.navigation.navigate('Payment', props.content);
+    props.navigation.navigate('Payment', {
+      ...props.content,
+      ...{isTestSeries: false},
+    });
   };
 
   return (
     <Fragment>
-      {console.log(props.content)}
       <View style={styles.container}>
         <View>
           <Text style={styles.courseTitle}>{props.content.courseTitle}</Text>

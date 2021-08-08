@@ -13,6 +13,11 @@ export const API_NAME = {
   IMAGES: 'images/',
   CATEGORY: 'category',
   FEATURED: 'courses/featured/category',
+  //test series paths
+  TEST_SERIES_CATEGORIES: 'test-series/category',
+  TEST_SERIES_EXAMS: 'test-series/exam',
+  TEST_SERIES_QUESTIONS: 'test-series/question',
+  BUY_NEW_TEST_SERIES: 'test-series/buy-test',
 };
 
 export const RAZOR_PAY_KEY = {
