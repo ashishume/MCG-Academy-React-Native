@@ -3,6 +3,7 @@ const initialState = {
   testCategories: [],
   testExams: [],
   testQuestions: [],
+  myTests: [],
 };
 
 const testSeriesReducer = (state = initialState, action) => {
@@ -21,6 +22,11 @@ const testSeriesReducer = (state = initialState, action) => {
       return {
         ...state,
         testQuestions: action.payload,
+      };
+    case ActionTypes.FETCH_MY_TEST_SERIES:
+      return {
+        ...state,
+        myTests: action.payload,
       };
     default:
       return state;

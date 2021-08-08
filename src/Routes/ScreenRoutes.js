@@ -22,6 +22,7 @@ import AddNewPassword from '../components/screens/AddNewPassword';
 import CommentSection from '../components/screens/Comments';
 import VideoPage from '../components/screens/VideoPage';
 import ExamInstruction from '../components/screens/TestSeries/ExamInstruction';
+import MyBoughtTests from '../components/screens/TestSeries/MyBoughtTests';
 export const SCREEN_ROUTES = [
   {
     name: 'CourseDetails',
@@ -152,6 +153,12 @@ export const SCREEN_ROUTES = [
   {
     name: 'Exam description',
     component: ExamInstruction,
+    header: true,
+    backgroundColor: '#fff',
+  },
+  {
+    name: 'My tests',
+    component: MyBoughtTests,
     header: true,
     backgroundColor: '#fff',
   },

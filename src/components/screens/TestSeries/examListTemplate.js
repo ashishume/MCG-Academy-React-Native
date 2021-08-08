@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Image, Text, TouchableOpacity} from 'react-native';
 
 const ExamListTemplate = (props) => {
+  const [isEnrolled, setEnrolled] = useState(false);
   const {
     category,
     _id,
@@ -13,6 +14,17 @@ const ExamListTemplate = (props) => {
     price,
     timeLimit,
   } = props.data;
+  const {boughtTestData} = props;
+  useEffect(() => {
+    const funcCall = async () => {
+      const check = await boughtTestData.some(
+        (value) => value.test._id === _id,
+      );
+      await setEnrolled(check);
+    };
+    funcCall();
+  });
+
   return (
     <TouchableOpacity
       onPress={() => props.routeToDescription(name, instructions)}
@@ -40,28 +52,49 @@ const ExamListTemplate = (props) => {
           Valid for {timeLimit} days
         </Text>
       </View>
-      <TouchableOpacity
-        activeOpacity={0.8}
-        onPress={() =>
-          props.makeTestSeriesPayment(_id, price, timeLimit, name)
-        }
-        style={{
-          backgroundColor: '#c20202',
-          height: 40,
-          marginVertical: 10,
-          flex: 1,
-          justifyContent: 'center',
-          borderRadius: 20,
-          width: '100%',
-        }}>
-        {isPaid ? (
-          <Text style={{color: '#fff', textAlign: 'center'}}>
-            Buy for ₹{price}
-          </Text>
-        ) : (
-          <Text style={{color: '#fff', textAlign: 'center'}}>Enroll free</Text>
-        )}
-      </TouchableOpacity>
+      {!isEnrolled ? (
+        <TouchableOpacity
+          activeOpacity={0.8}
+          onPress={() =>
+            props.makeTestSeriesPayment(_id, price, timeLimit, name, isPaid)
+          }
+          style={{
+            backgroundColor: '#c20202',
+            height: 40,
+            marginVertical: 10,
+            flex: 1,
+            justifyContent: 'center',
+            borderRadius: 20,
+            width: '100%',
+          }}>
+          {isPaid ? (
+            <Text style={{color: '#fff', textAlign: 'center'}}>
+              Buy for ₹{price}
+            </Text>
+          ) : (
+            <Text style={{color: '#fff', textAlign: 'center'}}>
+              Enroll free
+            </Text>
+          )}
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity
+          activeOpacity={0.8}
+          onPress={() => {
+            console.log('navigate to test');
+          }}
+          style={{
+            backgroundColor: 'green',
+            height: 40,
+            marginVertical: 10,
+            flex: 1,
+            justifyContent: 'center',
+            borderRadius: 20,
+            width: '100%',
+          }}>
+          <Text style={{color: '#fff', textAlign: 'center'}}>Continue test</Text>
+        </TouchableOpacity>
+      )}
     </TouchableOpacity>
   );
 };

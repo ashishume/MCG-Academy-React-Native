@@ -10,6 +10,7 @@ import {connect} from 'react-redux';
 import {
   fetchAllExams,
   fetchAllTestCategories,
+  fetchAllBoughtTests,
 } from '../../../store/actions/testSeries';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ExamListTemplate from './examListTemplate';
@@ -20,6 +21,7 @@ const TestSeries = (props) => {
 
   useEffect(() => {
     props.fetchAllTestCategories();
+    props.fetchAllBoughtTests();
     fetchCategoryData();
   }, []);
 
@@ -46,13 +48,14 @@ const TestSeries = (props) => {
   const routeToDescription = (name, desc) => {
     props.navigation.navigate('Exam description', {name, desc});
   };
-  const makeTestSeriesPayment = (id, price, timeLimit, name) => {
+  const makeTestSeriesPayment = (id, price, timeLimit, name, isPaid) => {
     const obj = {
       _id: id,
       price,
       timeLimit: timeLimit,
       courseTitle: name,
       isTestSeries: true,
+      isPaid,
     };
     props.navigation.navigate('Payment', obj);
   };
@@ -114,18 +117,12 @@ const TestSeries = (props) => {
               No tests available
             </Text>
           }
-          // const {_id, price, timeLimit, courseTitle, isTestSeries} = props.route.params;
-
           renderItem={({item, index}) => {
             return (
               <ExamListTemplate
-                makeTestSeriesPayment={(
-                  id,
-                  price,
-                  timeLimit,
-                  name,
-                ) =>
-                  makeTestSeriesPayment(id, price, timeLimit, name)
+                boughtTestData={props.myTests}
+                makeTestSeriesPayment={(id, price, timeLimit, name, isPaid) =>
+                  makeTestSeriesPayment(id, price, timeLimit, name, isPaid)
                 }
                 routeToDescription={(name, desc) =>
                   routeToDescription(name, desc)
@@ -141,15 +138,17 @@ const TestSeries = (props) => {
   );
 };
 const mapStateToProps = ({testSeries}) => {
-  const {testCategories, testExams, testQuestions} = testSeries;
+  const {testCategories, testExams, testQuestions, myTests} = testSeries;
   return {
     testCategories,
     testExams,
     testQuestions,
+    myTests,
   };
 };
 
 export default connect(mapStateToProps, {
   fetchAllTestCategories,
   fetchAllExams,
+  fetchAllBoughtTests,
 })(TestSeries);

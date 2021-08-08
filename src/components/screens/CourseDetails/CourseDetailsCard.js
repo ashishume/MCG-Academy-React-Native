@@ -56,12 +56,14 @@ const BuyCourseCard = (props) => {
           <Text style={styles.price}>₹{props.content.price}</Text>
         </View>
 
-        {Bought === false && props.content.price !== 0 ? (
+        {Bought === false ? (
           <View style={styles.buyNowContainer}>
             <TouchableOpacity
               onPress={() => buyNewCourseHandler(props.content)}
               style={styles.buyNowButton}>
-              <Text style={styles.buyNowButtonText}>Buy Now</Text>
+              <Text style={styles.buyNowButtonText}>
+                {props.content.price === 0 ? 'Enroll Free' : 'Buy Now'}
+              </Text>
             </TouchableOpacity>
           </View>
         ) : (

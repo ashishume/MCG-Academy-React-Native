@@ -13,10 +13,11 @@ const Payment = (props) => {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [name, setName] = useState('');
-  const [isPaid, setPaid] = useState(false);
+  const [isPaidData, setPaid] = useState(false);
   const [userInfoId, setUserId] = useState(false);
 
-  const {_id, price, timeLimit, courseTitle, isTestSeries} = props.route.params;
+  const {_id, price, timeLimit, courseTitle, isTestSeries, isPaid} =
+    props.route.params;
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -53,7 +54,31 @@ const Payment = (props) => {
     await props.navigation.navigate('Dashboard');
   };
 
-  const makePayment = () => {
+  const makePayment = async () => {
+    const id = _id;
+    const testObject = {
+      test: id,
+      user: userInfoId,
+      amount: price,
+      timeLimit: timeLimit,
+    };
+
+    if (!isTestSeries && typeof isPaid === 'undefined' && price !== 0)
+      await paymentHandler(); //course with price
+
+    if (!isTestSeries && price === 0 && typeof isPaid === 'undefined') {
+      await props.buyNewCourse(id); //free course
+      await props.navigation.navigate('Dashboard');
+    }
+    if (isTestSeries && isPaid) await paymentHandler(); //paid test series
+
+    if (isTestSeries && !isPaid) {
+      await buyNewTestSeries(testObject); //free test series
+      await props.navigation.navigate('My tests');
+    }
+  };
+
+  const paymentHandler = () => {
     var options = {
       description: `Payment to MCG Academy`,
       image: 'https://mcg-academy-40050.web.app/static/media/logo.d07396b6.jpg',
@@ -81,9 +106,10 @@ const Payment = (props) => {
         ToastAndroid.show('Payment failed', ToastAndroid.LONG);
       });
   };
+
   return (
     <Fragment>
-      {isPaid ? (
+      {isPaidData ? (
         <View style={styles.topContainer}>
           <Icon
             name="checkmark"
