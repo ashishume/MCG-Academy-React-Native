@@ -23,6 +23,7 @@ import CommentSection from '../components/screens/Comments';
 import VideoPage from '../components/screens/VideoPage';
 import ExamInstruction from '../components/screens/TestSeries/ExamInstruction';
 import MyBoughtTests from '../components/screens/TestSeries/MyBoughtTests';
+import ExamScreen from '../components/screens/TestSeries/ExamScreen';
 export const SCREEN_ROUTES = [
   {
     name: 'CourseDetails',
@@ -160,6 +161,12 @@ export const SCREEN_ROUTES = [
     name: 'My tests',
     component: MyBoughtTests,
     header: true,
+    backgroundColor: '#fff',
+  },
+  {
+    name: 'ExamScreen',
+    component: ExamScreen,
+    header: false,
     backgroundColor: '#fff',
   },
 ];

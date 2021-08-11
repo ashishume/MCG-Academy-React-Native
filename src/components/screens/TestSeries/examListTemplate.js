@@ -80,9 +80,7 @@ const ExamListTemplate = (props) => {
       ) : (
         <TouchableOpacity
           activeOpacity={0.8}
-          onPress={() => {
-            console.log('navigate to test');
-          }}
+          onPress={() => props.continueToTest(props.data)}
           style={{
             backgroundColor: 'green',
             height: 40,
@@ -92,7 +90,9 @@ const ExamListTemplate = (props) => {
             borderRadius: 20,
             width: '100%',
           }}>
-          <Text style={{color: '#fff', textAlign: 'center'}}>Continue test</Text>
+          <Text style={{color: '#fff', textAlign: 'center'}}>
+            Continue test
+          </Text>
         </TouchableOpacity>
       )}
     </TouchableOpacity>

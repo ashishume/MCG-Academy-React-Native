@@ -27,10 +27,11 @@ const TestSeries = (props) => {
 
   const renderPreferenceItems = async (e) => {
     try {
-      props.fetchAllExams(e._id);
+      await props.fetchAllExams(e._id);
       const categoryData = JSON.stringify(e);
       await AsyncStorage.setItem('testCategorySelected', categoryData);
-      setVisible(false);
+      await setVisible(false);
+      await setSelectedCategory(e.name);
     } catch (e) {
       ToastAndroid.show('Something went wrong', ToastAndroid.SHORT);
     }
@@ -40,13 +41,16 @@ const TestSeries = (props) => {
     try {
       const data = await AsyncStorage.getItem('testCategorySelected');
       const newData = JSON.parse(data);
-      setSelectedCategory(newData.name);
+      // await setSelectedCategory(newData.name);
     } catch (e) {
       ToastAndroid.show('Something went wrong', ToastAndroid.SHORT);
     }
   };
   const routeToDescription = (name, desc) => {
-    props.navigation.navigate('Exam description', {name, desc});
+    props.navigation.navigate('Exam description', {name, desc, onlyView: true});
+  };
+  const continueToTest = (data) => {
+    props.navigation.navigate('Exam description', {onlyView: false, data});
   };
   const makeTestSeriesPayment = (id, price, timeLimit, name, isPaid) => {
     const obj = {
@@ -127,6 +131,7 @@ const TestSeries = (props) => {
                 routeToDescription={(name, desc) =>
                   routeToDescription(name, desc)
                 }
+                continueToTest={(data) => continueToTest(data)}
                 data={item}
               />
             );
