@@ -24,6 +24,7 @@ import VideoPage from '../components/screens/VideoPage';
 import ExamInstruction from '../components/screens/TestSeries/ExamInstruction';
 import MyBoughtTests from '../components/screens/TestSeries/MyBoughtTests';
 import ExamScreen from '../components/screens/TestSeries/ExamScreen';
+import Results from '../components/screens/TestSeries/Results';
 export const SCREEN_ROUTES = [
   {
     name: 'CourseDetails',
@@ -166,6 +167,12 @@ export const SCREEN_ROUTES = [
   {
     name: 'ExamScreen',
     component: ExamScreen,
+    header: false,
+    backgroundColor: '#fff',
+  },
+  {
+    name: 'Results',
+    component: Results,
     header: false,
     backgroundColor: '#fff',
   },
