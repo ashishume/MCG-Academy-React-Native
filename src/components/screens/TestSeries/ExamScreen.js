@@ -5,6 +5,7 @@ import {
   View,
   useWindowDimensions,
   Text,
+  ToastAndroid,
 } from 'react-native';
 
 import RenderHtml from 'react-native-render-html';
@@ -62,14 +63,17 @@ const ExamScreen = (props) => {
   };
 
   //on time up
-  const timeupHandler = () => {
-    props.navigation.navigate('Results', allQuestions);
+  const timeupHandler = (result = {}) => {
+    props.navigation.navigate('Results', {allQuestions, result});
   };
 
   const nextQuestionHandler = async () => {
     allQuestions[index].answeredOption = selectedOption; //set the answer choosen by user
 
-    if (index === maxIndex) timeupHandler();
+    //finishing exam
+    if (index === maxIndex) {
+      submitExamHandler();
+    }
 
     await setIndex(index + 1); //set the index of next
     let temp = index + 1;
@@ -77,6 +81,27 @@ const ExamScreen = (props) => {
       //select quetion state
       selectQuestionHandler(allQuestions[temp], temp);
     setIsChecked('');
+  };
+
+  const submitExamHandler = () => {
+    ToastAndroid.show('Submiting your exam, please wait...', ToastAndroid.LONG);
+    setTimeout(() => {
+      let correct = 0;
+      let attempted = 0;
+      let wrong = 0;
+      allQuestions.map((value) => {
+        if (value?.answeredOption?.isCorrect === false) {
+          wrong += 1;
+        }
+        if (value?.answeredOption?.isCorrect === true) {
+          correct += 1;
+        }
+        if (value?.answeredOption !== undefined) {
+          attempted += 1;
+        }
+      });
+      timeupHandler({attempted, correct, wrong});
+    }, 1000);
   };
 
   return (
@@ -168,8 +193,10 @@ const ExamScreen = (props) => {
           {currentQuestion.options.length !== 0
             ? currentQuestion.options.map((value) => {
                 return (
-                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                    <View style={{width:'90%'}}>
+                  <View
+                    key={value._id}
+                    style={{flexDirection: 'row', alignItems: 'center'}}>
+                    <View style={{width: '90%'}}>
                       <CheckBox
                         key={value._id}
                         title={value.optionTitle}

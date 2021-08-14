@@ -1,40 +1,34 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import RenderHtml from 'react-native-render-html';
 import {FlatList, View, useWindowDimensions, Text} from 'react-native';
 import {IconStyles} from '../../Styles';
 import {Icon} from 'react-native-elements';
 
 const Results = (props) => {
-  const {params} = props.route;
+  const {allQuestions, result} = props.route.params;
   const {width} = useWindowDimensions();
 
-  // const [attempted, setAttempted] = useState(0);
-  // const [correct, setCorrect] = useState(0);
-  // const [wrong, setWrong] = useState(0);
-
-  useEffect(() => {
-    // attemptedQuestions();
-  }, []);
-
-  // const attemptedQuestions = () => {
-  //   // params.map(async (v) => {
-  //   //   if (v?.answeredOption?.isCorrect === true) await setCorrect(correct + 1);
-  //   //   if (v?.answeredOption?.isCorrect === false) await setWrong(wrong + 1);
-  //   //   if (v?.answeredOption !== undefined) await setAttempted(attempted + 1);
-  //   // });
-  // };
+  const fontStyle = {fontSize: 20, textAlign: 'left', fontWeight: 'bold'};
 
   return (
     <View style={{margin: 5}}>
-      {/* <View>
-        <Text>Attempted Questions: {attempted}</Text>
-        <Text>Correct Answers: {correct}</Text>
-        <Text>Wrong Answers: {wrong}</Text>
-      </View> */}
+      <View
+        style={{
+          marginVertical: 5,
+          paddingVertical: 5,
+          borderBottomColor: 'rgba(0,0,0,0.3)',
+          borderBottomWidth: 1,
+        }}>
+        <Text style={{fontSize: 25, marginBottom: 10}}>Your results</Text>
+        <Text style={fontStyle}>Attempted Questions: {result.attempted}</Text>
+        <Text style={fontStyle}>Correct Answers: {result.correct}</Text>
+        <Text style={fontStyle}>Wrong Answers: {result.wrong}</Text>
+      </View>
 
-      <Text style={{fontSize: 20, fontWeight: 'bold'}}>Correct Answers</Text>
+      <Text style={{fontSize: 20, fontWeight: 'bold'}}>Explanations</Text>
       <FlatList
-        data={params}
+        data={allQuestions}
+        style={{marginBottom: 170}}
         keyExtractor={(item) => item._id}
         renderItem={({item}) => {
           return (
@@ -51,7 +45,6 @@ const Results = (props) => {
                 {item?.answeredOption?.isCorrect === true ? (
                   <Icon
                     name="checkmark"
-                    raised
                     size={20}
                     reverse
                     color="rgba(32, 178, 30,0.8)"
@@ -61,10 +54,18 @@ const Results = (props) => {
                 {item?.answeredOption?.isCorrect === false ? (
                   <Icon
                     name="close"
-                    raised
                     size={20}
                     reverse
                     color="rgba(204, 46, 46,0.8)"
+                    type={IconStyles.iconType}
+                  />
+                ) : null}
+                {item?.answeredOption === undefined ? (
+                  <Icon
+                    name="warning"
+                    size={20}
+                    reverse
+                    color="rgba(206, 161, 26,0.6)"
                     type={IconStyles.iconType}
                   />
                 ) : null}
