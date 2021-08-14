@@ -20,10 +20,26 @@ const TestSeries = (props) => {
   const [selectedCategory, setSelectedCategory] = useState('');
 
   useEffect(() => {
-    props.fetchAllTestCategories();
-    props.fetchAllBoughtTests();
-    fetchCategoryData();
+    const fetchData = async () => {
+      await props.fetchAllTestCategories();
+      await props.fetchAllBoughtTests();
+      await fetchCategoryData();
+    };
+    fetchData();
   }, []);
+
+  const fetchCategoryData = async () => {
+    try {
+      const data = await AsyncStorage.getItem('testCategorySelected');
+      const newData = JSON.parse(data);
+      if (newData !== null) {
+        await props.fetchAllExams(newData._id);
+        await setSelectedCategory(newData.name);
+      }
+    } catch (e) {
+      ToastAndroid.show('Something went wrong', ToastAndroid.SHORT);
+    }
+  };
 
   const renderPreferenceItems = async (e) => {
     try {
@@ -37,15 +53,6 @@ const TestSeries = (props) => {
     }
   };
 
-  const fetchCategoryData = async () => {
-    try {
-      const data = await AsyncStorage.getItem('testCategorySelected');
-      const newData = JSON.parse(data);
-      // await setSelectedCategory(newData.name);
-    } catch (e) {
-      ToastAndroid.show('Something went wrong', ToastAndroid.SHORT);
-    }
-  };
   const routeToDescription = (name, desc) => {
     props.navigation.navigate('Exam description', {name, desc, onlyView: true});
   };
@@ -76,21 +83,28 @@ const TestSeries = (props) => {
         onPress={() => setVisible(!visible)}>
         Select category
       </Text>
-      <Text
-        style={{
-          ...Styles.fontFamily,
-          width: '100%',
-          textAlign: 'center',
-          marginVertical: 5,
-          fontSize: 17,
-          fontWeight: '700',
-        }}>
-        Selected category: {selectedCategory}
-      </Text>
+      {selectedCategory ? (
+        <Text
+          style={{
+            ...Styles.fontFamily,
+            width: '100%',
+            textAlign: 'center',
+            marginVertical: 5,
+            fontSize: 17,
+            fontWeight: '700',
+          }}>
+          Selected category: {selectedCategory}
+        </Text>
+      ) : (
+        <Text style={{fontSize: 20, textAlign: 'center', marginTop: 10}}>
+          Select a category
+        </Text>
+      )}
+
       {visible ? (
         <View
           style={{
-            backgroundColor: 'rgba(0,0,0,0.06)',
+            backgroundColor: 'rgba(0,0,0,0.02)',
             position: 'relative',
           }}>
           {props.testCategories.map((value) => {

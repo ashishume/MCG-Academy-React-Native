@@ -8,8 +8,9 @@ import {
 } from 'react-native';
 
 import RenderHtml from 'react-native-render-html';
-import {CheckBox} from 'react-native-elements';
+import {CheckBox, Icon} from 'react-native-elements';
 import CountdownTimer from './CountdownTimer';
+import {IconStyles} from '../../Styles';
 
 const ExamScreen = (props) => {
   const {examTime, name, timeLimit, _id} = props.route.params.examData;
@@ -22,42 +23,26 @@ const ExamScreen = (props) => {
   const [visible, setVisible] = useState(false);
   const [isChecked, setIsChecked] = useState('');
   const [disabled, setDisabled] = useState(true);
-  const [maxQuestionNumber, setmaxQuestionNumber] = useState(0);
-  
-  /*
-  TODO: Set index of curr question and use it get the next array question element
-        this will remove the dependcy of question No.
-  */
-  
-  // const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(0);
+  const [selectedOption, setSelectedOption] = useState({});
+  const [maxIndex, setMaxIndex] = useState(0);
 
   useEffect(() => {
     props.navigation.setOptions({
       title: name,
     });
     setCurrentQuestion(allQuestions[0]);
-    findMaxQuestionNumber(allQuestions);
+    setMaxIndex(allQuestions.length - 1);
   }, []);
 
-  const findMaxQuestionNumber = (questionArray) => {
-    const maxNo = Math.max.apply(
-      Math,
-      questionArray.map(function (o) {
-        return o.questionNumber;
-      }),
-    );
-    setmaxQuestionNumber(maxNo);
-  };
-  const selectQuestionNumber = () => {
-    setVisible(!visible);
+  const selectQuestionHandler = (value, qIndex) => {
+    setVisible(false); //disable the question No. list
+    setDisabled(true); //disable the blue button
+    setIndex(qIndex); //set Index for question
+    setCurrentQuestionNumber(value.questionNumber); //set current question Number
+    setCurrentQuestion(value); //set current question value
   };
 
-  const selectQuestionHandler = (value) => {
-    setVisible(false);
-    setDisabled(true);
-    setCurrentQuestionNumber(value.questionNumber);
-    setCurrentQuestion(value);
-  };
   const {width} = useWindowDimensions();
 
   const selectOption = (value) => {
@@ -66,10 +51,12 @@ const ExamScreen = (props) => {
       setDisabled(true);
       if (isChecked !== value._id) {
         setIsChecked(value._id);
+        setSelectedOption(value);
         setDisabled(false);
       }
     } else {
       setDisabled(false);
+      setSelectedOption(value);
       setIsChecked(value._id);
     }
   };
@@ -79,12 +66,17 @@ const ExamScreen = (props) => {
     props.navigation.navigate('Results', allQuestions);
   };
 
-  const nextQuestionHandler = (currQNumber) => {
-    const nextQNumber = currQNumber + 1;
-    const filtered = allQuestions.filter(
-      (value) => value.questionNumber === nextQNumber,
-    );
-    if (filtered.length !== 0) selectQuestionHandler(filtered[0]);
+  const nextQuestionHandler = async () => {
+    allQuestions[index].answeredOption = selectedOption; //set the answer choosen by user
+
+    if (index === maxIndex) timeupHandler();
+
+    await setIndex(index + 1); //set the index of next
+    let temp = index + 1;
+    if (allQuestions[temp] !== undefined)
+      //select quetion state
+      selectQuestionHandler(allQuestions[temp], temp);
+    setIsChecked('');
   };
 
   return (
@@ -100,15 +92,20 @@ const ExamScreen = (props) => {
             alignItems: 'center',
             justifyContent: 'center',
             borderWidth: 1,
+            backgroundColor:
+              allQuestions[index]?.answeredOption !== undefined
+                ? 'rgba(51, 183, 51,0.7)'
+                : 'rgba(219, 108, 24,0.5)',
             borderColor: '#000',
           }}>
-          <TouchableOpacity onPress={() => selectQuestionNumber()}>
+          <TouchableOpacity onPress={() => setVisible(!visible)}>
             <Text
               style={{textAlign: 'center', fontSize: 17, fontWeight: 'bold'}}>
               Question {currentQuestionNumber}
             </Text>
           </TouchableOpacity>
         </View>
+
         <View
           style={{
             flex: 2,
@@ -129,20 +126,25 @@ const ExamScreen = (props) => {
           </View>
         </View>
       </View>
+
       {visible ? (
         <View style={{height: 50}}>
           <ScrollView horizontal={true}>
-            {allQuestions.map((value) => {
+            {allQuestions.map((value, i) => {
               return (
                 <TouchableOpacity
                   key={value._id}
-                  onPress={() => selectQuestionHandler(value)}>
+                  onPress={() => selectQuestionHandler(value, i)}>
                   <Text
                     style={{
                       borderWidth: 1,
-                      borderColor: '#000',
                       margin: 5,
                       padding: 10,
+                      backgroundColor:
+                        value?.answeredOption !== undefined
+                          ? 'rgba(51, 183, 51,0.7)'
+                          : 'rgba(219, 108, 24,0.5)',
+                      borderColor: '#000',
                     }}>
                     {value.questionNumber}
                   </Text>
@@ -164,19 +166,34 @@ const ExamScreen = (props) => {
         </View>
         <View style={{paddingVertical: 20}}>
           {currentQuestion.options.length !== 0
-            ? currentQuestion.options.map((value, index) => {
+            ? currentQuestion.options.map((value) => {
                 return (
-                  <CheckBox
-                    key={value._id}
-                    title={value.optionTitle}
-                    onPress={() => selectOption(value)}
-                    checked={isChecked === value._id ? true : false}
-                  />
+                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                    <View style={{width:'90%'}}>
+                      <CheckBox
+                        key={value._id}
+                        title={value.optionTitle}
+                        onPress={() => selectOption(value)}
+                        checked={isChecked === value._id ? true : false}
+                      />
+                    </View>
+                    <Text>
+                      {currentQuestion?.answeredOption?._id === value._id ? (
+                        <Icon
+                          name="checkbox"
+                          size={25}
+                          color="rgba(20, 93, 160,0.6)"
+                          type={IconStyles.iconType}
+                        />
+                      ) : null}
+                    </Text>
+                  </View>
                 );
               })
             : null}
         </View>
       </ScrollView>
+
       <View
         style={{
           marginHorizontal: 10,
@@ -184,7 +201,7 @@ const ExamScreen = (props) => {
         }}>
         <TouchableOpacity
           activeOpacity={0.8}
-          onPress={() => nextQuestionHandler(currentQuestionNumber)}
+          onPress={() => nextQuestionHandler()}
           disabled={disabled}
           style={{
             backgroundColor: !disabled
@@ -195,7 +212,9 @@ const ExamScreen = (props) => {
             borderRadius: 20,
             width: '100%',
           }}>
-          <Text style={{color: '#fff', textAlign: 'center'}}>Continue</Text>
+          <Text style={{color: '#fff', textAlign: 'center'}}>
+            {index !== maxIndex ? 'Continue' : 'Finish'}
+          </Text>
         </TouchableOpacity>
       </View>
     </Fragment>
