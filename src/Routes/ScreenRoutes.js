@@ -25,6 +25,7 @@ import ExamInstruction from '../components/screens/TestSeries/ExamInstruction';
 import MyBoughtTests from '../components/screens/TestSeries/MyBoughtTests';
 import ExamScreen from '../components/screens/TestSeries/ExamScreen';
 import Results from '../components/screens/TestSeries/Results';
+import LeaderBoard from '../components/screens/TestSeries/LeaderBoard';
 export const SCREEN_ROUTES = [
   {
     name: 'CourseDetails',
@@ -174,6 +175,12 @@ export const SCREEN_ROUTES = [
     name: 'Results',
     component: Results,
     header: false,
+    backgroundColor: '#fff',
+  },
+  {
+    name: 'Leaderboard',
+    component: LeaderBoard,
+    header: true,
     backgroundColor: '#fff',
   },
 ];

@@ -3,6 +3,7 @@ import RenderHtml from 'react-native-render-html';
 import {FlatList, View, useWindowDimensions, Text} from 'react-native';
 import {IconStyles} from '../../Styles';
 import {Icon} from 'react-native-elements';
+import {TouchableOpacity} from 'react-native';
 
 const Results = (props) => {
   const {allQuestions, result} = props.route.params;
@@ -16,8 +17,6 @@ const Results = (props) => {
         style={{
           marginVertical: 5,
           paddingVertical: 5,
-          borderBottomColor: 'rgba(0,0,0,0.3)',
-          borderBottomWidth: 1,
         }}>
         <Text style={{fontSize: 25, marginBottom: 10}}>Your results</Text>
         <Text style={fontStyle}>Attempted Questions: {result.attempted}</Text>
@@ -25,7 +24,30 @@ const Results = (props) => {
         <Text style={fontStyle}>Wrong Answers: {result.wrong}</Text>
       </View>
 
-      <Text style={{fontSize: 20, fontWeight: 'bold'}}>Explanations</Text>
+      <TouchableOpacity
+        activeOpacity={0.9}
+        onPress={() => props.navigation.navigate('Leaderboard')}>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'center',
+            padding: 10,
+            backgroundColor: 'rgba(80, 188, 50,0.4)',
+            borderRadius: 5,
+          }}>
+          <Icon name="md-bar-chart" size={20} type={IconStyles.iconType} />
+          <Text>View Leaderboard</Text>
+        </View>
+      </TouchableOpacity>
+
+      <Text
+        style={{
+          fontSize: 20,
+          fontWeight: 'bold',
+          marginTop: 5,
+        }}>
+        Explanations
+      </Text>
       <FlatList
         data={allQuestions}
         style={{marginBottom: 170}}
@@ -70,7 +92,6 @@ const Results = (props) => {
                   />
                 ) : null}
               </View>
-
               <View
                 style={{
                   marginBottom: 5,

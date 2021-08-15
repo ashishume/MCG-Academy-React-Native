@@ -1,14 +1,26 @@
 import React, {Fragment, useEffect} from 'react';
-import {ScrollView, TouchableOpacity, View, Text} from 'react-native';
+import {
+  ScrollView,
+  ToastAndroid,
+  TouchableOpacity,
+  View,
+  Text,
+} from 'react-native';
+import {Icon} from 'react-native-elements';
 import {connect} from 'react-redux';
 import {fetchAllQuestions} from '../../../store/actions/testSeries';
+import {IconStyles} from '../../Styles';
 const ExamInstruction = (props) => {
-  const {name, desc, onlyView} = props.route.params;
+  const {name = '', desc = '', onlyView} = props.route.params;
   const routeToExamScreen = () => {
-    props.navigation.navigate('ExamScreen', {
-      examData: props.route.params?.data,
-      questions: props.testQuestions,
-    });
+    if (props?.testQuestions?.length) {
+      props.navigation.navigate('ExamScreen', {
+        examData: props.route.params?.data,
+        questions: props.testQuestions,
+      });
+    } else {
+      ToastAndroid.show('No questions available', ToastAndroid.SHORT);
+    }
   };
 
   useEffect(() => {
@@ -39,7 +51,62 @@ const ExamInstruction = (props) => {
             }}>
             {props.route.params?.data.instructions}
           </Text>
-
+          <View style={{marginTop: 5}}>
+            <Text
+              style={{
+                color: '#000',
+                fontSize: 20,
+                borderTopWidth: 2,
+                marginVertical: 5,
+                paddingTop: 3,
+                borderTopColor: 'rgba(0,0,0,0.1)',
+              }}>
+              Important information
+            </Text>
+            <Text>The symbols represents</Text>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}>
+              <Icon
+                name="checkmark"
+                size={15}
+                reverse
+                color="rgba(32, 178, 30,0.8)"
+                type={IconStyles.iconType}
+              />
+              <Text>Correct</Text>
+            </View>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}>
+              <Icon
+                name="close"
+                size={15}
+                reverse
+                color="rgba(204, 46, 46,0.8)"
+                type={IconStyles.iconType}
+              />
+              <Text>Wrong</Text>
+            </View>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}>
+              <Icon
+                name="warning"
+                size={15}
+                reverse
+                color="rgba(206, 161, 26,0.6)"
+                type={IconStyles.iconType}
+              />
+              <Text>Not attempted</Text>
+            </View>
+          </View>
           <TouchableOpacity
             activeOpacity={0.8}
             onPress={() => routeToExamScreen()}

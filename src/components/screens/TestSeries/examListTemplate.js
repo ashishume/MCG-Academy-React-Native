@@ -14,13 +14,15 @@ const ExamListTemplate = (props) => {
     price,
     timeLimit,
   } = props.data;
-  const {boughtTestData} = props;
+  const {boughtTestData = {}} = props;
   useEffect(() => {
     const funcCall = async () => {
-      const check = await boughtTestData.some(
-        (value) => value.test._id === _id,
-      );
-      await setEnrolled(check);
+      if (Object.keys(boughtTestData).length !== 0) {
+        const check = await boughtTestData.some(
+          (value) => value.test._id === _id,
+        );
+        await setEnrolled(check);
+      }
     };
     funcCall();
   });
