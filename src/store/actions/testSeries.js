@@ -53,3 +53,21 @@ export const fetchAllBoughtTests = () => async (dispatch) => {
     payload: response.data,
   });
 };
+
+export const fetchLeaderboardData = (examId) => async (dispatch) => {
+  const response = await HttpService.get(
+    API_NAME.GET_LEADERBOARD_TEST_SERIES + '/' + examId,
+  );
+  dispatch({
+    type: ActionType.LEADERBOARD_DATA,
+    payload: response.data,
+  });
+};
+
+export const submitExamScore = async (body) => {
+  try {
+    await HttpService.post(API_NAME.GET_LEADERBOARD_TEST_SERIES, body);
+  } catch (e) {
+    ToastAndroid.show('something went wrong', ToastAndroid.SHORT);
+  }
+};

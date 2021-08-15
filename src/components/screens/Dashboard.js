@@ -18,34 +18,33 @@ const Dashboard = (props) => {
     const fetchMyCourseData = () => {
       props.fetchMyCourses();
     };
-    const unsubscribe = props.navigation.addListener('focus', () => {
+    props.navigation.addListener('focus', () => {
       fetchMyCourseData();
     });
 
-    const requestPermission = async () => {
-      await GetAllPermissions();
+    const GetAllPermissions = async () => {
+      try {
+        if (Platform.OS === 'android') {
+          await PermissionsAndroid.requestMultiple([
+            PermissionsAndroid.PERMISSIONS.CAMERA,
+            PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+            PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+          ]);
+        }
+      } catch (err) {
+        // Warning(err);
+      }
+      return null;
     };
 
-    requestPermission();
+    GetAllPermissions();
 
-    return unsubscribe;
+    return () => {
+      props.navigation.addListener('focus', () => {
+        fetchMyCourseData();
+      });
+    };
   }, [props.navigation]);
-
-  const GetAllPermissions = async () => {
-    try {
-      if (Platform.OS === 'android') {
-        const userResponse = await PermissionsAndroid.requestMultiple([
-          PermissionsAndroid.PERMISSIONS.CAMERA,
-          PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
-          PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-        ]);
-        return userResponse;
-      }
-    } catch (err) {
-      Warning(err);
-    }
-    return null;
-  };
 
   const onSearchHandler = () => {
     props.navigation.navigate('Search');

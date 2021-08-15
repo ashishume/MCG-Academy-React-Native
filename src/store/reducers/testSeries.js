@@ -4,6 +4,7 @@ const initialState = {
   testExams: [],
   testQuestions: [],
   myTests: [],
+  leaderboard: [],
 };
 
 const testSeriesReducer = (state = initialState, action) => {
@@ -27,6 +28,11 @@ const testSeriesReducer = (state = initialState, action) => {
       return {
         ...state,
         myTests: action.payload,
+      };
+    case ActionTypes.LEADERBOARD_DATA:
+      return {
+        ...state,
+        leaderboard: action.payload,
       };
     default:
       return state;

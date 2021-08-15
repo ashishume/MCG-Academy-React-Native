@@ -14,16 +14,16 @@ const LatestCourseItem = (props) => {
       </View>
       <View style={styles.innerContainer}>
         <Text numberOfLines={1} style={styles.title}>
-          {props.content.courseTitle.toLowerCase().replace(/\b(\w)/g, (k) => k.toUpperCase())}
+          {props.content.courseTitle
+            .toLowerCase()
+            .replace(/\b(\w)/g, (k) => k.toUpperCase())}
         </Text>
         <Text numberOfLines={1} style={styles.author}>
           {props.content.author
             .toLowerCase()
             .replace(/\b(\w)/g, (k) => k.toUpperCase())}
         </Text>
-        {/* <Text numberOfLines={1} style={styles.courseType}>
-          ₹ {props.content.price}
-        </Text> */}
+
         <View numberOfLines={1} style={styles.badgeContainer}>
           <TypeBadge color="#4fb524" name={props.content.courseType} />
         </View>
@@ -49,12 +49,17 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   innerContainer: {flex: 1, paddingLeft: 10, paddingTop: 0},
-  title: {fontSize: 15, fontWeight: 'bold', ...Styles.fontFamily},
-  author: {fontSize: 15},
+  title: {
+    fontSize: 15,
+    fontWeight: 'bold',
+    paddingTop: 15,
+    ...Styles.fontFamily,
+  },
+  author: {fontSize: 15, paddingTop: 5},
   courseType: {
     fontSize: 17,
   },
-  badgeContainer: {flex: 1, flexDirection: 'row'},
+  badgeContainer: {flex: 1, flexDirection: 'row', paddingTop: 5},
 });
 
 export default LatestCourseItem;

@@ -6,15 +6,18 @@ import {
   useWindowDimensions,
   Text,
   ToastAndroid,
+  BackHandler,
 } from 'react-native';
 
 import RenderHtml from 'react-native-render-html';
 import {CheckBox, Icon} from 'react-native-elements';
 import CountdownTimer from './CountdownTimer';
 import {IconStyles} from '../../Styles';
+import {submitExamScore} from '../../../store/actions/testSeries';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ExamScreen = (props) => {
-  const {examTime, name, timeLimit, _id} = props.route.params.examData;
+  const {examTime, name} = props.route.params.examData;
   const allQuestions = props.route.params.questions;
   const [currentQuestionNumber, setCurrentQuestionNumber] = useState(1);
   const [currentQuestion, setCurrentQuestion] = useState({
@@ -27,14 +30,31 @@ const ExamScreen = (props) => {
   const [index, setIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState({});
   const [maxIndex, setMaxIndex] = useState(0);
+  const [user, setUser] = useState('');
 
+  let eventHandler;
   useEffect(() => {
     props.navigation.setOptions({
       title: name,
     });
     setCurrentQuestion(allQuestions[0]);
     setMaxIndex(allQuestions.length - 1);
+    fetchUserData();
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      () => true,
+    );
+    return () => backHandler.remove();
   }, []);
+
+  const fetchUserData = async () => {
+    try {
+      const userData = await AsyncStorage.getItem('userId');
+      setUser(userData);
+    } catch (e) {
+      ToastAndroid.show('Something went wrong', ToastAndroid.SHORT);
+    }
+  };
 
   const selectQuestionHandler = (value, qIndex) => {
     setVisible(false); //disable the question No. list
@@ -83,7 +103,7 @@ const ExamScreen = (props) => {
     setIsChecked('');
   };
 
-  const submitExamHandler = () => {
+  const submitExamHandler = async () => {
     ToastAndroid.show('Submiting your exam, please wait...', ToastAndroid.LONG);
     setTimeout(() => {
       let correct = 0;
@@ -100,6 +120,13 @@ const ExamScreen = (props) => {
           attempted += 1;
         }
       });
+
+      const body = {
+        test: allQuestions[0]?.exam?._id,
+        user,
+        score: correct,
+      };
+      submitExamScore(body);
       timeupHandler({attempted, correct, wrong});
     }, 1000);
   };
@@ -111,25 +138,25 @@ const ExamScreen = (props) => {
           flexDirection: 'row',
           marginTop: 5,
         }}>
-        <View
+        <TouchableOpacity
+          activeOpacity={0.7}
           style={{
             flex: 1,
             alignItems: 'center',
             justifyContent: 'center',
             borderWidth: 1,
+            marginLeft: 5,
             backgroundColor:
               allQuestions[index]?.answeredOption !== undefined
                 ? 'rgba(51, 183, 51,0.7)'
                 : 'rgba(219, 108, 24,0.5)',
             borderColor: '#000',
-          }}>
-          <TouchableOpacity onPress={() => setVisible(!visible)}>
-            <Text
-              style={{textAlign: 'center', fontSize: 17, fontWeight: 'bold'}}>
-              Question {currentQuestionNumber}
-            </Text>
-          </TouchableOpacity>
-        </View>
+          }}
+          onPress={() => setVisible(!visible)}>
+          <Text style={{textAlign: 'center', fontSize: 17, fontWeight: 'bold'}}>
+            Question {currentQuestionNumber}
+          </Text>
+        </TouchableOpacity>
 
         <View
           style={{
@@ -158,6 +185,7 @@ const ExamScreen = (props) => {
             {allQuestions.map((value, i) => {
               return (
                 <TouchableOpacity
+                  activeOpacity={0.7}
                   key={value._id}
                   onPress={() => selectQuestionHandler(value, i)}>
                   <Text

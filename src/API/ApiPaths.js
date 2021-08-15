@@ -19,6 +19,7 @@ export const API_NAME = {
   TEST_SERIES_QUESTIONS: 'test-series/question',
   BUY_NEW_TEST_SERIES: 'test-series/buy-test',
   GET_BOUGHT_TEST_SERIES: 'test-series/my-tests',
+  GET_LEADERBOARD_TEST_SERIES: 'test-series/leaderboard',
 };
 
 export const RAZOR_PAY_KEY = {

@@ -10,7 +10,8 @@ import {
 import {IconStyles} from '../../Styles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import ImagePicker from 'react-native-image-picker';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+
 import {Icon} from 'react-native-elements';
 import storage from '@react-native-firebase/storage';
 import Http from '../../../API/HttpService';
@@ -45,13 +46,20 @@ const ProfileImage = (props) => {
     }
   };
   const imageUploadHandler = async () => {
-    await ImagePicker.launchImageLibrary(options, (response) => {
+    await launchImageLibrary(options, (response) => {
       if (response.error) {
         ToastAndroid.show('Something went wrong', ToastAndroid.LONG);
       } else {
-        const source = {uri: response.path};
-        setImageName(response.fileName);
-        setImage(source);
+        try {
+          const source = {uri: response?.assets[0]?.uri};
+          setImageName(response.fileName);
+          setImage(source);
+        } catch (e) {
+          ToastAndroid.show(
+            'Do not pick from google photos',
+            ToastAndroid.LONG,
+          );
+        }
       }
     });
   };
@@ -65,7 +73,7 @@ const ProfileImage = (props) => {
       const task = storage().ref(`profileImages/${imageName}`).putFile(uri);
 
       task.on('state_changed', (snapshot) => {
-        console.log(snapshot);
+        // console.log(snapshot);
       });
       try {
         await task;
@@ -85,10 +93,10 @@ const ProfileImage = (props) => {
             });
           });
       } catch (e) {
-        ToastAndroid.show('Something went wrong', ToastAndroid.LONG);
+        ToastAndroid.show('Do not pick from google photos', ToastAndroid.LONG);
       }
     } catch (e) {
-      ToastAndroid.show('Something went wrong', ToastAndroid.LONG);
+      ToastAndroid.show('Do not pick from google photos', ToastAndroid.LONG);
     }
   };
 

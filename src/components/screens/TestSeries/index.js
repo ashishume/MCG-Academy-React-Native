@@ -172,7 +172,7 @@ const TestSeries = (props) => {
             })}
           </View>
         ) : null}
-        <View style={{paddingBottom: 200}}>
+        <View style={{paddingBottom: 130}}>
           <FlatList
             data={props.testExams}
             ListEmptyComponent={

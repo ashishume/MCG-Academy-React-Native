@@ -1,16 +1,27 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import RenderHtml from 'react-native-render-html';
-import {FlatList, View, useWindowDimensions, Text} from 'react-native';
+import {
+  FlatList,
+  BackHandler,
+  View,
+  useWindowDimensions,
+  TouchableOpacity,
+  Text,
+} from 'react-native';
 import {IconStyles} from '../../Styles';
 import {Icon} from 'react-native-elements';
-import {TouchableOpacity} from 'react-native';
 
 const Results = (props) => {
   const {allQuestions, result} = props.route.params;
   const {width} = useWindowDimensions();
-
   const fontStyle = {fontSize: 20, textAlign: 'left', fontWeight: 'bold'};
-
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      () => true,
+    );
+    return () => backHandler.remove();
+  });
   return (
     <View style={{margin: 5}}>
       <View
@@ -26,7 +37,12 @@ const Results = (props) => {
 
       <TouchableOpacity
         activeOpacity={0.9}
-        onPress={() => props.navigation.navigate('Leaderboard')}>
+        onPress={() =>
+          props.navigation.navigate('Leaderboard', {
+            examId: allQuestions[0].exam._id,
+            examName: allQuestions[0].exam.name,
+          })
+        }>
         <View
           style={{
             flexDirection: 'row',
