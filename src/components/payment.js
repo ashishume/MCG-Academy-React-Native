@@ -74,7 +74,7 @@ const Payment = (props) => {
 
     if (isTestSeries && !isPaid) {
       await buyNewTestSeries(testObject); //free test series
-      await props.navigation.navigate('My tests');
+      await props.navigation.navigate('Dashboard');
     }
   };
 
@@ -143,7 +143,9 @@ const Payment = (props) => {
           <TouchableOpacity
             onPress={() => makePayment()}
             style={styles.paymentButtonContainer}>
-            <Text style={styles.paymentText}>Pay</Text>
+            <Text style={styles.paymentText}>
+              {price === 0 ? 'Enroll free' : 'Pay'}
+            </Text>
           </TouchableOpacity>
           <Text style={styles.note}>
             You will be securely connected to the razorpay servers

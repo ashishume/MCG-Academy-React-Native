@@ -4,6 +4,7 @@ import {
   ToastAndroid,
   TouchableOpacity,
   View,
+  StyleSheet,
   Text,
 } from 'react-native';
 import {Icon} from 'react-native-elements';
@@ -11,11 +12,11 @@ import {connect} from 'react-redux';
 import {fetchAllQuestions} from '../../../store/actions/testSeries';
 import {IconStyles} from '../../Styles';
 const ExamInstruction = (props) => {
-  const {name = '', desc = '', onlyView} = props.route.params;
+  const {data} = props.route.params;
   const routeToExamScreen = () => {
     if (props?.testQuestions?.length) {
       props.navigation.navigate('ExamScreen', {
-        examData: props.route.params?.data,
+        examData: data,
         questions: props.testQuestions,
       });
     } else {
@@ -24,118 +25,190 @@ const ExamInstruction = (props) => {
   };
 
   useEffect(() => {
-    if (!onlyView) {
-      props.navigation.setOptions({
-        title: 'Instructions',
-      });
-      const fetchData = async () => {
-        await props.fetchAllQuestions(props.route.params?.data._id);
-      };
-      fetchData();
-    }
+    props.navigation.setOptions({
+      title: 'Instructions',
+    });
+    const fetchData = async () => {
+      await props.fetchAllQuestions(data._id);
+    };
+    fetchData();
   }, []);
 
   return (
-    <View>
-      {!onlyView ? (
-        <ScrollView style={{margin: 20}}>
-          <Text style={{textAlign: 'center', fontSize: 20, marginTop: 10}}>
-            {props.route.params?.data.name}
+    <View style={{flex: 1, marginBottom: 10}}>
+      <ScrollView style={{margin: 10}}>
+        <Text style={{textAlign: 'center', fontSize: 20}}>
+          {data.name}
+        </Text>
+        <Text
+          style={{
+            textAlign: 'left',
+            marginHorizontal: 10,
+            fontSize: 15,
+            marginVertical: 10,
+          }}>
+          {data.instructions}
+        </Text>
+        <View
+          style={{
+            borderTopColor: '#000',
+            borderTopWidth: 1,
+            marginTop: 5,
+          }}>
+          <Text style={styles.topScreen}>Navigating to a question: </Text>
+          <Text style={styles.topScreen}>
+            To select a question to answer, you can do one of the following:
           </Text>
+          <Text style={styles.topScreen}>
+            1. Click on the question number on the question palette at the top
+            left of your screen to go to that numbered question directly. Note
+            that using this option does NOT save your answer to the current
+            question.
+          </Text>
+          <Text style={styles.topScreen}>
+            2 Click on Save and Next to save answer to current question and to
+            go to the next question in sequence.
+          </Text>
+
+          <Text style={styles.topScreen}>Answering questions:</Text>
+          <Text style={styles.topScreen}>
+            1. To select your answer, click on one of the option buttons
+          </Text>
+          <Text style={styles.topScreen}>
+            2. To change your answer, click the another desired option button
+          </Text>
+          <Text style={styles.topScreen}>
+            3. To save your answer, you MUST click on Save & Next
+          </Text>
+          <Text style={styles.topScreen}>
+            4. To deselect a chosen answer, click on the chosen option again or
+            click on the Clear Response button.
+          </Text>
+          <Text style={styles.topScreen}>
+            5. To change an answer to a question, first select the question and
+            then click on the new answer option followed by a click on the Save
+            & Next button.
+          </Text>
+          <Text style={styles.topScreen}>
+            5. For last question click on finish to submit your exam, Note:
+            Attempting last question mandatory to submit the exam
+          </Text>
+        </View>
+        <View style={{marginTop: 5}}>
           <Text
             style={{
-              textAlign: 'left',
-              marginHorizontal: 10,
-              fontSize: 15,
-              marginVertical: 10,
+              color: '#000',
+              fontSize: 20,
+              borderTopWidth: 2,
+              marginVertical: 5,
+              paddingTop: 3,
+              borderTopColor: 'rgba(0,0,0,0.1)',
             }}>
-            {props.route.params?.data.instructions}
+            Instructions during the exam
           </Text>
-          <View style={{marginTop: 5}}>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'flex-start',
+              alignItems: 'center',
+            }}>
             <Text
               style={{
-                color: '#000',
-                fontSize: 20,
-                borderTopWidth: 2,
-                marginVertical: 5,
-                paddingTop: 3,
-                borderTopColor: 'rgba(0,0,0,0.1)',
-              }}>
-              Important information
-            </Text>
-            <Text>The symbols represents</Text>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}>
-              <Icon
-                name="checkmark"
-                size={15}
-                reverse
-                color="rgba(32, 178, 30,0.8)"
-                type={IconStyles.iconType}
-              />
-              <Text>Correct</Text>
-            </View>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}>
-              <Icon
-                name="close"
-                size={15}
-                reverse
-                color="rgba(204, 46, 46,0.8)"
-                type={IconStyles.iconType}
-              />
-              <Text>Wrong</Text>
-            </View>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}>
-              <Icon
-                name="warning"
-                size={15}
-                reverse
-                color="rgba(206, 161, 26,0.6)"
-                type={IconStyles.iconType}
-              />
-              <Text>Not attempted</Text>
-            </View>
+                width: 20,
+                height: 20,
+                margin: 5,
+                borderRadius: 8,
+                backgroundColor: 'rgba(51, 183, 51,0.7)',
+              }}></Text>
+            <Text>Represents you have attempted the question</Text>
           </View>
-          <TouchableOpacity
-            activeOpacity={0.8}
-            onPress={() => routeToExamScreen()}
+          <View
             style={{
-              backgroundColor: 'green',
-              height: 40,
-              justifyContent: 'center',
-              borderRadius: 20,
-              width: '100%',
+              flexDirection: 'row',
+              justifyContent: 'flex-start',
+              alignItems: 'center',
             }}>
-            <Text style={{color: '#fff', textAlign: 'center'}}>Start test</Text>
-          </TouchableOpacity>
-        </ScrollView>
-      ) : (
-        <Fragment>
-          <Text style={{textAlign: 'center', fontSize: 20, marginTop: 10}}>
-            {name}
-          </Text>
+            <Text
+              style={{
+                width: 20,
+                height: 20,
+                margin: 5,
+                borderRadius: 8,
+                backgroundColor: 'rgba(219, 108, 24,0.5)',
+              }}></Text>
+            <Text>Represents you have not attempted the question</Text>
+          </View>
+        </View>
+
+        <View style={{marginTop: 5}}>
           <Text
             style={{
-              textAlign: 'justify',
-              marginHorizontal: 10,
-              fontSize: 15,
-              marginTop: 10,
+              color: '#000',
+              fontSize: 20,
+              borderTopWidth: 2,
+              marginVertical: 5,
+              paddingTop: 3,
+              borderTopColor: 'rgba(0,0,0,0.1)',
             }}>
-            {desc}
+            Instruction on results
           </Text>
-        </Fragment>
-      )}
+          <Text>The symbols represents on result screen</Text>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}>
+            <Icon
+              name="checkmark"
+              size={15}
+              reverse
+              color="rgba(32, 178, 30,0.8)"
+              type={IconStyles.iconType}
+            />
+            <Text>Correct answers</Text>
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}>
+            <Icon
+              name="close"
+              size={15}
+              reverse
+              color="rgba(204, 46, 46,0.8)"
+              type={IconStyles.iconType}
+            />
+            <Text>Wrong answers</Text>
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}>
+            <Icon
+              name="warning"
+              size={15}
+              reverse
+              color="rgba(206, 161, 26,0.6)"
+              type={IconStyles.iconType}
+            />
+            <Text>Not attempted</Text>
+          </View>
+        </View>
+      </ScrollView>
+      <TouchableOpacity
+        activeOpacity={0.8}
+        onPress={() => routeToExamScreen()}
+        style={{
+          backgroundColor: 'green',
+          height: 40,
+          justifyContent: 'center',
+          borderRadius: 20,
+          width: '100%',
+        }}>
+        <Text style={{color: '#fff', textAlign: 'center'}}>Start test</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -147,3 +220,10 @@ const mapStateToProps = ({testSeries}) => {
 };
 
 export default connect(mapStateToProps, {fetchAllQuestions})(ExamInstruction);
+
+const styles = StyleSheet.create({
+  topScreen: {
+    fontSize: 15,
+    marginBottom: 5,
+  },
+});

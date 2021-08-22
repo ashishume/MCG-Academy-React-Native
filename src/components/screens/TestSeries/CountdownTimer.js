@@ -30,6 +30,10 @@ class CountdownTimer extends Component {
     this.startTimer();
   }
 
+  componentWillUnmount() {
+    this.startTimer();
+  }
+
   startTimer() {
     if (this.timer == 0 && this.state.seconds > 0) {
       this.timer = setInterval(this.countDown, 1000);

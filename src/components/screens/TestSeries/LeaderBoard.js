@@ -34,7 +34,6 @@ const LeaderBoard = (props) => {
     <View style={{height: '100%', width: '100%', margin: 5}}>
       <TouchableOpacity
         onPress={() => {
-          console.log('click');
           props.navigation.navigate('Dashboard');
         }}>
         <View

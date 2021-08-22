@@ -1,6 +1,7 @@
 import * as ActionTypes from '../actions/ActionTypes';
 const initialState = {
   testCategories: [],
+  testSeriesData: [],
   testExams: [],
   testQuestions: [],
   myTests: [],
@@ -9,6 +10,11 @@ const initialState = {
 
 const testSeriesReducer = (state = initialState, action) => {
   switch (action.type) {
+    case ActionTypes.TEST_SERIES:
+      return {
+        ...state,
+        testSeriesData: action.payload,
+      };
     case ActionTypes.TEST_SERIES_CATEGORY:
       return {
         ...state,

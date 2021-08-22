@@ -31,8 +31,7 @@ const Results = (props) => {
         }}>
         <Text style={{fontSize: 25, marginBottom: 10}}>Your results</Text>
         <Text style={fontStyle}>Attempted Questions: {result.attempted}</Text>
-        <Text style={fontStyle}>Correct Answers: {result.correct}</Text>
-        <Text style={fontStyle}>Wrong Answers: {result.wrong}</Text>
+        <Text style={fontStyle}>Your score: {result.correct}</Text>
       </View>
 
       <TouchableOpacity
@@ -110,7 +109,6 @@ const Results = (props) => {
               </View>
               <View
                 style={{
-                  marginBottom: 5,
                   backgroundColor: 'rgba(44, 97, 211,0.2)',
                 }}>
                 <RenderHtml
@@ -120,7 +118,23 @@ const Results = (props) => {
                   }}
                 />
               </View>
+              <View
+                style={{
+                  backgroundColor: 'rgba(44, 97, 211,0.2)',
+                }}></View>
               <View style={{backgroundColor: 'rgba(24, 127, 41,0.2)'}}>
+                {item?.answeredOption !== undefined ? (
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      paddingBottom: 5,
+                      backgroundColor: 'rgba(27, 156, 170,0.5)',
+                      borderBottomWidth: 1,
+                      borderBottomColor: 'rgba(0,0,0,0.4)',
+                    }}>
+                    Your answer: {item?.answeredOption?.optionTitle}
+                  </Text>
+                ) : null}
                 <Text style={{fontSize: 15, fontWeight: 'bold'}}>
                   Explanation (Question {item.questionNumber}):
                 </Text>

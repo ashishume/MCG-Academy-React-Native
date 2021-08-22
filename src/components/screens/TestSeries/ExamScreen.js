@@ -19,7 +19,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const ExamScreen = (props) => {
   const {examTime, name} = props.route.params.examData;
   const allQuestions = props.route.params.questions;
-  const [currentQuestionNumber, setCurrentQuestionNumber] = useState(1);
+  // const [currentQuestionNumber, setCurrentQuestionNumber] = useState(1);
   const [currentQuestion, setCurrentQuestion] = useState({
     options: [],
     questionTitle: '<p>Question loading...</p>',
@@ -32,7 +32,6 @@ const ExamScreen = (props) => {
   const [maxIndex, setMaxIndex] = useState(0);
   const [user, setUser] = useState('');
 
-  let eventHandler;
   useEffect(() => {
     props.navigation.setOptions({
       title: name,
@@ -60,7 +59,7 @@ const ExamScreen = (props) => {
     setVisible(false); //disable the question No. list
     setDisabled(true); //disable the blue button
     setIndex(qIndex); //set Index for question
-    setCurrentQuestionNumber(value.questionNumber); //set current question Number
+    // setCurrentQuestionNumber(value.questionNumber); //set current question Number
     setCurrentQuestion(value); //set current question value
   };
 
@@ -103,6 +102,15 @@ const ExamScreen = (props) => {
     setIsChecked('');
   };
 
+  const previousQuestionHandler = async () => {
+    await setIndex(index - 1); //set the index of next
+    let temp = index - 1;
+    if (allQuestions[temp] !== undefined)
+      //select quetion state
+      selectQuestionHandler(allQuestions[temp], temp);
+    setIsChecked('');
+  };
+
   const submitExamHandler = async () => {
     ToastAndroid.show('Submiting your exam, please wait...', ToastAndroid.LONG);
     setTimeout(() => {
@@ -111,24 +119,30 @@ const ExamScreen = (props) => {
       let wrong = 0;
       allQuestions.map((value) => {
         if (value?.answeredOption?.isCorrect === false) {
-          wrong += 1;
+          const minusMarks = value?.marks * 0.5;
+          wrong = parseFloat(wrong) + parseFloat(minusMarks);
         }
         if (value?.answeredOption?.isCorrect === true) {
-          correct += 1;
+          correct = parseInt(correct) + parseInt(value?.marks);
         }
         if (value?.answeredOption !== undefined) {
-          attempted += 1;
+          attempted = parseInt(attempted) + 1;
         }
       });
-
+      const net = parseInt(correct) - parseFloat(wrong);
+      const finalMarks = net < 0 ? 0 : net;
       const body = {
         test: allQuestions[0]?.exam?._id,
         user,
-        score: correct,
+        score: finalMarks,
       };
+
       submitExamScore(body);
-      timeupHandler({attempted, correct, wrong});
-    }, 1000);
+      timeupHandler({attempted, correct: finalMarks, wrong});
+      correct = 0;
+      attempted = 0;
+      wrong = 0;
+    }, 600);
   };
 
   return (
@@ -144,17 +158,17 @@ const ExamScreen = (props) => {
             flex: 1,
             alignItems: 'center',
             justifyContent: 'center',
-            borderWidth: 1,
+            borderWidth: 2,
+            borderRadius: 8,
             marginLeft: 5,
-            backgroundColor:
+            borderColor:
               allQuestions[index]?.answeredOption !== undefined
                 ? 'rgba(51, 183, 51,0.7)'
                 : 'rgba(219, 108, 24,0.5)',
-            borderColor: '#000',
           }}
           onPress={() => setVisible(!visible)}>
           <Text style={{textAlign: 'center', fontSize: 17, fontWeight: 'bold'}}>
-            Question {currentQuestionNumber}
+            {index + 1}/{allQuestions.length}
           </Text>
         </TouchableOpacity>
 
@@ -170,13 +184,41 @@ const ExamScreen = (props) => {
               justifyContent: 'center',
               alignItems: 'center',
             }}>
-            <Text style={{fontSize: 18}}>Time left: </Text>
+            <Icon
+              name="time-outline"
+              type={IconStyles.iconType}
+              size={20}
+              containerStyle={{marginHorizontal: 10}}
+            />
+
             <CountdownTimer
               onTimeupHandler={timeupHandler}
               timer={parseInt(examTime)}
             />
           </View>
         </View>
+
+        <TouchableOpacity
+          activeOpacity={1}
+          onPress={() =>
+            props.navigation.navigate('Report Question', {
+              questionId: currentQuestion._id,
+            })
+          }
+          style={{
+            flex: 2,
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexDirection: 'row',
+          }}>
+          <Icon
+            name="information-circle-outline"
+            type={IconStyles.iconType}
+            size={20}
+            containerStyle={{marginHorizontal: 10}}
+          />
+          <Text>Report</Text>
+        </TouchableOpacity>
       </View>
 
       {visible ? (
@@ -193,11 +235,15 @@ const ExamScreen = (props) => {
                       borderWidth: 1,
                       margin: 5,
                       padding: 10,
+                      borderRadius: 8,
                       backgroundColor:
                         value?.answeredOption !== undefined
                           ? 'rgba(51, 183, 51,0.7)'
                           : 'rgba(219, 108, 24,0.5)',
-                      borderColor: '#000',
+                      borderColor:
+                        value?.answeredOption !== undefined
+                          ? 'rgba(51, 183, 51,0.7)'
+                          : 'rgba(219, 108, 24,0.5)',
                     }}>
                     {value.questionNumber}
                   </Text>
@@ -253,12 +299,31 @@ const ExamScreen = (props) => {
         style={{
           marginHorizontal: 10,
           marginBottom: 10,
+          flexDirection: 'row',
         }}>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => previousQuestionHandler()}
+            disabled={index === 0}
+            style={{
+              flex: 1,
+              marginHorizontal: 5,
+              backgroundColor:
+                index !== 0 ? 'rgb(31, 81, 221)' : 'rgb(150, 150, 150)',
+              height: 40,
+              justifyContent: 'center',
+              borderRadius: 20,
+              width: '100%',
+            }}>
+            <Text style={{color: '#fff', textAlign: 'center'}}>Previous</Text>
+          </TouchableOpacity>
         <TouchableOpacity
           activeOpacity={0.8}
           onPress={() => nextQuestionHandler()}
           disabled={disabled}
           style={{
+            flex: 1,
+            marginHorizontal: 5,
             backgroundColor: !disabled
               ? 'rgb(31, 81, 221)'
               : 'rgb(150, 150, 150)',
@@ -268,7 +333,7 @@ const ExamScreen = (props) => {
             width: '100%',
           }}>
           <Text style={{color: '#fff', textAlign: 'center'}}>
-            {index !== maxIndex ? 'Continue' : 'Finish'}
+            {index !== maxIndex ? 'Save & Next' : 'Finish'}
           </Text>
         </TouchableOpacity>
       </View>

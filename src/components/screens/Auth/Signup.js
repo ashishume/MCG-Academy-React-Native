@@ -151,6 +151,7 @@ class Signup extends Component {
               })}
             </View>
             <TouchableOpacity
+              activeOpacity={0.8}
               onPress={() => this.SignupHandler()}
               style={styles.buttonContainer}>
               <Text style={styles.buttonText}>Next</Text>
@@ -158,6 +159,7 @@ class Signup extends Component {
 
             <View style={{color: '#000', marginTop: 10}}>
               <TouchableOpacity
+                activeOpacity={0.8}
                 onPress={() => this.props.navigation.navigate('Login')}>
                 <Text style={{color: '#000', textAlign: 'center'}}>
                   Already have an account? login

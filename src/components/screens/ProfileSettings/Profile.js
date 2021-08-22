@@ -69,6 +69,7 @@ class Profile extends Component {
       'userId',
       'phone',
       'category',
+      'testCategorySelected',
     ];
     try {
       await AsyncStorage.multiRemove(arrayKeys);

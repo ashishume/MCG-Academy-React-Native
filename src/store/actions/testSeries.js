@@ -12,12 +12,22 @@ export const fetchAllTestCategories = () => async (dispatch) => {
   });
 };
 
-export const fetchAllExams = (categoryId) => async (dispatch) => {
+export const fetchAllExams = (testSeriesId) => async (dispatch) => {
   const response = await HttpService.get(
-    `${API_NAME.TEST_SERIES_EXAMS}/${categoryId}`,
+    `${API_NAME.TEST_SERIES_EXAMS}/${testSeriesId}`,
   );
   dispatch({
     type: ActionType.TEST_SERIES_EXAMS,
+    payload: response.data,
+  });
+};
+
+export const fetchTestSeries = (categoryId) => async (dispatch) => {
+  const response = await HttpService.get(
+    `${API_NAME.TEST_SERIES}/${categoryId}`,
+  );
+  dispatch({
+    type: ActionType.TEST_SERIES,
     payload: response.data,
   });
 };
@@ -67,6 +77,15 @@ export const fetchLeaderboardData = (examId) => async (dispatch) => {
 export const submitExamScore = async (body) => {
   try {
     await HttpService.post(API_NAME.GET_LEADERBOARD_TEST_SERIES, body);
+  } catch (e) {
+    ToastAndroid.show('something went wrong', ToastAndroid.SHORT);
+  }
+};
+
+export const reportQuestion = async (body) => {
+  try {
+    const resp = await HttpService.post(API_NAME.REPORT_QUESTION, body);
+    ToastAndroid.show(resp?.data?.message, ToastAndroid.SHORT);
   } catch (e) {
     ToastAndroid.show('something went wrong', ToastAndroid.SHORT);
   }

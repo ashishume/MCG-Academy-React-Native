@@ -20,7 +20,13 @@ const App = () => {
       <StatusBar backgroundColor="black" />
       <MainRouting />
       <LoaderComponent />
+      {/* <TestSeries/> */}
     </Fragment>
   );
 };
 export default App;
+
+/*
+TODO: on focus load latest exam data
+
+*/

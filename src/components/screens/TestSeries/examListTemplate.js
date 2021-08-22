@@ -1,27 +1,28 @@
 import React, {useEffect, useState} from 'react';
-import {View, Image, Text, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Image,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Dimensions,
+} from 'react-native';
 
+const {width} = Dimensions.get('window');
 const ExamListTemplate = (props) => {
   const [isEnrolled, setEnrolled] = useState(false);
-  const {
-    category,
-    _id,
-    examImageUrl,
-    examTime,
-    instructions,
-    isPaid,
-    name,
-    price,
-    timeLimit,
-  } = props.data;
-  const {boughtTestData = {}} = props;
+  const {_id, examImageUrl, instructions, isPaid, name, price, timeLimit} =
+    props.data;
+  const {boughtTestData} = props;
   useEffect(() => {
     const funcCall = async () => {
-      if (Object.keys(boughtTestData).length !== 0) {
+      if (boughtTestData.length !== 0) {
         const check = await boughtTestData.some(
           (value) => value.test._id === _id,
         );
         await setEnrolled(check);
+      } else {
+        setEnrolled(false);
       }
     };
     funcCall();
@@ -29,76 +30,128 @@ const ExamListTemplate = (props) => {
 
   return (
     <TouchableOpacity
-      onPress={() => props.routeToDescription(name, instructions)}
-      activeOpacity={0.8}
-      style={{
-        borderBottomWidth: 1,
-        borderBottomColor: 'rgba(0,0,0,0.3)',
-        padding: 5,
-        margin: 5,
-      }}>
-      <Image
-        source={{uri: examImageUrl}}
-        style={{width: '100%', height: 170}}
-      />
-      <Text
-        numberOfLines={1}
-        style={{paddingTop: 3, fontSize: 15, fontWeight: 'bold'}}>
-        {name}
-      </Text>
-      <View style={{flexDirection: 'row'}}>
-        <Text numberOfLines={1} style={{paddingRight: 10}}>
-          {examTime} mins,
-        </Text>
-        <Text numberOfLines={1} style={{paddingRight: 10}}>
-          Valid for {timeLimit} days
-        </Text>
-      </View>
-      {!isEnrolled ? (
-        <TouchableOpacity
-          activeOpacity={0.8}
-          onPress={() =>
-            props.makeTestSeriesPayment(_id, price, timeLimit, name, isPaid)
-          }
+      activeOpacity={1}
+      onPress={() => props.routeToDescription(props.data)}>
+      <View style={styles.container}>
+        <View
           style={{
-            backgroundColor: '#c20202',
-            height: 40,
-            marginVertical: 10,
-            flex: 1,
+            flexDirection: 'column',
             justifyContent: 'center',
-            borderRadius: 20,
-            width: '100%',
+            alignItems: 'center',
+            marginTop: 20,
           }}>
-          {isPaid ? (
-            <Text style={{color: '#fff', textAlign: 'center'}}>
-              Buy for ₹{price}
-            </Text>
-          ) : (
-            <Text style={{color: '#fff', textAlign: 'center'}}>
-              Enroll free
-            </Text>
-          )}
-        </TouchableOpacity>
-      ) : (
-        <TouchableOpacity
-          activeOpacity={0.8}
-          onPress={() => props.continueToTest(props.data)}
-          style={{
-            backgroundColor: 'green',
-            height: 40,
-            marginVertical: 10,
-            flex: 1,
-            justifyContent: 'center',
-            borderRadius: 20,
-            width: '100%',
-          }}>
-          <Text style={{color: '#fff', textAlign: 'center'}}>
-            Continue test
+          <Image
+            source={{
+              uri: examImageUrl,
+            }}
+            style={{borderRadius: 50, width: 70, height: 70}}
+          />
+          <Text
+            style={{
+              fontSize: 20,
+              textAlign: 'center',
+              fontWeight: 'bold',
+              marginTop: 10,
+            }}
+            numberOfLines={1}>
+            {name}
           </Text>
-        </TouchableOpacity>
-      )}
+          <View style={{flexDirection: 'row', marginTop: 10}}>
+            {/* <Text style={styles.subtitleStyle}>{maxMarks} marks</Text> */}
+            {/* <Text style={{fontSize: 15}}>{examTime} minutes</Text> */}
+          </View>
+          <View
+            style={{
+              width: '100%',
+              paddingHorizontal: 40,
+              flexDirection: 'row',
+              marginTop: 20,
+            }}>
+            {!isEnrolled ? (
+              <TouchableOpacity
+                activeOpacity={0.7}
+                style={{
+                  borderRadius: 50,
+                  flex: 1,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  backgroundColor: '#c20202',
+                  height: 50,
+                }}
+                onPress={() =>
+                  props.makeTestSeriesPayment(
+                    _id,
+                    price,
+                    timeLimit,
+                    name,
+                    isPaid,
+                  )
+                }>
+                <Text
+                  style={{
+                    fontSize: 17,
+                    color: '#fff',
+                    textAlign: 'center',
+                  }}>
+                  Enroll {!isPaid ? 'free' : ''}
+                </Text>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity
+                activeOpacity={0.7}
+                style={{
+                  borderRadius: 50,
+                  flex: 1,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  backgroundColor: 'green',
+                  height: 50,
+                }}
+                onPress={() => props.continueToTest(props.data)}>
+                <Text
+                  style={{
+                    fontSize: 17,
+                    color: '#fff',
+                    textAlign: 'center',
+                  }}>
+                  Continue test
+                </Text>
+              </TouchableOpacity>
+            )}
+          </View>
+          <View style={{marginTop: 10}}>
+            <Text style={{fontSize: 16}} numberOfLines={1}>
+              Valid upto {timeLimit} days
+            </Text>
+          </View>
+        </View>
+      </View>
     </TouchableOpacity>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    width: width - 30,
+    height: 300,
+    backgroundColor: '#fff',
+    margin: 15,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 7,
+    },
+    shadowOpacity: 0.41,
+    shadowRadius: 9.11,
+    elevation: 10,
+  },
+  subtitleStyle: {
+    fontSize: 15,
+    borderRightWidth: 1,
+    borderRightColor: 'rgba(0,0,0,0.4)',
+    marginRight: 10,
+    paddingRight: 10,
+  },
+});
 
 export default ExamListTemplate;

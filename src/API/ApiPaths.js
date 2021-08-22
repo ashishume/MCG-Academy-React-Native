@@ -15,11 +15,14 @@ export const API_NAME = {
   FEATURED: 'courses/featured/category',
   //test series paths
   TEST_SERIES_CATEGORIES: 'test-series/category',
+  TEST_SERIES: 'test-series',
   TEST_SERIES_EXAMS: 'test-series/exam',
   TEST_SERIES_QUESTIONS: 'test-series/question',
   BUY_NEW_TEST_SERIES: 'test-series/buy-test',
   GET_BOUGHT_TEST_SERIES: 'test-series/my-tests',
   GET_LEADERBOARD_TEST_SERIES: 'test-series/leaderboard',
+  REPORT_QUESTION: 'test-series/report',
+  ALL_TEST_SERIES: 'test-series/all',
 };
 
 export const RAZOR_PAY_KEY = {

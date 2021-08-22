@@ -2,17 +2,19 @@ import React, {useEffect, useState, Fragment} from 'react';
 import {
   View,
   Text,
+  StyleSheet,
   TouchableOpacity,
   ToastAndroid,
   FlatList,
 } from 'react-native';
 import {connect} from 'react-redux';
 import {
-  fetchAllExams,
+  fetchTestSeries,
   fetchAllTestCategories,
   fetchAllBoughtTests,
 } from '../../../store/actions/testSeries';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import DashboardTitle from './DashboardTitle';
 import ExamListTemplate from './examListTemplate';
 import Styles, {IconStyles} from '../../Styles';
 import {Icon} from 'react-native-elements';
@@ -27,17 +29,24 @@ const TestSeries = (props) => {
       await props.fetchAllBoughtTests();
       await fetchCategoryData();
     };
-    fetchData();
-  }, []);
+    props.navigation.addListener('focus', () => {
+      fetchData();
+    });
+  }, [selectedCategory]);
 
   const fetchCategoryData = async () => {
     try {
       const data = await AsyncStorage.getItem('testCategorySelected');
-      const newData = JSON.parse(data);
-      if (newData !== null) {
-        await props.fetchAllExams(newData._id);
-        await setSelectedCategory(newData.name);
+      let newData;
+      if (data === null) {
+        const d = JSON.stringify(props.testCategories[0]);
+        newData = props.testCategories[0];
+        await AsyncStorage.setItem('testCategorySelected', d);
+      } else {
+        newData = JSON.parse(data);
       }
+      await props.fetchTestSeries(newData._id);
+      await setSelectedCategory(newData.name);
     } catch (e) {
       ToastAndroid.show('Something went wrong', ToastAndroid.SHORT);
     }
@@ -45,7 +54,7 @@ const TestSeries = (props) => {
 
   const renderPreferenceItems = async (e) => {
     try {
-      await props.fetchAllExams(e._id);
+      await props.fetchTestSeries(e._id);
       const categoryData = JSON.stringify(e);
       await AsyncStorage.setItem('testCategorySelected', categoryData);
       await setVisible(false);
@@ -55,11 +64,8 @@ const TestSeries = (props) => {
     }
   };
 
-  const routeToDescription = (name, desc) => {
-    props.navigation.navigate('Exam description', {name, desc, onlyView: true});
-  };
   const continueToTest = (data) => {
-    props.navigation.navigate('Exam description', {onlyView: false, data});
+    props.navigation.navigate('Test Series List', data);
   };
   const makeTestSeriesPayment = (id, price, timeLimit, name, isPaid) => {
     const obj = {
@@ -71,6 +77,12 @@ const TestSeries = (props) => {
       isPaid,
     };
     props.navigation.navigate('Payment', obj);
+  };
+
+  const routeToDescription = (data) => {
+    props.navigation.navigate('Test Series Description', {
+      testSeriesId: data._id,
+    });
   };
 
   return (
@@ -114,37 +126,37 @@ const TestSeries = (props) => {
       <View
         style={{
           marginHorizontal: 5,
-          marginTop: 10,
           backgroundColor: '#fff',
           height: '100%',
         }}>
-        <Text
+        <View
           style={{
-            borderWidth: 1,
-            borderColor: 'rgba(0,0,0,0.2)',
-            padding: 10,
-            borderRadius: 10,
-          }}
-          onPress={() => setVisible(!visible)}>
-          Select category
-        </Text>
-        {selectedCategory ? (
+            flexDirection: 'row',
+            marginTop: 10,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
           <Text
+            numberOfLines={1}
             style={{
               ...Styles.fontFamily,
-              width: '100%',
               textAlign: 'center',
               marginVertical: 5,
               fontSize: 17,
+              paddingRight: 5,
               fontWeight: '700',
-            }}>
-            Selected category: {selectedCategory}
+            }}
+            onPress={() => setVisible(!visible)}>
+            {selectedCategory}
           </Text>
-        ) : (
-          <Text style={{fontSize: 20, textAlign: 'center', marginTop: 10}}>
-            Select a category
-          </Text>
-        )}
+          <Icon
+            name="triangle"
+            color={'rgba(0, 0, 0, 0.4)'}
+            style={{transform: [{rotateX: '180deg'}]}}
+            type={IconStyles.iconType}
+            size={10}
+          />
+        </View>
 
         {visible ? (
           <View
@@ -172,9 +184,15 @@ const TestSeries = (props) => {
             })}
           </View>
         ) : null}
-        <View style={{paddingBottom: 130}}>
+
+        <DashboardTitle />
+
+        <View>
           <FlatList
-            data={props.testExams}
+            showsHorizontalScrollIndicator={false}
+            horizontal
+            dis
+            data={props.testSeriesData}
             ListEmptyComponent={
               <Text style={{textAlign: 'center', marginTop: 10}}>
                 No tests available
@@ -187,9 +205,7 @@ const TestSeries = (props) => {
                   makeTestSeriesPayment={(id, price, timeLimit, name, isPaid) =>
                     makeTestSeriesPayment(id, price, timeLimit, name, isPaid)
                   }
-                  routeToDescription={(name, desc) =>
-                    routeToDescription(name, desc)
-                  }
+                  routeToDescription={(data) => routeToDescription(data)}
                   continueToTest={(data) => continueToTest(data)}
                   data={item}
                 />
@@ -198,22 +214,45 @@ const TestSeries = (props) => {
             keyExtractor={(item) => item._id.toString()}
           />
         </View>
+        <TouchableOpacity
+          onPress={() => props.navigation.navigate('All Tests Series')}
+          activeOpacity={0.6}>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <Text style={{color: 'green', textAlign: 'center', fontSize: 20}}>
+              View All Test Series
+            </Text>
+            <Icon
+              containerStyle={{marginLeft: 5}}
+              type={IconStyles.type}
+              size={20}
+              color="green"
+              name="arrow-forward"
+            />
+          </View>
+        </TouchableOpacity>
       </View>
     </Fragment>
   );
 };
 const mapStateToProps = ({testSeries}) => {
-  const {testCategories, testExams, testQuestions, myTests} = testSeries;
+  const {testCategories, testExams, testQuestions, testSeriesData, myTests} =
+    testSeries;
   return {
     testCategories,
     testExams,
     testQuestions,
     myTests,
+    testSeriesData,
   };
 };
 
 export default connect(mapStateToProps, {
   fetchAllTestCategories,
-  fetchAllExams,
   fetchAllBoughtTests,
+  fetchTestSeries,
 })(TestSeries);

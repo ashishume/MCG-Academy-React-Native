@@ -95,6 +95,7 @@ class Login extends Component {
           </View>
 
           <TouchableOpacity
+            activeOpacity={0.8}
             onPress={() => this.loginHandler()}
             style={styles.buttonContainer}>
             <Text style={styles.buttonText}>Login</Text>
@@ -102,6 +103,7 @@ class Login extends Component {
 
           <Text style={{textAlign: 'center', paddingTop: 10}}>Or</Text>
           <TouchableOpacity
+            activeOpacity={0.8}
             onPress={() => this.props.navigation.navigate('Signup')}
             style={styles.registerButtonContainer}>
             <Text style={styles.buttonText}>Register</Text>

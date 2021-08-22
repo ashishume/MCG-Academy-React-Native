@@ -1,11 +1,7 @@
-import React, {Fragment, useEffect} from 'react';
-import {Image, Dimensions, View, StyleSheet, Text} from 'react-native';
-import {ScrollView} from 'react-native-gesture-handler';
+import React, {useEffect} from 'react';
+import {Image, Dimensions, View} from 'react-native';
 import {connect} from 'react-redux';
-const {height, width} = Dimensions.get('window');
 import {fetchAllImages} from '../../store/actions/images';
-import {Icon} from 'react-native-elements';
-import {IconStyles} from '../Styles';
 import Carousel from 'react-native-snap-carousel';
 
 const horizontalMargin = 20;
@@ -31,43 +27,6 @@ const DashboardSlideshow = (props) => {
   };
   return (
     <View style={{marginVertical: 5, flex: 1}}>
-      {/* <View
-        style={{
-          paddingHorizontal: 20,
-          paddingBottom: 10,
-          flexDirection: 'row',
-          flex: 1,
-        }}>
-        <Text
-          style={{
-            fontSize: 25,
-            fontWeight: 'bold',
-            flex: 1,
-          }}>
-          Special offers
-        </Text>
-      </View> */}
-      {/* <ScrollView
-        horizontal={true}
-        showsHorizontalScrollIndicator={false}
-        scrollEventThrottle={200}
-        style={{
-          paddingBottom: 10,
-          marginHorizontal: 5,
-        }}
-        decelerationRate="fast"
-        pagingEnabled>
-        {props.images.map((value, i) => {
-          return (
-            <Fragment key={i}>
-              <Image
-                source={{uri: value.imageUrl}}
-                style={{width: width, height: 200}}
-              />
-            </Fragment>
-          );
-        })}
-      </ScrollView> */}
       <Carousel
         data={props.images}
         renderItem={_renderItem}
