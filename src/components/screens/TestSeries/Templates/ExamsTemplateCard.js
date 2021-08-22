@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 
 const {width} = Dimensions.get('window');
-const ExamListTemplate = (props) => {
+const ExamsTemplateCard = (props) => {
   const [isEnrolled, setEnrolled] = useState(false);
   const {_id, examImageUrl, instructions, isPaid, name, price, timeLimit} =
     props.data;
@@ -154,4 +154,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ExamListTemplate;
+export default ExamsTemplateCard;

@@ -14,10 +14,11 @@ import {
   fetchAllBoughtTests,
 } from '../../../store/actions/testSeries';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import DashboardTitle from './DashboardTitle';
-import ExamListTemplate from './examListTemplate';
+import DashboardTitle from './Templates/DashboardTitle';
+import ExamsTemplateCard from './Templates/ExamsTemplateCard';
 import Styles, {IconStyles} from '../../Styles';
 import {Icon} from 'react-native-elements';
+import SearchTestSeries from './SearchTestSeries';
 
 const TestSeries = (props) => {
   const [visible, setVisible] = useState(false);
@@ -65,7 +66,10 @@ const TestSeries = (props) => {
   };
 
   const continueToTest = (data) => {
-    props.navigation.navigate('Test Series List', data);
+    props.navigation.navigate('Exams List', {
+      testSeriesId: data._id,
+      continueToInstruction: true,
+    });
   };
   const makeTestSeriesPayment = (id, price, timeLimit, name, isPaid) => {
     const obj = {
@@ -80,7 +84,7 @@ const TestSeries = (props) => {
   };
 
   const routeToDescription = (data) => {
-    props.navigation.navigate('Test Series Description', {
+    props.navigation.navigate('Exams List', {
       testSeriesId: data._id,
     });
   };
@@ -91,18 +95,27 @@ const TestSeries = (props) => {
         style={{
           width: '100%',
           height: 50,
+          paddingTop: 3,
           backgroundColor: '#fff',
-          shadowOpacity: 1,
-          shadowOffset: {
-            height: 10,
-          },
-          elevation: 5,
-          shadowRadius: 5,
           flexDirection: 'row',
         }}>
-        <View style={{flex: 1, justifyContent: 'center', paddingLeft: 5}}>
-          <Text style={{fontSize: 20, fontWeight: 'bold'}}>Test Series</Text>
-        </View>
+        <TouchableOpacity
+          onPress={() => props.navigation.navigate('Search Test Series')}
+          activeOpacity={0.9}
+          style={{
+            flex: 1,
+            justifyContent: 'center',
+            paddingLeft: 10,
+            borderRadius: 20,
+            borderWidth: 1,
+            borderColor: 'rgba(0,0,0,0.6)',
+            marginHorizontal: 10,
+            height: '90%',
+          }}>
+          <Text style={{fontSize: 18, color: 'rgba(0,0,0,0.4)'}}>
+            Search...
+          </Text>
+        </TouchableOpacity>
         <View
           style={{
             justifyContent: 'flex-end',
@@ -114,10 +127,11 @@ const TestSeries = (props) => {
               props.navigation.navigate('My tests', {myTests: props.myTests})
             }>
             <Icon
-              name="briefcase-outline"
+              name="briefcase"
               size={18}
-              raised
               reverse
+              raised
+              color="rgba(0,0,0,0.4)"
               type={IconStyles.iconType}
             />
           </TouchableOpacity>
@@ -194,13 +208,11 @@ const TestSeries = (props) => {
             dis
             data={props.testSeriesData}
             ListEmptyComponent={
-              <Text style={{textAlign: 'center', marginTop: 10}}>
-                No tests available
-              </Text>
+              <Text style={{marginTop: 10}}>No tests available</Text>
             }
             renderItem={({item, index}) => {
               return (
-                <ExamListTemplate
+                <ExamsTemplateCard
                   boughtTestData={props.myTests}
                   makeTestSeriesPayment={(id, price, timeLimit, name, isPaid) =>
                     makeTestSeriesPayment(id, price, timeLimit, name, isPaid)

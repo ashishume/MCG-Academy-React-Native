@@ -2,9 +2,9 @@ import React, {useEffect, useState} from 'react';
 import {View, TouchableOpacity, FlatList, Text} from 'react-native';
 import {Avatar, ListItem} from 'react-native-elements';
 
-const AllTestSeriesList = (props) => {
+const AllTestSeriesListTemplate = (props) => {
   const routeToDescription = (data) => {
-    props.navigation.navigate('Test Series Description', {
+    props.navigation.navigate('Exams List', {
       testSeriesId: data._id,
     });
   };
@@ -49,4 +49,4 @@ const AllTestSeriesList = (props) => {
   );
 };
 
-export default AllTestSeriesList;
+export default AllTestSeriesListTemplate;

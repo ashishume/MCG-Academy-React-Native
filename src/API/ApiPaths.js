@@ -23,6 +23,7 @@ export const API_NAME = {
   GET_LEADERBOARD_TEST_SERIES: 'test-series/leaderboard',
   REPORT_QUESTION: 'test-series/report',
   ALL_TEST_SERIES: 'test-series/all',
+  ALL_TEST_SERIES_SEARCH: 'test-series/search',
 };
 
 export const RAZOR_PAY_KEY = {

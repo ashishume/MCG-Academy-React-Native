@@ -1,10 +1,11 @@
 import React from 'react';
 import {View, TouchableOpacity, Text} from 'react-native';
-import Styles from '../../Styles';
-const TestSeriesListTemplate = (props) => {
-  const {item, isView} = props;
+import Styles from '../../../Styles';
+const ExamsListTemplate = (props) => {
+  const {item, continueToInstruction} = props;
   const routeToExamInstruction = () => {
-    if (!isView) props.navigation.navigate('Exam description', {data: item});
+    if (continueToInstruction)
+      props.navigation.navigate('Exam description', {data: item});
   };
 
   return (
@@ -52,4 +53,4 @@ const TestSeriesListTemplate = (props) => {
   );
 };
 
-export default TestSeriesListTemplate;
+export default ExamsListTemplate;

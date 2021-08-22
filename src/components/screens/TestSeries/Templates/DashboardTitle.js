@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import { Icon } from 'react-native-elements';
-import { IconStyles } from '../../Styles';
+import { IconStyles } from '../../../Styles';
 const DashboardTitle = () => {
   return (
     <View style={{flexDirection: 'row', marginVertical: 20}}>

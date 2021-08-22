@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, FlatList} from 'react-native';
-import ExamListTemplate from './examListTemplate';
-import MyTestsTemplate from './MyTestsTemplate';
+import ExamsTemplateCard from './Templates/ExamsTemplateCard';
+import MyTestsTemplate from './Templates/MyTestsTemplate';
 
 const MyBoughtTests = (props) => {
   const {myTests} = props.route.params;

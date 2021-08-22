@@ -2,9 +2,9 @@ import React, {useEffect} from 'react';
 import {View, Text, FlatList} from 'react-native';
 import {connect} from 'react-redux';
 import {fetchAllExams} from '../../../store/actions/testSeries';
-import TestSeriesListTemplate from './TestSeriesListTemplate';
+import ExamsListTemplate from './Templates/ExamsListTemplate';
 const TestSeriesListView = (props) => {
-  const {testSeriesId} = props.route.params;
+  const {testSeriesId, continueToInstruction = false} = props.route.params;
 
   useEffect(() => {
     props.fetchAllExams(testSeriesId);
@@ -22,7 +22,13 @@ const TestSeriesListView = (props) => {
         data={props.testExams}
         keyExtractor={(item) => item._id.toString()}
         renderItem={({item}) => {
-          return <TestSeriesListTemplate isView={true} item={item} />;
+          return (
+            <ExamsListTemplate
+            continueToInstruction={continueToInstruction}
+              {...props}
+              item={item}
+            />
+          );
         }}
       />
     </View>

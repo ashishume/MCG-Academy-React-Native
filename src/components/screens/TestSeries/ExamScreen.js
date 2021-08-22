@@ -11,7 +11,7 @@ import {
 
 import RenderHtml from 'react-native-render-html';
 import {CheckBox, Icon} from 'react-native-elements';
-import CountdownTimer from './CountdownTimer';
+import CountdownTimer from './Templates/CountdownTimer';
 import {IconStyles} from '../../Styles';
 import {submitExamScore} from '../../../store/actions/testSeries';
 import AsyncStorage from '@react-native-async-storage/async-storage';

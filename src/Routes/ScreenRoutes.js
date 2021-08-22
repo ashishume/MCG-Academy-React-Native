@@ -27,10 +27,9 @@ import ExamScreen from '../components/screens/TestSeries/ExamScreen';
 import Results from '../components/screens/TestSeries/Results';
 import LeaderBoard from '../components/screens/TestSeries/LeaderBoard';
 import Report from '../components/screens/TestSeries/Report';
-import TestSeriesList from '../components/screens/TestSeries/TestSeriesList';
-import TestSeriesListView from '../components/screens/TestSeries/TestSeriesListView';
-import AllTestSeriesList from '../components/screens/TestSeries/AllTestSeriesList';
-import SearchTestSeries from '../components/screens/TestSeries/TestSeriesList';
+import ExamsListView from '../components/screens/TestSeries/ExamsListView';
+import AllTestSeriesList from '../components/screens/TestSeries/AllTests/AllTestSeriesList';
+import SearchTestSeries from '../components/screens/TestSeries/SearchTestSeries';
 
 export const SCREEN_ROUTES = [
   {
@@ -196,14 +195,8 @@ export const SCREEN_ROUTES = [
     backgroundColor: '#fff',
   },
   {
-    name: 'Test Series List',
-    component: TestSeriesList,
-    header: true,
-    backgroundColor: '#fff',
-  },
-  {
-    name: 'Test Series Description',
-    component: TestSeriesListView,
+    name: 'Exams List',
+    component: ExamsListView,
     header: true,
     backgroundColor: '#fff',
   },
@@ -216,7 +209,7 @@ export const SCREEN_ROUTES = [
   {
     name: 'Search Test Series',
     component: SearchTestSeries,
-    header: true,
+    header: false,
     backgroundColor: '#fff',
   },
 ];
