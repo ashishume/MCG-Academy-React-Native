@@ -1,11 +1,19 @@
 import React from 'react';
 import {View, TouchableOpacity, Text} from 'react-native';
-import Styles from '../../../Styles';
+import {Icon} from 'react-native-elements';
+import Styles, {IconStyles} from '../../../Styles';
 const ExamsListTemplate = (props) => {
-  const {item, continueToInstruction} = props;
+  const {
+    item,
+    continueToInstruction = false,
+    isTestSeriesBought = false,
+  } = props;
   const routeToExamInstruction = () => {
-    if (continueToInstruction)
+    if (continueToInstruction || isTestSeriesBought)
       props.navigation.navigate('Exam description', {data: item});
+    else {
+      console.log('to be sent to payment screen', item);
+    }
   };
 
   return (
@@ -48,6 +56,20 @@ const ExamsListTemplate = (props) => {
           }}>
           {item.maxMarks} marks
         </Text>
+        {continueToInstruction || isTestSeriesBought ? (
+          <View
+            style={{
+              justifyContent: 'flex-end',
+              alignItems: 'flex-end',
+              flex: 1,
+            }}>
+            <Icon
+              type={IconStyles.iconType}
+              size={25}
+              name="arrow-forward-circle"
+            />
+          </View>
+        ) : null}
       </View>
     </TouchableOpacity>
   );

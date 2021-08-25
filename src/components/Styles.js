@@ -2,6 +2,7 @@ import {StyleSheet} from 'react-native';
 export default StyleSheet.create({
   fontFamily: {
     fontFamily: 'Kodchasan-Regular',
+    // fontFamily: 'VarelaRound-Regular',
   },
   cardBorder: {
     borderWidth: 0,

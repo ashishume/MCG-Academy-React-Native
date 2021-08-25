@@ -18,7 +18,6 @@ import DashboardTitle from './Templates/DashboardTitle';
 import ExamsTemplateCard from './Templates/ExamsTemplateCard';
 import Styles, {IconStyles} from '../../Styles';
 import {Icon} from 'react-native-elements';
-import SearchTestSeries from './SearchTestSeries';
 
 const TestSeries = (props) => {
   const [visible, setVisible] = useState(false);
@@ -49,6 +48,12 @@ const TestSeries = (props) => {
       await props.fetchTestSeries(newData._id);
       await setSelectedCategory(newData.name);
     } catch (e) {
+      console.log('error is coming here');
+
+      /*
+      TODO: Need to fix the error in android 
+      */
+
       ToastAndroid.show('Something went wrong', ToastAndroid.SHORT);
     }
   };
@@ -124,7 +129,7 @@ const TestSeries = (props) => {
           <TouchableOpacity
             activeOpacity={0.8}
             onPress={() =>
-              props.navigation.navigate('My tests', {myTests: props.myTests})
+              props.navigation.navigate('My tests', {myTestSeries: props.myTestSeries})
             }>
             <Icon
               name="briefcase"
@@ -143,6 +148,7 @@ const TestSeries = (props) => {
           backgroundColor: '#fff',
           height: '100%',
         }}>
+        {/* Selected category */}
         <View
           style={{
             flexDirection: 'row',
@@ -175,8 +181,10 @@ const TestSeries = (props) => {
         {visible ? (
           <View
             style={{
-              backgroundColor: 'rgba(0,0,0,0.02)',
               position: 'relative',
+              flexDirection: 'column',
+              alignSelf: 'center',
+              width: '80%',
             }}>
             {props.testCategories.map((value) => {
               return (
@@ -185,9 +193,10 @@ const TestSeries = (props) => {
                   key={value._id}
                   onPress={() => renderPreferenceItems(value)}>
                   <Text
+                    numberOfLines={1}
                     style={{
                       margin: 6,
-                      borderBottomColor: 'rgba(0,0,0,0.4)',
+                      borderBottomColor: 'rgba(0,0,0,0.1)',
                       borderBottomWidth: 1,
                       paddingVertical: 5,
                     }}>
@@ -198,6 +207,7 @@ const TestSeries = (props) => {
             })}
           </View>
         ) : null}
+        {/* Selected category */}
 
         <DashboardTitle />
 
@@ -213,7 +223,7 @@ const TestSeries = (props) => {
             renderItem={({item, index}) => {
               return (
                 <ExamsTemplateCard
-                  boughtTestData={props.myTests}
+                  boughtTestData={props.myTestSeries}
                   makeTestSeriesPayment={(id, price, timeLimit, name, isPaid) =>
                     makeTestSeriesPayment(id, price, timeLimit, name, isPaid)
                   }
@@ -252,13 +262,13 @@ const TestSeries = (props) => {
   );
 };
 const mapStateToProps = ({testSeries}) => {
-  const {testCategories, testExams, testQuestions, testSeriesData, myTests} =
+  const {testCategories, testExams, testQuestions, testSeriesData, myTestSeries} =
     testSeries;
   return {
     testCategories,
     testExams,
     testQuestions,
-    myTests,
+    myTestSeries,
     testSeriesData,
   };
 };

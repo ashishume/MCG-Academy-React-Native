@@ -1,10 +1,9 @@
 import React from 'react';
 import {View, Text, FlatList} from 'react-native';
-import ExamsTemplateCard from './Templates/ExamsTemplateCard';
 import MyTestsTemplate from './Templates/MyTestsTemplate';
 
 const MyBoughtTests = (props) => {
-  const {myTests} = props.route.params;
+  const {myTestSeries} = props.route.params;
   const continueToTest = (data) => {
     const newData = data.test;
     props.navigation.navigate('Exam description', {
@@ -15,7 +14,7 @@ const MyBoughtTests = (props) => {
   return (
     <View>
       <FlatList
-        data={myTests}
+        data={myTestSeries}
         ListEmptyComponent={
           <Text style={{textAlign: 'center', marginTop: 10}}>
             No tests available

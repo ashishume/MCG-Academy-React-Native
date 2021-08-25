@@ -1,6 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import {View, TouchableOpacity, FlatList, Text} from 'react-native';
-import {Avatar, ListItem} from 'react-native-elements';
 import {API_NAME} from '../../../../API/ApiPaths';
 import Axios from '../../../../API/HttpService';
 import AllTestSeriesListTemplate from './AllTestSeriesListTemplate';

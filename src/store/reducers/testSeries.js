@@ -4,7 +4,7 @@ const initialState = {
   testSeriesData: [],
   testExams: [],
   testQuestions: [],
-  myTests: [],
+  myTestSeries: [],
   leaderboard: [],
 };
 
@@ -33,7 +33,7 @@ const testSeriesReducer = (state = initialState, action) => {
     case ActionTypes.FETCH_MY_TEST_SERIES:
       return {
         ...state,
-        myTests: action.payload,
+        myTestSeries: action.payload,
       };
     case ActionTypes.LEADERBOARD_DATA:
       return {
