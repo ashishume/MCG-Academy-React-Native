@@ -3,8 +3,13 @@ import {View, Text, FlatList} from 'react-native';
 import {connect} from 'react-redux';
 import {fetchAllExams} from '../../../store/actions/testSeries';
 import ExamsListTemplate from './Templates/ExamsListTemplate';
-const TestSeriesListView = (props) => {
-  const {testSeriesId, continueToInstruction = false} = props.route.params;
+
+const ExamsListView = (props) => {
+  const {
+    testSeriesId,
+    continueToInstruction = false,
+    testSeriesData = {},
+  } = props.route.params;
   const [isTestSeriesBought, setIsTestSeriesBought] = useState(false);
   const [boughtTestSeries, setBoughtTestSeries] = useState({});
   useEffect(() => {
@@ -37,6 +42,7 @@ const TestSeriesListView = (props) => {
         renderItem={({item}) => {
           return (
             <ExamsListTemplate
+              testSeriesData={testSeriesData}
               isTestSeriesBought={isTestSeriesBought}
               continueToInstruction={continueToInstruction}
               {...props}
@@ -56,4 +62,4 @@ const mapStateToProps = ({testSeries}) => {
 
 export default connect(mapStateToProps, {
   fetchAllExams,
-})(TestSeriesListView);
+})(ExamsListView);

@@ -2,12 +2,14 @@ import React, {useEffect, useState} from 'react';
 import Explore from './Explore/Explore';
 import AllCourses from './AllCourses/AllCourses';
 import TopHeader from '../Shared/Header';
-import {View, PermissionsAndroid, Platform} from 'react-native';
+import {View, PermissionsAndroid, ToastAndroid, Platform} from 'react-native';
 import {connect} from 'react-redux';
 import DashboardSlideshow from './DashboardSlideshow';
 import {ScrollView} from 'react-native-gesture-handler';
 import {fetchMyCourses} from '../../store/actions/courses';
 import {fetchUserData} from '../../store/actions/auth';
+import {fetchAllTestCategories} from '../../store/actions/testSeries';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Dashboard = (props) => {
   const onClickHandler = () => {
@@ -18,8 +20,21 @@ const Dashboard = (props) => {
     const fetchMyCourseData = () => {
       props.fetchMyCourses();
     };
+
+    const fetchTestSeriesCategories = async () => {
+      try {
+        const data = await AsyncStorage.getItem('testCategorySelected');
+        if (data == null) {
+          props.fetchAllTestCategories();
+        }
+      } catch (e) {
+        ToastAndroid.show('Something went wrong', ToastAndroid.SHORT);
+      }
+    };
+
     props.navigation.addListener('focus', () => {
       fetchMyCourseData();
+      fetchTestSeriesCategories();
     });
 
     const GetAllPermissions = async () => {
@@ -67,4 +82,8 @@ const Dashboard = (props) => {
     </View>
   );
 };
-export default connect('', {fetchMyCourses, fetchUserData})(Dashboard);
+export default connect('', {
+  fetchMyCourses,
+  fetchAllTestCategories,
+  fetchUserData,
+})(Dashboard);

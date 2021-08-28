@@ -38,7 +38,7 @@ const TestSeries = (props) => {
     try {
       const data = await AsyncStorage.getItem('testCategorySelected');
       let newData;
-      if (data === null) {
+      if (data == null) {
         const d = JSON.stringify(props.testCategories[0]);
         newData = props.testCategories[0];
         await AsyncStorage.setItem('testCategorySelected', d);
@@ -48,12 +48,6 @@ const TestSeries = (props) => {
       await props.fetchTestSeries(newData._id);
       await setSelectedCategory(newData.name);
     } catch (e) {
-      console.log('error is coming here');
-
-      /*
-      TODO: Need to fix the error in android 
-      */
-
       ToastAndroid.show('Something went wrong', ToastAndroid.SHORT);
     }
   };
@@ -74,6 +68,7 @@ const TestSeries = (props) => {
     props.navigation.navigate('Exams List', {
       testSeriesId: data._id,
       continueToInstruction: true,
+      testSeriesData: data,
     });
   };
   const makeTestSeriesPayment = (id, price, timeLimit, name, isPaid) => {
@@ -91,6 +86,7 @@ const TestSeries = (props) => {
   const routeToDescription = (data) => {
     props.navigation.navigate('Exams List', {
       testSeriesId: data._id,
+      testSeriesData: data,
     });
   };
 
@@ -129,7 +125,9 @@ const TestSeries = (props) => {
           <TouchableOpacity
             activeOpacity={0.8}
             onPress={() =>
-              props.navigation.navigate('My tests', {myTestSeries: props.myTestSeries})
+              props.navigation.navigate('My tests', {
+                myTestSeries: props.myTestSeries,
+              })
             }>
             <Icon
               name="briefcase"
@@ -262,8 +260,13 @@ const TestSeries = (props) => {
   );
 };
 const mapStateToProps = ({testSeries}) => {
-  const {testCategories, testExams, testQuestions, testSeriesData, myTestSeries} =
-    testSeries;
+  const {
+    testCategories,
+    testExams,
+    testQuestions,
+    testSeriesData,
+    myTestSeries,
+  } = testSeries;
   return {
     testCategories,
     testExams,

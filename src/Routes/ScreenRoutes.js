@@ -30,6 +30,7 @@ import Report from '../components/screens/TestSeries/Report';
 import ExamsListView from '../components/screens/TestSeries/ExamsListView';
 import AllTestSeriesList from '../components/screens/TestSeries/AllTests/AllTestSeriesList';
 import SearchTestSeries from '../components/screens/TestSeries/SearchTestSeries';
+import VideoSolutionTestSeries from '../components/screens/VideoPage/VideoSolutionTestSeries';
 
 export const SCREEN_ROUTES = [
   {
@@ -209,6 +210,12 @@ export const SCREEN_ROUTES = [
   {
     name: 'Search Test Series',
     component: SearchTestSeries,
+    header: false,
+    backgroundColor: '#fff',
+  },
+  {
+    name: 'VideoSolutionTestSeries',
+    component: VideoSolutionTestSeries,
     header: false,
     backgroundColor: '#fff',
   },

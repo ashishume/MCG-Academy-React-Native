@@ -5,14 +5,25 @@ import Styles, {IconStyles} from '../../../Styles';
 const ExamsListTemplate = (props) => {
   const {
     item,
+    testSeriesData,
     continueToInstruction = false,
     isTestSeriesBought = false,
   } = props;
+
   const routeToExamInstruction = () => {
     if (continueToInstruction || isTestSeriesBought)
       props.navigation.navigate('Exam description', {data: item});
     else {
-      console.log('to be sent to payment screen', item);
+      const {price, _id, timeLimit, isPaid, name} = testSeriesData;
+      const obj = {
+        _id: _id,
+        price,
+        timeLimit: timeLimit,
+        courseTitle: name,
+        isTestSeries: true,
+        isPaid,
+      };
+      props.navigation.navigate('Payment', obj);
     }
   };
 

@@ -6,6 +6,7 @@ const AllTestSeriesListTemplate = (props) => {
   const routeToDescription = (data) => {
     props.navigation.navigate('Exams List', {
       testSeriesId: data._id,
+      testSeriesData: data,
     });
   };
   const [data, setData] = useState([]);

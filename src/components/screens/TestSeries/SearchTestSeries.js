@@ -37,6 +37,7 @@ const SearchTestSeries = (props) => {
   const routeToDescription = (data) => {
     props.navigation.navigate('Exams List', {
       testSeriesId: data._id,
+      testSeriesData: data,
     });
   };
 
