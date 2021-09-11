@@ -80,7 +80,7 @@ const Report = (props) => {
               color: '#fff',
               textAlign: 'center',
             }}>
-            Continue test
+            Submit report
           </Text>
         </TouchableOpacity>
       </View>

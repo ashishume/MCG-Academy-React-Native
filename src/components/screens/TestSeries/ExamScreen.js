@@ -144,6 +144,10 @@ const ExamScreen = (props) => {
       wrong = 0;
     }, 600);
   };
+  const clearSelectedOption = async () => {
+    delete allQuestions[index].answeredOption;
+    setIndex(index + 1);
+  };
 
   return (
     <Fragment>
@@ -272,6 +276,11 @@ const ExamScreen = (props) => {
                     style={{flexDirection: 'row', alignItems: 'center'}}>
                     <View style={{width: '90%'}}>
                       <CheckBox
+                        containerStyle={{
+                          backgroundColor: '#fff',
+                          borderWidth: 0,
+                          borderBottomWidth: 1,
+                        }}
                         key={value._id}
                         title={value.optionTitle}
                         onPress={() => selectOption(value)}
@@ -281,7 +290,7 @@ const ExamScreen = (props) => {
                     <Text>
                       {currentQuestion?.answeredOption?._id === value._id ? (
                         <Icon
-                          name="checkbox"
+                          name="checkmark-circle-outline"
                           size={25}
                           color="rgba(20, 93, 160,0.6)"
                           type={IconStyles.iconType}
@@ -301,22 +310,42 @@ const ExamScreen = (props) => {
           marginBottom: 10,
           flexDirection: 'row',
         }}>
+        <TouchableOpacity
+          activeOpacity={0.8}
+          onPress={() => previousQuestionHandler()}
+          disabled={index === 0}
+          style={{
+            flex: 1,
+            marginHorizontal: 5,
+            backgroundColor:
+              index !== 0 ? 'rgb(31, 81, 221)' : 'rgb(150, 150, 150)',
+            height: 40,
+            justifyContent: 'center',
+            borderRadius: 20,
+            width: '100%',
+          }}>
+          <Text style={{color: '#fff', textAlign: 'center'}}>Previous</Text>
+        </TouchableOpacity>
+        {currentQuestion?.answeredOption !== undefined ? (
           <TouchableOpacity
             activeOpacity={0.8}
-            onPress={() => previousQuestionHandler()}
-            disabled={index === 0}
+            disabled={currentQuestion?.answeredOption === undefined}
+            onPress={() => clearSelectedOption()}
             style={{
               flex: 1,
               marginHorizontal: 5,
               backgroundColor:
-                index !== 0 ? 'rgb(31, 81, 221)' : 'rgb(150, 150, 150)',
+                currentQuestion?.answeredOption !== undefined
+                  ? 'rgb(31, 81, 221)'
+                  : 'rgb(150, 150, 150)',
               height: 40,
               justifyContent: 'center',
               borderRadius: 20,
               width: '100%',
             }}>
-            <Text style={{color: '#fff', textAlign: 'center'}}>Previous</Text>
+            <Text style={{color: '#fff', textAlign: 'center'}}>Clear & Next</Text>
           </TouchableOpacity>
+        ) : null}
         <TouchableOpacity
           activeOpacity={0.8}
           onPress={() => nextQuestionHandler()}

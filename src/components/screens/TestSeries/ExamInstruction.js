@@ -3,6 +3,7 @@ import {
   ScrollView,
   ToastAndroid,
   TouchableOpacity,
+  useWindowDimensions,
   View,
   StyleSheet,
   Text,
@@ -11,7 +12,11 @@ import {Icon} from 'react-native-elements';
 import {connect} from 'react-redux';
 import {fetchAllQuestions} from '../../../store/actions/testSeries';
 import {IconStyles} from '../../Styles';
+import RenderHtml from 'react-native-render-html';
+
+
 const ExamInstruction = (props) => {
+  const {width} = useWindowDimensions();
   const {data} = props.route.params;
   const routeToExamScreen = () => {
     if (props?.testQuestions?.length) {
@@ -37,18 +42,20 @@ const ExamInstruction = (props) => {
   return (
     <View style={{flex: 1, marginBottom: 10}}>
       <ScrollView style={{margin: 10}}>
-        <Text style={{textAlign: 'center', fontSize: 20}}>
-          {data.name}
-        </Text>
-        <Text
+        <Text style={{textAlign: 'center', fontSize: 20}}>{data.name}</Text>
+        <View
           style={{
             textAlign: 'left',
             marginHorizontal: 10,
-            fontSize: 15,
             marginVertical: 10,
           }}>
-          {data.instructions}
-        </Text>
+          <RenderHtml
+            contentWidth={width}
+            source={{
+              html: data.instructions,
+            }}
+          />
+        </View>
         <View
           style={{
             borderTopColor: '#000',

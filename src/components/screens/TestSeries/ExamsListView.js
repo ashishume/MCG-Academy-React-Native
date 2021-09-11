@@ -1,9 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, Fragment, useState} from 'react';
 import {View, Text, FlatList} from 'react-native';
+import {Icon} from 'react-native-elements';
 import {connect} from 'react-redux';
 import {fetchAllExams} from '../../../store/actions/testSeries';
+import {activateVideo} from '../../../store/actions/video';
+import {IconStyles} from '../../Styles';
 import ExamsListTemplate from './Templates/ExamsListTemplate';
-
 const ExamsListView = (props) => {
   const {
     testSeriesId,
@@ -13,14 +15,37 @@ const ExamsListView = (props) => {
   const [isTestSeriesBought, setIsTestSeriesBought] = useState(false);
   const [boughtTestSeries, setBoughtTestSeries] = useState({});
   useEffect(() => {
-    props.fetchAllExams(testSeriesId);
-    const setTestSeriesData = props.myTestSeries.filter(
-      (value) => value.test._id === testSeriesId,
-    );
+    const fetchData = async () => {
+      await props.fetchAllExams(testSeriesId);
+      const setTestSeriesData = props.myTestSeries.filter(
+        (value) => value.test._id === testSeriesId,
+      );
+      await setBoughtTestSeries(setTestSeriesData[0]);
+      await setIsTestSeriesBought(setTestSeriesData.length ? true : false);
+      await props.navigation.setOptions({
+        headerRight: () => (
+          <Icon
+            name="videocam"
+            size={20}
+            onPress={() => moveToVideoSolution()}
+            raised
+            containerStyle={{marginRight: 5}}
+            type={IconStyles.iconType}
+          />
+        ),
+      });
+    };
+    fetchData();
+  }, [testSeriesId]);
 
-    setBoughtTestSeries(setTestSeriesData[0]);
-    setIsTestSeriesBought(setTestSeriesData.length ? true : false);
-  }, []);
+  const moveToVideoSolution = () => {
+    const body = {
+      introVideoUrl: testSeriesData.videoSolutionLink,
+      courseTitle: testSeriesData.name + '(video solution)',
+    };
+    props.activateVideo(body);
+    props.navigation.navigate('VideoSolutionTestSeries', testSeriesData); //NAVIGATE TO VIDEO AND COMMENTS PAGE
+  };
 
   return (
     <View
@@ -31,9 +56,11 @@ const ExamsListView = (props) => {
         {props?.testExams?.length} tests
       </Text>
       {isTestSeriesBought ? (
-        <Text style={{fontSize: 15, textAlign: 'center'}}>
-          Valid till {new Date(boughtTestSeries?.expiryDate).toDateString()}
-        </Text>
+        <Fragment>
+          <Text style={{fontSize: 15, textAlign: 'center'}}>
+            Valid till {new Date(boughtTestSeries?.expiryDate).toDateString()}
+          </Text>
+        </Fragment>
       ) : null}
 
       <FlatList
@@ -62,4 +89,5 @@ const mapStateToProps = ({testSeries}) => {
 
 export default connect(mapStateToProps, {
   fetchAllExams,
+  activateVideo,
 })(ExamsListView);
