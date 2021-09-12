@@ -10,7 +10,7 @@ import {
 import {reportQuestion} from '../../../store/actions/testSeries';
 
 const Report = (props) => {
-  const {questionId} = props.route.params;
+  const {questionId, reportData} = props.route.params;
 
   const [description, setDescription] = useState('');
   const [name, setName] = useState('');
@@ -31,6 +31,8 @@ const Report = (props) => {
       question: questionId,
       description,
       reportedBy: name,
+      category: reportData.category,
+      examId:reportData._id
     };
     await reportQuestion(body);
     await props.navigation.navigate('Dashboard');

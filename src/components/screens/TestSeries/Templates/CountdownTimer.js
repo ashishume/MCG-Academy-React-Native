@@ -5,7 +5,6 @@ class CountdownTimer extends Component {
   constructor(props) {
     super(props);
     this.state = {time: {}, seconds: this.props.timer * 60};
-    // this.state = {time: {}, seconds: 5};
     this.startTimer = this.startTimer.bind(this);
     this.countDown = this.countDown.bind(this);
     this.timer = 0;
@@ -32,6 +31,7 @@ class CountdownTimer extends Component {
 
   componentWillUnmount() {
     this.startTimer();
+    this.timer = 0;
   }
 
   startTimer() {

@@ -22,18 +22,6 @@ const ExamsListView = (props) => {
       );
       await setBoughtTestSeries(setTestSeriesData[0]);
       await setIsTestSeriesBought(setTestSeriesData.length ? true : false);
-      await props.navigation.setOptions({
-        headerRight: () => (
-          <Icon
-            name="videocam"
-            size={20}
-            onPress={() => moveToVideoSolution()}
-            raised
-            containerStyle={{marginRight: 5}}
-            type={IconStyles.iconType}
-          />
-        ),
-      });
     };
     fetchData();
   }, [testSeriesId]);
@@ -56,11 +44,20 @@ const ExamsListView = (props) => {
         {props?.testExams?.length} tests
       </Text>
       {isTestSeriesBought ? (
-        <Fragment>
+        <View>
           <Text style={{fontSize: 15, textAlign: 'center'}}>
             Valid till {new Date(boughtTestSeries?.expiryDate).toDateString()}
           </Text>
-        </Fragment>
+          <Icon
+            name="videocam"
+            size={20}
+            onPress={() => moveToVideoSolution()}
+            raised
+            containerStyle={{alignSelf: 'center'}}
+            type={IconStyles.iconType}
+          />
+          <Text style={{textAlign: 'center'}}>Test series video solution</Text>
+        </View>
       ) : null}
 
       <FlatList

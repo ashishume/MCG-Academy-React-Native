@@ -17,7 +17,7 @@ import {submitExamScore} from '../../../store/actions/testSeries';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ExamScreen = (props) => {
-  const {examTime, name} = props.route.params.examData;
+  const {examTime, name, questionMarks} = props.route.params.examData;
   const allQuestions = props.route.params.questions;
   // const [currentQuestionNumber, setCurrentQuestionNumber] = useState(1);
   const [currentQuestion, setCurrentQuestion] = useState({
@@ -118,13 +118,16 @@ const ExamScreen = (props) => {
       let attempted = 0;
       let wrong = 0;
       allQuestions.map((value) => {
+        //if wrong answer
         if (value?.answeredOption?.isCorrect === false) {
-          const minusMarks = value?.marks * 0.5;
+          const minusMarks = questionMarks * 0.5;
           wrong = parseFloat(wrong) + parseFloat(minusMarks);
         }
+        //if correct answer
         if (value?.answeredOption?.isCorrect === true) {
-          correct = parseInt(correct) + parseInt(value?.marks);
+          correct = parseInt(correct) + parseInt(questionMarks);
         }
+        //if not attempted
         if (value?.answeredOption !== undefined) {
           attempted = parseInt(attempted) + 1;
         }
@@ -207,6 +210,7 @@ const ExamScreen = (props) => {
           onPress={() =>
             props.navigation.navigate('Report Question', {
               questionId: currentQuestion._id,
+              reportData: props.route.params.examData,
             })
           }
           style={{
@@ -343,7 +347,9 @@ const ExamScreen = (props) => {
               borderRadius: 20,
               width: '100%',
             }}>
-            <Text style={{color: '#fff', textAlign: 'center'}}>Clear & Next</Text>
+            <Text style={{color: '#fff', textAlign: 'center'}}>
+              Clear & Next
+            </Text>
           </TouchableOpacity>
         ) : null}
         <TouchableOpacity

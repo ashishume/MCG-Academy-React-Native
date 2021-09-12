@@ -3,6 +3,7 @@ import {
   View,
   Text,
   StyleSheet,
+  Image,
   TouchableOpacity,
   ToastAndroid,
   FlatList,
@@ -100,6 +101,20 @@ const TestSeries = (props) => {
           backgroundColor: '#fff',
           flexDirection: 'row',
         }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}>
+          <Image
+            source={require('../../../assets/logo.png')}
+            style={{
+              width: 40,
+              height: 40,
+              paddingHorizontal: 10,
+            }}
+          />
+        </View>
         <TouchableOpacity
           onPress={() => props.navigation.navigate('Search Test Series')}
           activeOpacity={0.9}
@@ -114,7 +129,7 @@ const TestSeries = (props) => {
             height: '90%',
           }}>
           <Text style={{fontSize: 18, color: 'rgba(0,0,0,0.4)'}}>
-            Search...
+            Search test series...
           </Text>
         </TouchableOpacity>
         <View
