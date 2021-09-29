@@ -15,6 +15,7 @@ import CountdownTimer from './Templates/CountdownTimer';
 import {IconStyles} from '../../Styles';
 import {submitExamScore} from '../../../store/actions/testSeries';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Report from './Report';
 
 const ExamScreen = (props) => {
   const {examTime, name, questionMarks} = props.route.params.examData;
@@ -31,6 +32,7 @@ const ExamScreen = (props) => {
   const [selectedOption, setSelectedOption] = useState({});
   const [maxIndex, setMaxIndex] = useState(0);
   const [user, setUser] = useState('');
+  const [modelVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     props.navigation.setOptions({
@@ -207,12 +209,13 @@ const ExamScreen = (props) => {
 
         <TouchableOpacity
           activeOpacity={1}
-          onPress={() =>
-            props.navigation.navigate('Report Question', {
-              questionId: currentQuestion._id,
-              reportData: props.route.params.examData,
-            })
-          }
+          // onPress={() =>
+          //   props.navigation.navigate('Report Question', {
+          //     questionId: currentQuestion._id,
+          //     reportData: props.route.params.examData,
+          //   })
+          // }
+          onPress={() => setModalVisible(true)}
           style={{
             flex: 2,
             justifyContent: 'center',
@@ -371,6 +374,13 @@ const ExamScreen = (props) => {
             {index !== maxIndex ? 'Save & Next' : 'Finish'}
           </Text>
         </TouchableOpacity>
+
+        <Report
+          visible={modelVisible}
+          questionId={currentQuestion._id}
+          reportData={props.route.params.examData}
+          closeModal={() => setModalVisible(false)}
+        />
       </View>
     </Fragment>
   );
