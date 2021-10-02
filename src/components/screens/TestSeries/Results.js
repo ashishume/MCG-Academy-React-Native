@@ -47,7 +47,6 @@ const Results = (props) => {
             flexDirection: 'row',
             justifyContent: 'center',
             padding: 10,
-            backgroundColor: 'rgba(80, 188, 50,0.4)',
             borderRadius: 5,
           }}>
           <Icon name="md-bar-chart" size={20} type={IconStyles.iconType} />
@@ -59,7 +58,6 @@ const Results = (props) => {
         style={{
           fontSize: 20,
           fontWeight: 'bold',
-          marginTop: 5,
         }}>
         Explanations
       </Text>
@@ -107,35 +105,27 @@ const Results = (props) => {
                   />
                 ) : null}
               </View>
-              <View
-                style={{
-                  backgroundColor: 'rgba(44, 97, 211,0.2)',
-                }}>
+              <View>
                 <RenderHtml
                   contentWidth={width}
                   source={{
-                    html: item.solutionExplanation,
+                    html: item.questionTitle,
                   }}
                 />
               </View>
-              <View
-                style={{
-                  backgroundColor: 'rgba(44, 97, 211,0.2)',
-                }}></View>
-              <View style={{backgroundColor: 'rgba(24, 127, 41,0.2)'}}>
+              <View>
                 {item?.answeredOption !== undefined ? (
                   <Text
                     style={{
-                      fontSize: 16,
+                      fontSize: 20,
                       paddingBottom: 5,
-                      backgroundColor: 'rgba(27, 156, 170,0.5)',
-                      borderBottomWidth: 1,
+                      color: '#2c8718',
                       borderBottomColor: 'rgba(0,0,0,0.4)',
                     }}>
                     Your answer: {item?.answeredOption?.optionTitle}
                   </Text>
                 ) : null}
-                <Text style={{fontSize: 15, fontWeight: 'bold'}}>
+                <Text style={{fontSize: 18, fontWeight: 'bold', color: 'blue'}}>
                   Explanation (Question {item.questionNumber}):
                 </Text>
                 <RenderHtml
