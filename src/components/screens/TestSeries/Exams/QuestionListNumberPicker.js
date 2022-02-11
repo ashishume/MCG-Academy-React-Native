@@ -1,12 +1,12 @@
 import {View, Text, ScrollView, TouchableOpacity} from 'react-native';
 import React, {Fragment} from 'react';
 
-const QuestionListNumberPicker = ({allQuestions, selectQuestionHandler}) => {
+const QuestionListNumberPicker = ({selectedLanguageQuestions, selectQuestionHandler}) => {
   return (
     <Fragment>
       <View style={{height: 50}}>
         <ScrollView horizontal={true}>
-          {allQuestions.map((value, i) => {
+          {selectedLanguageQuestions.map((value, i) => {
             return (
               <TouchableOpacity
                 activeOpacity={0.7}

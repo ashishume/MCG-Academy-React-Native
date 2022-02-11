@@ -16,7 +16,7 @@ import QuestionFooter from './QuestionFooter';
 
 const ExamScreen = (props) => {
   const {examTime, name, questionMarks} = props.route.params.examData;
-  // const allQuestions = props.route.params.questions;
+  const allQuestions = props.route.params.questions;
 
   const hindiQuestions = props.route.params.questions.filter(
     (value) => value?.language === 'hi',
@@ -25,7 +25,7 @@ const ExamScreen = (props) => {
     (value) => value?.language === 'en',
   );
 
-  const allQuestions = englishQuestions;
+  let selectedLanguageQuestions = englishQuestions;
   // console.log(hindiQuestions, englishQuestions);
 
   // const [currentQuestionNumber, setCurrentQuestionNumber] = useState(1);
@@ -46,8 +46,8 @@ const ExamScreen = (props) => {
     props.navigation.setOptions({
       title: name,
     });
-    setCurrentQuestion(allQuestions[0]);
-    setMaxIndex(allQuestions.length - 1);
+    setCurrentQuestion(selectedLanguageQuestions[0]);
+    setMaxIndex(selectedLanguageQuestions.length - 1);
     fetchUserData();
     const backHandler = BackHandler.addEventListener(
       'hardwareBackPress',
@@ -93,11 +93,11 @@ const ExamScreen = (props) => {
 
   //on time up
   const timeupHandler = (result = {}) => {
-    props.navigation.navigate('Results', {allQuestions, result});
+    props.navigation.navigate('Results', {selectedLanguageQuestions, result});
   };
 
   const nextQuestionHandler = async () => {
-    allQuestions[index].answeredOption = selectedOption; //set the answer choosen by user
+    selectedLanguageQuestions[index].answeredOption = selectedOption; //set the answer choosen by user
 
     //finishing exam
     if (index === maxIndex) {
@@ -106,18 +106,18 @@ const ExamScreen = (props) => {
 
     await setIndex(index + 1); //set the index of next
     let temp = index + 1;
-    if (allQuestions[temp] !== undefined)
+    if (selectedLanguageQuestions[temp] !== undefined)
       //select quetion state
-      selectQuestionHandler(allQuestions[temp], temp);
+      selectQuestionHandler(selectedLanguageQuestions[temp], temp);
     setIsChecked('');
   };
 
   const previousQuestionHandler = async () => {
     await setIndex(index - 1); //set the index of next
     let temp = index - 1;
-    if (allQuestions[temp] !== undefined)
+    if (selectedLanguageQuestions[temp] !== undefined)
       //select quetion state
-      selectQuestionHandler(allQuestions[temp], temp);
+      selectQuestionHandler(selectedLanguageQuestions[temp], temp);
     setIsChecked('');
   };
 
@@ -127,7 +127,7 @@ const ExamScreen = (props) => {
       let correct = 0;
       let attempted = 0;
       let wrong = 0;
-      allQuestions.map((value) => {
+      selectedLanguageQuestions.map((value) => {
         //if wrong answer
         if (value?.answeredOption?.isCorrect === false) {
           const minusMarks = questionMarks * 0.5;
@@ -145,7 +145,7 @@ const ExamScreen = (props) => {
       const net = parseInt(correct) - parseFloat(wrong);
       const finalMarks = net < 0 ? 0 : net;
       const body = {
-        test: allQuestions[0]?.exam?._id,
+        test: selectedLanguageQuestions[0]?.exam?._id,
         user,
         score: finalMarks,
       };
@@ -158,20 +158,25 @@ const ExamScreen = (props) => {
     }, 600);
   };
   const clearSelectedOption = async () => {
-    delete allQuestions[index].answeredOption;
+    delete selectedLanguageQuestions[index].answeredOption;
     setIndex(index + 1);
   };
 
   const changeLanguageHandler = (currentLanguage, questionNumber) => {
-    // const alternateQuestion = allQuestions.filter(
-    //   (value) =>
-    //     value.language !== currentLanguage &&
-    //     value.questionNumber === questionNumber,
-    // );
-    // console.log(alternateQuestion);
-    // // console.log(currentQuestion);
-    // // console.log(englishQuestions);
-    // // console.log(hindiQuestions);
+    const alternateQuestion = allQuestions.filter(
+      (value) =>
+        value.language !== currentLanguage &&
+        value.questionNumber === questionNumber,
+    );
+
+    if (currentLanguage === 'en') selectedLanguageQuestions = hindiQuestions;
+    else selectedLanguageQuestions = englishQuestions;
+
+    if (alternateQuestion?.length) {
+      setCurrentQuestion(alternateQuestion[0]);
+    } else {
+      ToastAndroid.show('Other language is not available', ToastAndroid.LONG);
+    }
   };
 
   return (
@@ -183,7 +188,7 @@ const ExamScreen = (props) => {
         }}>
         {/* Question picker  */}
         <QuestionPicker
-          allQuestions={allQuestions}
+          selectedLanguageQuestions={selectedLanguageQuestions}
           setVisible={setVisible}
           visible={visible}
           index={index}
@@ -202,7 +207,7 @@ const ExamScreen = (props) => {
       {/* question picker list */}
       {visible ? (
         <QuestionListNumberPicker
-          allQuestions={allQuestions}
+          selectedLanguageQuestions={selectedLanguageQuestions}
           selectQuestionHandler={selectQuestionHandler}
         />
       ) : null}

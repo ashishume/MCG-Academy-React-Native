@@ -1,7 +1,7 @@
 import {View, Text, TouchableOpacity} from 'react-native';
 import React, {Fragment} from 'react';
 
-const QuestionPicker = ({allQuestions, setVisible, visible, index}) => {
+const QuestionPicker = ({selectedLanguageQuestions, setVisible, visible, index}) => {
   return (
     <Fragment>
       <TouchableOpacity
@@ -14,13 +14,13 @@ const QuestionPicker = ({allQuestions, setVisible, visible, index}) => {
           borderRadius: 8,
           marginLeft: 5,
           borderColor:
-            allQuestions[index]?.answeredOption !== undefined
+            selectedLanguageQuestions[index]?.answeredOption !== undefined
               ? 'rgba(51, 183, 51,0.7)'
               : 'rgba(219, 108, 24,0.5)',
         }}
         onPress={() => setVisible(!visible)}>
         <Text style={{textAlign: 'center', fontSize: 17, fontWeight: 'bold'}}>
-          {index + 1}/{allQuestions.length}
+          {index + 1}/{selectedLanguageQuestions.length}
         </Text>
       </TouchableOpacity>
     </Fragment>

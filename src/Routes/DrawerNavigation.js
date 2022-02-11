@@ -41,9 +41,9 @@ const DrawerNavigation = () => {
         activeTintColor: IconStyles.iconColor,
         inactiveTintColor: 'gray',
       }}>
+      <Tab.Screen name="Test Series" component={TestSeries} />
       <Tab.Screen name="Home" component={Dashboard} />
       <Tab.Screen name="Free Videos" component={FreeVideos} />
-      <Tab.Screen name="Test Series" component={TestSeries} />
       <Tab.Screen name="My Courses" component={MyCourses} />
       <Tab.Screen name="Library" component={Library} />
     </Tab.Navigator>
