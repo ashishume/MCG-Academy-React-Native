@@ -17,12 +17,7 @@ const ExamBody = ({
         <Icon
           name="language"
           size={25}
-          onPress={() =>
-            changeLanguageHandler(
-              currentQuestion.language,
-              currentQuestion.questionNumber,
-            )
-          }
+          onPress={() => changeLanguageHandler(currentQuestion)}
           raised
           color="rgba(20, 93, 160,0.6)"
           type={IconStyles.iconType}

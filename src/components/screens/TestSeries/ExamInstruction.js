@@ -1,4 +1,4 @@
-import React, {Fragment, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   ScrollView,
   ToastAndroid,
@@ -13,11 +13,15 @@ import {connect} from 'react-redux';
 import {fetchAllQuestions} from '../../../store/actions/testSeries';
 import {IconStyles} from '../../Styles';
 import RenderHtml from 'react-native-render-html';
-
+import {SUPPORTED_LANGUAGES} from '../../Utils/Language';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ExamInstruction = (props) => {
   const {width} = useWindowDimensions();
   const {data} = props.route.params;
+
+  const [visible, setVisible] = useState(false);
+
   const routeToExamScreen = () => {
     if (props?.testQuestions?.length) {
       props.navigation.navigate('ExamScreen', {
@@ -30,17 +34,98 @@ const ExamInstruction = (props) => {
   };
 
   useEffect(() => {
-    props.navigation.setOptions({
-      title: 'Instructions',
-    });
     const fetchData = async () => {
       await props.fetchAllQuestions(data._id);
+      await setDefaultLanguage(SUPPORTED_LANGUAGES.English);
     };
     fetchData();
   }, []);
 
+  const setDefaultLanguage = async (lang) => {
+    try {
+      await AsyncStorage.setItem('language', lang);
+    } catch (e) {
+      ToastAndroid.show('Something went wrong', ToastAndroid.LONG);
+    }
+  };
+  const setLanguage = async (lang) => {
+    await setVisible(!visible);
+    await setDefaultLanguage(lang);
+  };
   return (
     <View style={{flex: 1, marginBottom: 10}}>
+      {/* Header  navbar */}
+      <View
+        style={{
+          width: '100%',
+          height: 50,
+          flexDirection: 'row',
+          justifyContent: 'flex-start',
+          alignItems: 'center',
+          backgroundColor: '#fff',
+          shadowColor: '#000',
+          shadowOffset: {width: 1, height: 1},
+          shadowOpacity: 0.4,
+          shadowRadius: 3,
+          elevation: 5,
+          paddingLeft: 20,
+        }}>
+        <Icon
+          containerStyle={{paddingRight: 10, flex: 1}}
+          onPress={() => props.navigation.goBack()}
+          name="arrow-back-outline"
+          type={IconStyles.iconType}
+          color="#000"
+        />
+        <Text style={{fontSize: 18, flex: 10}}>Instruction</Text>
+        <Icon
+          containerStyle={{
+            flex: 1,
+            flexBasis: 50,
+          }}
+          onPress={() => setVisible(!visible)}
+          name="language-outline"
+          type={IconStyles.iconType}
+          color="#000"
+        />
+      </View>
+      {visible ? (
+        <View
+          style={{
+            width: '50%',
+            position: 'absolute',
+            left: 208,
+            top: 52,
+            shadowColor: '#000',
+            backgroundColor: '#fff',
+            shadowOffset: {width: 1, height: 1},
+            shadowOpacity: 0.4,
+            shadowRadius: 3,
+            elevation: 8,
+            flexDirection: 'column',
+            alignItems: 'center',
+            borderRadius: 10,
+            zIndex: 1,
+          }}>
+          {Object.keys(SUPPORTED_LANGUAGES).map((value) => {
+            return (
+              <Text
+                key={value}
+                onPress={() => setLanguage(SUPPORTED_LANGUAGES[value])}
+                style={{
+                  fontSize: 17,
+                  paddingVertical: 10,
+                  paddingHorizontal: 10,
+                  width: '100%',
+                  textAlign: 'center',
+                }}>
+                {value}
+              </Text>
+            );
+          })}
+        </View>
+      ) : null}
+
       <ScrollView style={{margin: 10}}>
         <Text style={{textAlign: 'center', fontSize: 20}}>{data.name}</Text>
         <View

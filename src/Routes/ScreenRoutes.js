@@ -162,7 +162,7 @@ export const SCREEN_ROUTES = [
   {
     name: 'Exam description',
     component: ExamInstruction,
-    header: true,
+    header: false,
     backgroundColor: '#fff',
   },
   {

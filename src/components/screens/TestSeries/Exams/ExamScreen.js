@@ -13,22 +13,14 @@ import ReportComponent from './ReportComponent';
 import QuestionListNumberPicker from './QuestionListNumberPicker';
 import ExamBody from './ExamBody';
 import QuestionFooter from './QuestionFooter';
+import {SUPPORTED_LANGUAGES} from '../../../Utils/Language';
 
 const ExamScreen = (props) => {
   const {examTime, name, questionMarks} = props.route.params.examData;
-  const allQuestions = props.route.params.questions;
+  const allQuestions = props?.route?.params?.questions;
 
-  const hindiQuestions = props.route.params.questions.filter(
-    (value) => value?.language === 'hi',
-  );
-  const englishQuestions = props.route.params.questions.filter(
-    (value) => value?.language === 'en',
-  );
+  let selectedLanguageQuestions = allQuestions;
 
-  let selectedLanguageQuestions = englishQuestions;
-  // console.log(hindiQuestions, englishQuestions);
-
-  // const [currentQuestionNumber, setCurrentQuestionNumber] = useState(1);
   const [currentQuestion, setCurrentQuestion] = useState({
     options: [],
     questionTitle: '<p>Question loading...</p>',
@@ -46,7 +38,7 @@ const ExamScreen = (props) => {
     props.navigation.setOptions({
       title: name,
     });
-    setCurrentQuestion(selectedLanguageQuestions[0]);
+    getLanguageAndCurrentQuestion(selectedLanguageQuestions[0]);
     setMaxIndex(selectedLanguageQuestions.length - 1);
     fetchUserData();
     const backHandler = BackHandler.addEventListener(
@@ -55,6 +47,14 @@ const ExamScreen = (props) => {
     );
     return () => backHandler.remove();
   }, []);
+
+  const getLanguageAndCurrentQuestion = async (question) => {
+    const lang = await AsyncStorage.getItem('language');
+    setCurrentQuestion({
+      ...question,
+      ...question?.content.find((value) => value?.language === lang),
+    });
+  };
 
   const fetchUserData = async () => {
     try {
@@ -69,8 +69,7 @@ const ExamScreen = (props) => {
     setVisible(false); //disable the question No. list
     setDisabled(true); //disable the blue button
     setIndex(qIndex); //set Index for question
-    // setCurrentQuestionNumber(value.questionNumber); //set current question Number
-    setCurrentQuestion(value); //set current question value
+    getLanguageAndCurrentQuestion(value);
   };
 
   const {width} = useWindowDimensions();
@@ -162,21 +161,18 @@ const ExamScreen = (props) => {
     setIndex(index + 1);
   };
 
-  const changeLanguageHandler = (currentLanguage, questionNumber) => {
-    const alternateQuestion = allQuestions.filter(
-      (value) =>
-        value.language !== currentLanguage &&
-        value.questionNumber === questionNumber,
-    );
-
-    if (currentLanguage === 'en') selectedLanguageQuestions = hindiQuestions;
-    else selectedLanguageQuestions = englishQuestions;
-
-    if (alternateQuestion?.length) {
-      setCurrentQuestion(alternateQuestion[0]);
-    } else {
-      ToastAndroid.show('Other language is not available', ToastAndroid.LONG);
+  const changeLanguageHandler = async (currentQuestion) => {
+    try {
+      const currLang = await AsyncStorage.getItem('language');
+      const newLang =
+        currLang === SUPPORTED_LANGUAGES.English
+          ? SUPPORTED_LANGUAGES.Hindi
+          : SUPPORTED_LANGUAGES.English;
+      await AsyncStorage.setItem('language', newLang);
+    } catch (e) {
+      ToastAndroid.show('Something went wrong', ToastAndroid.LONG);
     }
+    await getLanguageAndCurrentQuestion(currentQuestion);
   };
 
   return (
