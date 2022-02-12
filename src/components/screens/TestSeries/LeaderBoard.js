@@ -7,6 +7,7 @@ import {fetchLeaderboardData} from '../../../store/actions/testSeries';
 
 const LeaderBoard = (props) => {
   const {examId, examName} = props.route.params;
+  const [user, setUser] = useState('');
   useEffect(() => {
     props.navigation.setOptions({
       headerLeft: null,
@@ -15,12 +16,10 @@ const LeaderBoard = (props) => {
     fetchUserId();
 
     return () => {
-      fetchUserId();
-      props.fetchLeaderboardData(examId);
+      setUser('');
     };
   }, []);
 
-  const [user, setUser] = useState('');
   const fetchUserId = async () => {
     try {
       const userData = await AsyncStorage.getItem('userId');

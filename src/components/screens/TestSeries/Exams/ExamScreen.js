@@ -8,7 +8,7 @@ import {
 import {submitExamScore} from '../../../../store/actions/testSeries';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import QuestionPicker from './QuestionPicker';
-import CountownTimerComponent from './CountownTimer';
+import CountownTimerComponent from './CountownTimerComponent';
 import ReportComponent from './ReportComponent';
 import QuestionListNumberPicker from './QuestionListNumberPicker';
 import ExamBody from './ExamBody';
@@ -45,7 +45,21 @@ const ExamScreen = (props) => {
       'hardwareBackPress',
       () => true,
     );
-    return () => backHandler.remove();
+    return () => {
+      setVisible(false);
+      setIsChecked('');
+      setDisabled(true);
+      setIndex(0);
+      setSelectedOption({});
+      setMaxIndex(0);
+      setUser('');
+      setModalVisible(false);
+      setCurrentQuestion({
+        options: [],
+        questionTitle: '<p>Question loading...</p>',
+      });
+      return backHandler.remove();
+    };
   }, []);
 
   const getLanguageAndCurrentQuestion = async (question) => {
