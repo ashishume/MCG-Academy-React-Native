@@ -1,7 +1,10 @@
 import {View, Text, ScrollView, TouchableOpacity} from 'react-native';
 import React, {Fragment} from 'react';
 
-const QuestionListNumberPicker = ({selectedLanguageQuestions, selectQuestionHandler}) => {
+const QuestionListNumberPicker = ({
+  selectedLanguageQuestions,
+  selectQuestionHandler,
+}) => {
   return (
     <Fragment>
       <View style={{height: 50}}>
@@ -14,18 +17,17 @@ const QuestionListNumberPicker = ({selectedLanguageQuestions, selectQuestionHand
                 onPress={() => selectQuestionHandler(value, i)}>
                 <Text
                   style={{
-                    borderWidth: 1,
                     margin: 5,
-                    padding: 10,
-                    borderRadius: 8,
+                    padding: 5,
+                    paddingLeft: 11,
+                    width: 30,
+                    borderRadius: 50,
                     backgroundColor:
                       value?.answeredOption !== undefined
-                        ? 'rgba(51, 183, 51,0.7)'
-                        : 'rgba(219, 108, 24,0.5)',
-                    borderColor:
-                      value?.answeredOption !== undefined
-                        ? 'rgba(51, 183, 51,0.7)'
-                        : 'rgba(219, 108, 24,0.5)',
+                        ? '#195de5' //answered
+                        : '#d6e3ff', // not answered
+                    color:
+                      value?.answeredOption !== undefined ? '#fff' : '#000',
                   }}>
                   {value.questionNumber}
                 </Text>

@@ -15,8 +15,8 @@ const QuestionPicker = ({selectedLanguageQuestions, setVisible, visible, index})
           marginLeft: 5,
           borderColor:
             selectedLanguageQuestions[index]?.answeredOption !== undefined
-              ? 'rgba(51, 183, 51,0.7)'
-              : 'rgba(219, 108, 24,0.5)',
+              ? '#195de5' //answered
+              : '#d6e3ff',  //not answered
         }}
         onPress={() => setVisible(!visible)}>
         <Text style={{textAlign: 'center', fontSize: 17, fontWeight: 'bold'}}>

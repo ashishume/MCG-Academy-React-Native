@@ -51,6 +51,7 @@ const ExamInstruction = (props) => {
   const setLanguage = async (lang) => {
     await setVisible(!visible);
     await setDefaultLanguage(lang);
+    ToastAndroid.show(`Language changed to ${lang}`, ToastAndroid.SHORT);
   };
   return (
     <View style={{flex: 1, marginBottom: 10}}>
