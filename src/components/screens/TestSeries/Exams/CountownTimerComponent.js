@@ -27,7 +27,7 @@ const CountownTimerComponent = ({timeupHandler, examTime}) => {
 
           <CountdownTimer
             onTimeupHandler={timeupHandler}
-            timerSetByUser={parseInt(examTime)}
+            timer={parseInt(examTime)}
           />
         </View>
       </View>

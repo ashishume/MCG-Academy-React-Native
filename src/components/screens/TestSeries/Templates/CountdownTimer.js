@@ -1,69 +1,69 @@
-import React, {useState, useRef, useEffect, Fragment} from 'react';
-import {Text, View} from 'react-native';
+import React, {Component} from 'react';
+import {View, Text} from 'react-native';
 
-const CountdownTimer = ({onTimeupHandle, timerSetByUser}) => {
-  const Ref = useRef(null);
-  const [timer, setTimer] = useState('00:00:00');
-  const getTimeRemaining = (deadlineTime) => {
-    const difference = Date.parse(deadlineTime) - Date.parse(new Date());
-    const seconds = Math.floor((difference / 1000) % 60);
-    const minutes = Math.floor((difference / 1000 / 60) % 60);
-    const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+class CountdownTimer extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {time: {}, seconds: this.props.timer * 60};
+    this.startTimer = this.startTimer.bind(this);
+    this.countDown = this.countDown.bind(this);
+    this.timer = 0;
+  }
+
+  secondsToTime(secs) {
+    let hours = Math.floor(secs / (60 * 60));
+    let divisor_for_minutes = secs % (60 * 60);
+    let minutes = Math.floor(divisor_for_minutes / 60);
+    let divisor_for_seconds = divisor_for_minutes % 60;
+    let seconds = Math.ceil(divisor_for_seconds);
     return {
-      difference,
-      hours,
-      minutes,
-      seconds,
-    };
+      h: hours,
+      m: minutes,
+      s: seconds,
   };
+  }
 
-  const startTimer = (deadlineTime) => {
-    let {difference, hours, minutes, seconds} = getTimeRemaining(deadlineTime);
-    if (difference >= 0) {
-      setTimer(
-        (hours > 9 ? hours : '0' + hours) +
-          ':' +
-          (minutes > 9 ? minutes : '0' + minutes) +
-          ':' +
-          (seconds > 9 ? seconds : '0' + seconds),
-      );
-    } else {
-      //time's up now navigate
-      resetTimeAndNavigate();
+  async componentDidMount() {
+    let timeLeftVar = this.secondsToTime(this.state.seconds);
+    await this.setState({time: timeLeftVar});
+    this.startTimer();
+  }
+
+  componentWillUnmount() {
+    this.startTimer();
+    this.timer = 0;
     }
-  };
 
-  const clearTimer = (deadlineTime) => {
-    setTimer('00:00:00');
-    if (Ref.current) clearInterval(Ref.current);
-    const id = setInterval(() => {
-      startTimer(deadlineTime);
-    }, 1000);
-    Ref.current = id;
-  };
+  startTimer() {
+    if (this.timer == 0 && this.state.seconds > 0) {
+      this.timer = setInterval(this.countDown, 1000);
+    }
+  }
 
-  const getDeadTime = () => {
-    let deadline = new Date();
-    deadline.setSeconds(deadline.getSeconds() + timerSetByUser * 60);
-    return deadline;
-  };
-  useEffect(() => {
-    clearTimer(getDeadTime());
-    () => {
-      return clearTimer(getDeadTime());
-    };
-  }, []);
+  countDown() {
+    // Remove one second, set state so a re-render happens.
+    let seconds = this.state.seconds - 1;
+    this.setState({
+      time: this.secondsToTime(seconds),
+      seconds: seconds,
+    });
 
-  const resetTimeAndNavigate = async () => {
-    await clearTimer(getDeadTime());
-    await onTimeupHandle();
-  };
+    // Check if we're at zero.
+    if (seconds == 0) {
+      this.props.onTimeupHandler();
+      clearInterval(this.timer);
+    }
+  }
 
+  render() {
   return (
     <View>
-      <Text style={{fontSize: 25, fontWeight: 'bold'}}>{timer}</Text>
+        <Text style={{fontSize: 25, fontWeight: 'bold'}}>
+          {this.state.time.h}:{this.state.time.m}:{this.state.time.s}
+        </Text>
     </View>
   );
-};
+  }
+}
 
 export default CountdownTimer;

@@ -135,7 +135,10 @@ const ExamScreen = (props) => {
   };
 
   const submitExamHandler = async () => {
-    ToastAndroid.show('Submiting your exam, please wait...', ToastAndroid.LONG);
+    ToastAndroid.show(
+      'Submiting your exam, please wait...',
+      ToastAndroid.SHORT,
+    );
     setTimeout(() => {
       let correct = 0;
       let attempted = 0;
@@ -168,7 +171,7 @@ const ExamScreen = (props) => {
       correct = 0;
       attempted = 0;
       wrong = 0;
-    }, 600);
+    }, 400);
   };
   const clearSelectedOption = async () => {
     delete selectedLanguageQuestions[index].answeredOption;
@@ -206,7 +209,7 @@ const ExamScreen = (props) => {
 
         {/* Countown timer */}
         <CountownTimerComponent
-          timeupHandler={timeupHandler}
+          timeupHandler={submitExamHandler}
           examTime={examTime}
         />
 
