@@ -14,6 +14,7 @@ import QuestionListNumberPicker from './QuestionListNumberPicker';
 import ExamBody from './ExamBody';
 import QuestionFooter from './QuestionFooter';
 import {SUPPORTED_LANGUAGES} from '../../../Utils/Language';
+import useDidMount from '../../../Utils/didMount';
 
 const ExamScreen = (props) => {
   const {examTime, name, questionMarks} = props.route.params.examData;
@@ -33,14 +34,17 @@ const ExamScreen = (props) => {
   const [maxIndex, setMaxIndex] = useState(0);
   const [user, setUser] = useState('');
   const [modelVisible, setModalVisible] = useState(false);
+  const didMount = useDidMount(true);
 
   useEffect(() => {
-    props.navigation.setOptions({
-      title: name,
-    });
-    getLanguageAndCurrentQuestion(selectedLanguageQuestions[0]);
-    setMaxIndex(selectedLanguageQuestions.length - 1);
-    fetchUserData();
+    if (didMount) {
+      props.navigation.setOptions({
+        title: name,
+      });
+      getLanguageAndCurrentQuestion(selectedLanguageQuestions[0]);
+      setMaxIndex(selectedLanguageQuestions.length - 1);
+      fetchUserData();
+    }
     const backHandler = BackHandler.addEventListener(
       'hardwareBackPress',
       () => true,
