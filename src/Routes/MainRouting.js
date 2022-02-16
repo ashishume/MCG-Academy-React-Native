@@ -23,8 +23,17 @@ const config = {
   },
 };
 const MainRouting = (props) => {
+  const linking = {
+    prefixes: ['myapp://', 'https://myapp.com'],
+    config: {
+      screens: {
+        CourseDetails: 'CourseDetails/:introVideoUrl?/:courseTitle?',
+      },
+    },
+  };
+
   return (
-    <NavigationContainer>
+    <NavigationContainer linking={linking}>
       {props.videoBody.introVideoUrl ? (
         <YoutubePlayerUI
           key={props.videoBody.introVideoUrl}
