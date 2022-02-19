@@ -6,6 +6,8 @@ import {ScrollView} from 'react-native-gesture-handler';
 import useDidMount from '../../Utils/didMount';
 import HttpService from '../../../API/HttpService';
 import {API_NAME} from '../../../API/ApiPaths';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {ToastAndroid} from 'react-native';
 const CourseDetails = (props) => {
   const dispatch = useDispatch();
   const didMount = useDidMount(true);
@@ -16,16 +18,20 @@ const CourseDetails = (props) => {
   useEffect(() => {
     if (didMount) {
       (async () => {
-        const response = await HttpService.get(
-          `${API_NAME.MY_COURSE_IDS}/${courseId}`,
-        );
-        const {introVideoUrl, courseTitle} = response.data;
-        const body = {
-          introVideoUrl,
-          courseTitle,
-        };
-        dispatch(activateVideo(body));
-        await setCourseData(response.data);
+        try {
+          const user = await AsyncStorage.getItem('userId');
+          if (!user) {
+            //not logged in (when opened via deep linking)
+            props.navigation.navigate('Login');
+            setCourseData({});
+          } else {
+            fetchCourseDetails();
+          }
+        } catch (e) {
+          setCourseData({});
+          ToastAndroid.show('Please login', ToastAndroid.LONG);
+          props.navigation.navigate('Login');
+        }
       })();
     }
     return () => {
@@ -36,6 +42,19 @@ const CourseDetails = (props) => {
       dispatch(deActivateVideo(body));
     };
   }, [courseId]);
+
+  const fetchCourseDetails = async () => {
+    const response = await HttpService.get(
+      `${API_NAME.MY_COURSE_IDS}/${courseId}`,
+    );
+    await setCourseData(response.data);
+    const {introVideoUrl, courseTitle} = response.data;
+    const body = {
+      introVideoUrl,
+      courseTitle,
+    };
+    dispatch(activateVideo(body));
+  };
 
   return (
     <ScrollView>

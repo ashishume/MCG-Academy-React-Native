@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import FeaturedCourses from './FeaturedCourses/FeaturedCourses';
 import ExploreCourses from './ExploreCourses/ExploreCourses';
 import TopHeader from '../Shared/Header';
@@ -6,7 +6,6 @@ import {View, PermissionsAndroid, ToastAndroid, Platform} from 'react-native';
 import {useDispatch} from 'react-redux';
 import DashboardSlideshow from './DashboardSlideshow';
 import {ScrollView} from 'react-native-gesture-handler';
-import {fetchMyCourses} from '../../store/actions/courses';
 import {fetchAllTestCategories} from '../../store/actions/testSeries';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import useDidMount from '../Utils/didMount';
@@ -21,10 +20,6 @@ const Dashboard = (props) => {
 
   useEffect(() => {
     if (didMount) {
-      const fetchMyCourseData = () => {
-        dispatch(fetchMyCourses());
-      };
-
       const fetchTestSeriesCategories = async () => {
         try {
           const data = await AsyncStorage.getItem('testCategorySelected');
@@ -37,7 +32,6 @@ const Dashboard = (props) => {
       };
 
       props.navigation.addListener('focus', () => {
-        fetchMyCourseData();
         fetchTestSeriesCategories();
       });
 

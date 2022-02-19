@@ -5,7 +5,7 @@ const InitialSetup = (props) => {
   useEffect(() => {
     setTimeout(() => {
       props.navigation.navigate('Dashboard');
-    }, 2000);
+    }, 1500);
   }, []);
   return (
     <View

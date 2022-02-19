@@ -29,7 +29,7 @@ const FeaturedCourses = ({navigation}) => {
     }
   }, []);
   const onRouteToCourseDetailsHandler = (value) => {
-    navigation.navigate('CourseDetails', {
+    navigation.navigate('course', {
       courseId: value?._id,
     });
   };

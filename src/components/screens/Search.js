@@ -24,7 +24,9 @@ const Search = (props) => {
     }, 500);
   };
   const courseEventHandler = (value) => {
-    props.navigation.navigate('CourseDetails', value);
+    props.navigation.navigate('course', {
+      courseId: value?._id,
+    });
   };
   return (
     <View style={{backgroundColor: '#fff', height: '100%'}}>
