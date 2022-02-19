@@ -1,31 +1,47 @@
 import React, {Fragment, useState, useEffect} from 'react';
-import {View, Text, StyleSheet, Dimensions} from 'react-native';
+import {View, Text, StyleSheet, Dimensions, ToastAndroid} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import CourseDetailsListItem from './CourseDetailsListItems';
 import {activateVideo, deActivateVideo} from '../../../store/actions/video';
-import {connect} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import HttpService from '../../../API/HttpService';
+import {API_NAME} from '../../../API/ApiPaths';
 const {height, width} = Dimensions.get('window');
 const BuyCourseCard = (props) => {
+  const dispatch = useDispatch();
+
   const videoClickEventHandler = (e) => {
     const body = {
       introVideoUrl: e.url,
       courseTitle: e.title,
     };
-    props.activateVideo(body);
+    dispatch(activateVideo(body));
     props.navigation.navigate('VideoPage', e);
   };
 
   const [Bought, setBought] = useState(false);
 
   useEffect(() => {
-    if (props.myCourses.length) checkCourseBuyStatus(props.myCourses);
-  }, []);
+    (async () => {
+      try {
+        const userId = await AsyncStorage.getItem('userId');
+        const response = await HttpService.get(
+          API_NAME.MY_COURSES + '/' + userId,
+        );
+        if (response?.data?.length) {
+          const isBought = response?.data?.some(
+            (item) => item?.course._id == props.content._id,
+          );
+          setBought(isBought);
+        }
+      } catch (e) {
+        ToastAndroid.show('your not logged in', ToastAndroid.SHORT);
+      }
+    })();
 
-  const checkCourseBuyStatus = (data) => {
-    data.map((value) => {
-      if (value.course._id == props.content._id) setBought(true);
-    });
-  };
+    return () => {};
+  }, [props.content._id]);
 
   const courseEventHandler = () => {
     props.navigation.navigate('CourseContent', props.content);
@@ -35,7 +51,7 @@ const BuyCourseCard = (props) => {
       introVideoUrl: e.url,
       courseTitle: e.title,
     };
-    props.deActivateVideo(body);
+    dispatch(deActivateVideo(body));
     props.navigation.navigate('Payment', {
       ...props.content,
       ...{isTestSeries: false},
@@ -56,7 +72,7 @@ const BuyCourseCard = (props) => {
           <Text style={styles.price}>₹{props.content.price}</Text>
         </View>
 
-        {Bought === false ? (
+        {!Bought ? (
           <View style={styles.buyNowContainer}>
             <TouchableOpacity
               onPress={() => buyNewCourseHandler(props.content)}
@@ -99,15 +115,7 @@ const BuyCourseCard = (props) => {
     </Fragment>
   );
 };
-const mapStateToProps = (state) => {
-  return {
-    myCourses: state.courses.myCourses,
-  };
-};
-export default connect(mapStateToProps, {
-  activateVideo,
-  deActivateVideo,
-})(BuyCourseCard);
+export default BuyCourseCard;
 
 const styles = StyleSheet.create({
   container: {
@@ -170,7 +178,7 @@ const styles = StyleSheet.create({
   goToCourseContainer: {
     alignSelf: 'center',
     marginTop: 10,
-    backgroundColor: '#c20202',
+    backgroundColor: '#25a866',
     paddingLeft: 30,
     paddingRight: 30,
     paddingTop: 10,

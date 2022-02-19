@@ -34,7 +34,7 @@ import VideoSolutionTestSeries from '../components/screens/VideoPage/VideoSoluti
 
 export const SCREEN_ROUTES = [
   {
-    name: 'CourseDetails',
+    name: 'course',
     component: CourseDetails,
     header: false,
     backgroundColor: '',

@@ -1,46 +1,48 @@
-import React, {Component, Fragment} from 'react';
+import React, {useEffect} from 'react';
 import CourseContentCard from './CourseContentCard';
 import {activateVideo, deActivateVideo} from '../../../store/actions/video';
-import {connect} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import Description from './Description';
+import useDidMount from '../../Utils/didMount';
 
-class ContentTabs extends Component {
-  componentDidMount() {
-    const {introVideoUrl, courseTitle} = this.props.route.params;
-    const body = {
-      introVideoUrl,
-      courseTitle,
+const ContentTabs = (props) => {
+  const dispatch = useDispatch();
+  const didMount = useDidMount(true);
+  useEffect(() => {
+    if (didMount) {
+      const {introVideoUrl, courseTitle} = props.route.params;
+      const body = {
+        introVideoUrl,
+        courseTitle,
+      };
+      dispatch(activateVideo(body));
+    }
+
+    return () => {
+      const body = {
+        introVideoUrl: '',
+        courseTitle: '',
+      };
+      dispatch(deActivateVideo(body));
     };
-    this.props.activateVideo(body);
-  }
-  componentWillUnmount() {
-    const body = {
-      introVideoUrl: '',
-      courseTitle: '',
-    };
-    this.props.deActivateVideo(body);
-  }
+  }, []);
 
-  render() {
-    const Tab = createMaterialTopTabNavigator();
+  const Tab = createMaterialTopTabNavigator();
 
-    const CourseContentCardComponent = () => {
-      return (
-        <CourseContentCard content={this.props.route.params} {...this.props} />
-      );
-    };
-    const DescriptionComponent = () => {
-      return <Description content={this.props.route.params} {...this.props} />;
-    };
+  const CourseContentCardComponent = () => {
+    return <CourseContentCard content={props.route.params} {...props} />;
+  };
+  const DescriptionComponent = () => {
+    return <Description content={props.route.params} {...props} />;
+  };
 
-    return (
-      <Tab.Navigator lazy={true}>
-        <Tab.Screen name="Videos" component={CourseContentCardComponent} />
-        <Tab.Screen name="Description" component={DescriptionComponent} />
-      </Tab.Navigator>
-    );
-  }
-}
+  return (
+    <Tab.Navigator lazy={true}>
+      <Tab.Screen name="Videos" component={CourseContentCardComponent} />
+      <Tab.Screen name="Description" component={DescriptionComponent} />
+    </Tab.Navigator>
+  );
+};
 
-export default connect('', {activateVideo, deActivateVideo})(ContentTabs);
+export default ContentTabs;

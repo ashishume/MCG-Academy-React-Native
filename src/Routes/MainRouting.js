@@ -23,8 +23,21 @@ const config = {
   },
 };
 const MainRouting = (props) => {
+  const linking = {
+    prefixes: [
+      'https://www.mcgacademy.com',
+      'http://www.mcgacademy.com',
+      'mcgacademy://',
+    ],
+    config: {
+      screens: {
+        course: 'course/:courseId',
+      },
+    },
+  };
+
   return (
-    <NavigationContainer>
+    <NavigationContainer linking={linking}>
       {props.videoBody.introVideoUrl ? (
         <YoutubePlayerUI
           key={props.videoBody.introVideoUrl}
