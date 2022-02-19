@@ -24,7 +24,11 @@ const config = {
 };
 const MainRouting = (props) => {
   const linking = {
-    prefixes: ['mcgacademy://', 'https://mcgacademy.com'],
+    prefixes: [
+      'https://www.mcgacademy.com',
+      'http://www.mcgacademy.com',
+      'mcgacademy://',
+    ],
     config: {
       screens: {
         course: 'course/:courseId',
