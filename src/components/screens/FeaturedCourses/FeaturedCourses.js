@@ -11,17 +11,17 @@ import {
 } from 'react-native';
 import LatestCourseItem from './LatestCourseItem';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import {connect, useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {fetchFeaturedCourses} from '../../../store/actions/courses';
 import Styles from '../../Styles';
 const {height, width} = Dimensions.get('window');
 
-const FeaturedCourses = ({navigation, fetchFeaturedCourses}) => {
+const FeaturedCourses = ({navigation}) => {
   const featured = useSelector((state) => state.courses.featured);
-
+  const dispatch = useDispatch();
   useEffect(() => {
     navigation.addListener('focus', () => {
-      fetchFeaturedCourses();
+      dispatch(fetchFeaturedCourses());
     });
     let startHeaderHeight = 80;
     if (Platform.OS == 'android') {
@@ -34,7 +34,6 @@ const FeaturedCourses = ({navigation, fetchFeaturedCourses}) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {console.log(featured)}
       <ScrollView scrollEventThrottle={20}>
         <View style={styles.insideContainer}>
           <Text style={styles.latestCourseTitle}>Featured courses</Text>
@@ -75,6 +74,4 @@ const styles = StyleSheet.create({
   scrollViewContainer: {height: 300, width: parseInt(width), marginTop: 20},
 });
 
-export default connect('', {
-  fetchFeaturedCourses,
-})(FeaturedCourses);
+export default FeaturedCourses;

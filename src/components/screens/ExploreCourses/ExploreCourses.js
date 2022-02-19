@@ -2,15 +2,17 @@ import React, {useEffect} from 'react';
 import {View, Text, SafeAreaView, StyleSheet, ScrollView} from 'react-native';
 import ExploreCoursesCard from './ExploreCoursesCard';
 import {fetchAllCourses} from '../../../store/actions/courses';
-import {connect, useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import Styles from '../../Styles';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
-const ExploreCourses = ({navigation, fetchAllCourses}) => {
+const ExploreCourses = ({navigation}) => {
   const courses = useSelector((state) => state.courses.courses);
+  const dispatch = useDispatch();
+
   useEffect(() => {
     navigation.addListener('focus', () => {
-      fetchAllCourses();
+      dispatch(fetchAllCourses());
     });
   }, []);
 
@@ -58,4 +60,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect('', {fetchAllCourses})(ExploreCourses);
+export default ExploreCourses;

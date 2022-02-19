@@ -1,28 +1,35 @@
 import React, {Fragment, useEffect, useState} from 'react';
-import {View, Text, StyleSheet,Linking} from 'react-native';
+import {View, Text, StyleSheet, Linking} from 'react-native';
 import {activateVideo, deActivateVideo} from '../../../store/actions/video';
-import {connect} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {Divider, Icon} from 'react-native-elements';
 import {IconStyles} from '../../Styles';
 import CommentSection from '../Comments/index';
+import useDidMount from '../../Utils/didMount';
 
 const FreeVideosContent = (props) => {
   const [content, setContent] = useState('');
   const [visible, setVisible] = useState(false);
   const [videoData, setVideoData] = useState({});
+
+  const dispatch = useDispatch();
+  const didMount = useDidMount(true);
+
   useEffect(() => {
-    setContent(props.route.params);
-    const body = {
-      introVideoUrl: props.route.params.videoUrl,
-      courseTitle: props.route.params.title,
-    };
-    props.activateVideo(body);
+    if (didMount) {
+      setContent(props.route.params);
+      const body = {
+        introVideoUrl: props.route.params.videoUrl,
+        courseTitle: props.route.params.title,
+      };
+      dispatch(activateVideo(body));
+    }
     return () => {
       const body = {
         introVideoUrl: '',
         courseTitle: '',
       };
-      props.deActivateVideo(body);
+      dispatch(deActivateVideo(body));
     };
   }, []);
   const toggleCommentSection = (e) => {
@@ -124,4 +131,4 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
-export default connect('', {activateVideo, deActivateVideo})(FreeVideosContent);
+export default FreeVideosContent;
