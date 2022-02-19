@@ -17,7 +17,9 @@ const ExploreCourses = ({navigation}) => {
   }, []);
 
   const onRouteToCourseDetailsHandler = (value) => {
-    navigation.navigate('CourseDetails', value);
+    navigation.navigate('CourseDetails', {
+      courseId: value?._id,
+    });
   };
 
   return (
