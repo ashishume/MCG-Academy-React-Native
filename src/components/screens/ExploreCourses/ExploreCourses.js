@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import {View, Text, SafeAreaView, StyleSheet, ScrollView} from 'react-native';
-import AllCourseCard from './AllCoursesCard';
+import ExploreCoursesCard from './ExploreCoursesCard';
 import {fetchAllCourses} from '../../../store/actions/courses';
 import {connect} from 'react-redux';
 import Styles from '../../Styles';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
-class AllCourses extends Component {
+class ExploreCourses extends Component {
   componentDidMount() {
     this.props.navigation.addListener('focus', () => {
       this.props.fetchAllCourses();
@@ -29,7 +29,7 @@ class AllCourses extends Component {
                     activeOpacity={0.7}
                     key={i}
                     onPress={() => this.onRouteToCourseDetailsHandler(value)}>
-                    <AllCourseCard key={i} content={value} />
+                    <ExploreCoursesCard key={i} content={value} />
                   </TouchableOpacity>
                 );
               })}
@@ -62,4 +62,4 @@ const mapStateToProps = (state) => {
     courses: state.courses.courses,
   };
 };
-export default connect(mapStateToProps, {fetchAllCourses})(AllCourses);
+export default connect(mapStateToProps, {fetchAllCourses})(ExploreCourses);

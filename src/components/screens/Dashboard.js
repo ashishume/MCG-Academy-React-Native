@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import FeaturedCourses from './FeaturedCourses/FeaturedCourses';
-import AllCourses from './AllCourses/AllCourses';
+import ExploreCourses from './ExploreCourses/ExploreCourses';
 import TopHeader from '../Shared/Header';
 import {View, PermissionsAndroid, ToastAndroid, Platform} from 'react-native';
 import {connect} from 'react-redux';
@@ -76,7 +76,7 @@ const Dashboard = (props) => {
         <ScrollView>
           <DashboardSlideshow {...props} />
           <FeaturedCourses {...props} />
-          <AllCourses {...props} />
+          <ExploreCourses {...props} />
         </ScrollView>
       </View>
     </View>

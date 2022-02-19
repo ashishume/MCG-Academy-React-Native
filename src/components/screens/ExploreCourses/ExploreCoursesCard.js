@@ -12,7 +12,7 @@ import BadgeType from '../../Shared/Badge';
 import Styles from '../../Styles';
 const {height, width} = Dimensions.get('window');
 
-const AllCourseCard = ({content}) => {
+const ExploreCoursesCard = ({content}) => {
   return (
     <View style={styles.container}>
       <View style={{flex: 1}}>
@@ -72,4 +72,4 @@ const styles = StyleSheet.create({
   price: {fontSize: 15, ...Styles.fontFamily, fontWeight: '700'},
 });
 
-export default AllCourseCard;
+export default ExploreCoursesCard;
