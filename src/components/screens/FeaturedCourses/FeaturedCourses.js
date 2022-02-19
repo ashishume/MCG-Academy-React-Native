@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {useEffect} from 'react';
 import {
   View,
   Text,
@@ -11,54 +11,54 @@ import {
 } from 'react-native';
 import LatestCourseItem from './LatestCourseItem';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import {connect} from 'react-redux';
+import {connect, useSelector} from 'react-redux';
 import {fetchFeaturedCourses} from '../../../store/actions/courses';
 import Styles from '../../Styles';
 const {height, width} = Dimensions.get('window');
 
-class FeaturedCourses extends Component {
-  componentDidMount() {
-    this.props.navigation.addListener('focus', () => {
-      this.props.fetchFeaturedCourses();
-    });
-    this.startHeaderHeight = 80;
-    if (Platform.OS == 'android') {
-      this.startHeaderHeight = 100 + StatusBar.currentHeight;
-    }
-  }
+const FeaturedCourses = ({navigation, fetchFeaturedCourses}) => {
+  const featured = useSelector((state) => state.courses.featured);
 
-  onRouteToCourseDetailsHandler = (value) => {
-    this.props.navigation.navigate('CourseDetails', value);
+  useEffect(() => {
+    navigation.addListener('focus', () => {
+      fetchFeaturedCourses();
+    });
+    let startHeaderHeight = 80;
+    if (Platform.OS == 'android') {
+      startHeaderHeight = 100 + StatusBar.currentHeight;
+    }
+  }, []);
+  const onRouteToCourseDetailsHandler = (value) => {
+    navigation.navigate('CourseDetails', value);
   };
 
-  render() {
-    return (
-      <SafeAreaView style={styles.container}>
-        <ScrollView scrollEventThrottle={20}>
-          <View style={styles.insideContainer}>
-            <Text style={styles.latestCourseTitle}>Featured courses</Text>
-            <View style={styles.scrollViewContainer}>
-              <ScrollView
-                horizontal={true}
-                showsHorizontalScrollIndicator={false}>
-                {this.props.featured.map((value, i) => {
-                  return (
-                    <TouchableOpacity
-                      activeOpacity={0.7}
-                      key={i}
-                      onPress={() => this.onRouteToCourseDetailsHandler(value)}>
-                      <LatestCourseItem content={value} />
-                    </TouchableOpacity>
-                  );
-                })}
-              </ScrollView>
-            </View>
+  return (
+    <SafeAreaView style={styles.container}>
+      {console.log(featured)}
+      <ScrollView scrollEventThrottle={20}>
+        <View style={styles.insideContainer}>
+          <Text style={styles.latestCourseTitle}>Featured courses</Text>
+          <View style={styles.scrollViewContainer}>
+            <ScrollView
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}>
+              {featured.map((value, i) => {
+                return (
+                  <TouchableOpacity
+                    activeOpacity={0.7}
+                    key={i}
+                    onPress={() => onRouteToCourseDetailsHandler(value)}>
+                    <LatestCourseItem content={value} />
+                  </TouchableOpacity>
+                );
+              })}
+            </ScrollView>
           </View>
-        </ScrollView>
-      </SafeAreaView>
-    );
-  }
-}
+        </View>
+      </ScrollView>
+    </SafeAreaView>
+  );
+};
 const styles = StyleSheet.create({
   container: {backgroundColor: '#fff', paddingBottom: 0},
   insideContainer: {
@@ -74,11 +74,7 @@ const styles = StyleSheet.create({
   },
   scrollViewContainer: {height: 300, width: parseInt(width), marginTop: 20},
 });
-const mapStateToProps = (state) => {
-  return {
-    featured: state.courses.featured,
-  };
-};
-export default connect(mapStateToProps, {
+
+export default connect('', {
   fetchFeaturedCourses,
 })(FeaturedCourses);
