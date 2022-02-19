@@ -23,8 +23,8 @@ import CommentSection from '../components/screens/Comments';
 import VideoPage from '../components/screens/VideoPage';
 import ExamInstruction from '../components/screens/TestSeries/ExamInstruction';
 import MyBoughtTests from '../components/screens/TestSeries/MyBoughtTests';
-import ExamScreen from '../components/screens/TestSeries/ExamScreen';
-import Results from '../components/screens/TestSeries/Results';
+import ExamScreen from '../components/screens/TestSeries/Exams/ExamScreen';
+import Results from '../components/screens/TestSeries/Results/Results';
 import LeaderBoard from '../components/screens/TestSeries/LeaderBoard';
 import Report from '../components/screens/TestSeries/Report';
 import ExamsListView from '../components/screens/TestSeries/ExamsListView';
@@ -162,7 +162,7 @@ export const SCREEN_ROUTES = [
   {
     name: 'Exam description',
     component: ExamInstruction,
-    header: true,
+    header: false,
     backgroundColor: '#fff',
   },
   {

@@ -78,7 +78,7 @@ export const submitExamScore = async (body) => {
   try {
     await HttpService.post(API_NAME.GET_LEADERBOARD_TEST_SERIES, body);
   } catch (e) {
-    ToastAndroid.show('something went wrong', ToastAndroid.SHORT);
+    ToastAndroid.show('Scored could not be submitted', ToastAndroid.SHORT);
   }
 };
 

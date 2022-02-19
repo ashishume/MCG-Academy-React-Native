@@ -1,59 +1,48 @@
-import React, {useEffect} from 'react';
-import RenderHtml from 'react-native-render-html';
 import {
-  FlatList,
-  BackHandler,
   View,
-  useWindowDimensions,
-  TouchableOpacity,
   Text,
+  FlatList,
+  useWindowDimensions,
+  ToastAndroid,
 } from 'react-native';
-import {IconStyles} from '../../Styles';
+import React, {Fragment, useEffect, useState} from 'react';
+import {IconStyles} from '../../../Styles';
+import RenderHtml from 'react-native-render-html';
 import {Icon} from 'react-native-elements';
-
-const Results = (props) => {
-  const {allQuestions, result} = props.route.params;
+import AsyncStorage from '@react-native-async-storage/async-storage';
+const Explanation = ({selectedLanguageQuestions}) => {
   const {width} = useWindowDimensions();
-  const fontStyle = {fontSize: 20, textAlign: 'left', fontWeight: 'bold'};
+  const [explanation, setExplanation] = useState([]);
+
   useEffect(() => {
-    const backHandler = BackHandler.addEventListener(
-      'hardwareBackPress',
-      () => true,
-    );
-    return () => backHandler.remove();
-  });
+    getLanguageAndExplanation();
+
+    () => {
+      return setExplanation([]);
+    };
+  }, []);
+  const getLanguageAndExplanation = async () => {
+    try {
+      const currLang = await AsyncStorage.getItem('language');
+      let solutions = [];
+      selectedLanguageQuestions.map((value) => {
+        const questionContent = value?.content?.find(
+          (item) => item?.language === currLang,
+        );
+        solutions.push({
+          questionNumber: value?.questionNumber,
+          answeredOption: value?.answeredOption,
+          ...questionContent,
+        });
+      });
+      await setExplanation(solutions);
+    } catch (e) {
+      ToastAndroid.show('Something went wrong', ToastAndroid.LONG);
+    }
+  };
+
   return (
-    <View style={{margin: 5}}>
-      <View
-        style={{
-          marginVertical: 5,
-          paddingVertical: 5,
-        }}>
-        <Text style={{fontSize: 25, marginBottom: 10}}>Your results</Text>
-        <Text style={fontStyle}>Attempted Questions: {result.attempted}</Text>
-        <Text style={fontStyle}>Your score: {result.correct}</Text>
-      </View>
-
-      <TouchableOpacity
-        activeOpacity={0.9}
-        onPress={() =>
-          props.navigation.navigate('Leaderboard', {
-            examId: allQuestions[0].exam._id,
-            examName: allQuestions[0].exam.name,
-          })
-        }>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'center',
-            padding: 10,
-            borderRadius: 5,
-          }}>
-          <Icon name="md-bar-chart" size={20} type={IconStyles.iconType} />
-          <Text>View Leaderboard</Text>
-        </View>
-      </TouchableOpacity>
-
+    <Fragment>
       <Text
         style={{
           fontSize: 20,
@@ -62,20 +51,20 @@ const Results = (props) => {
         Explanations
       </Text>
       <FlatList
-        data={allQuestions}
+        data={explanation}
         style={{marginBottom: 170}}
-        keyExtractor={(item) => item._id}
+        keyExtractor={(item) => item?._id}
         renderItem={({item}) => {
           return (
             <View
               style={{
-                borderBottomColor: '#000',
-                borderBottomWidth: 2,
-                marginVertical: 10,
+                borderBottomColor: 'rgba(0, 0, 0,0.4)',
+                borderBottomWidth: 1,
+                paddingBottom: 5,
               }}>
               <View style={{flexDirection: 'row', alignItems: 'center'}}>
                 <Text style={{fontSize: 20, fontWeight: 'bold'}}>
-                  Question {item.questionNumber}
+                  Question {item?.questionNumber}
                 </Text>
                 {item?.answeredOption?.isCorrect === true ? (
                   <Icon
@@ -109,7 +98,7 @@ const Results = (props) => {
                 <RenderHtml
                   contentWidth={width}
                   source={{
-                    html: item.questionTitle,
+                    html: item?.questionTitle,
                   }}
                 />
               </View>
@@ -119,19 +108,24 @@ const Results = (props) => {
                     style={{
                       fontSize: 20,
                       paddingBottom: 5,
-                      color: '#2c8718',
+                      color: 'rgb(49, 183, 58)',
                       borderBottomColor: 'rgba(0,0,0,0.4)',
                     }}>
                     Your answer: {item?.answeredOption?.optionTitle}
                   </Text>
                 ) : null}
-                <Text style={{fontSize: 18, fontWeight: 'bold', color: 'blue'}}>
-                  Explanation (Question {item.questionNumber}):
+                <Text
+                  style={{
+                    fontSize: 18,
+                    fontWeight: 'bold',
+                    color: 'rgb(47, 138, 183)',
+                  }}>
+                  Explanation (Question {item?.questionNumber}):
                 </Text>
                 <RenderHtml
                   contentWidth={width}
                   source={{
-                    html: item.solutionExplanation,
+                    html: item?.solutionExplanation,
                   }}
                 />
               </View>
@@ -139,8 +133,8 @@ const Results = (props) => {
           );
         }}
       />
-    </View>
+    </Fragment>
   );
 };
 
-export default Results;
+export default Explanation;

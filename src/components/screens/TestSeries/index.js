@@ -33,6 +33,14 @@ const TestSeries = (props) => {
     props.navigation.addListener('focus', () => {
       fetchData();
     });
+
+    () => {
+      setVisible(false);
+      setSelectedCategory('');
+      props.navigation.removeListener('focus', () => {
+        fetchData();
+      });
+    };
   }, [selectedCategory]);
 
   const fetchCategoryData = async () => {
