@@ -16,10 +16,9 @@ import {fetchFeaturedCourses} from '../../../store/actions/courses';
 import Styles from '../../Styles';
 const {height, width} = Dimensions.get('window');
 
-class Explore extends Component {
+class FeaturedCourses extends Component {
   componentDidMount() {
     this.props.navigation.addListener('focus', () => {
-      // console.log('focused on explore');
       this.props.fetchFeaturedCourses();
     });
     this.startHeaderHeight = 80;
@@ -82,4 +81,4 @@ const mapStateToProps = (state) => {
 };
 export default connect(mapStateToProps, {
   fetchFeaturedCourses,
-})(Explore);
+})(FeaturedCourses);

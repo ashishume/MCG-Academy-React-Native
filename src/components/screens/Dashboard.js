@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import Explore from './Explore/Explore';
+import FeaturedCourses from './FeaturedCourses/FeaturedCourses';
 import AllCourses from './AllCourses/AllCourses';
 import TopHeader from '../Shared/Header';
 import {View, PermissionsAndroid, ToastAndroid, Platform} from 'react-native';
@@ -75,7 +75,7 @@ const Dashboard = (props) => {
         />
         <ScrollView>
           <DashboardSlideshow {...props} />
-          <Explore {...props} />
+          <FeaturedCourses {...props} />
           <AllCourses {...props} />
         </ScrollView>
       </View>
