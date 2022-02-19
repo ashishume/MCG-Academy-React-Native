@@ -3,7 +3,9 @@ import React, {Fragment} from 'react';
 import {Icon} from 'react-native-elements';
 import {IconStyles} from '../../../Styles';
 import CountdownTimer from '../Templates/CountdownTimer';
+import useDidMount from '../../../Utils/didMount';
 const CountownTimerComponent = ({timeupHandler, examTime}) => {
+  const didMount = useDidMount(true);
   return (
     <Fragment>
       <View
@@ -24,11 +26,12 @@ const CountownTimerComponent = ({timeupHandler, examTime}) => {
             size={20}
             containerStyle={{marginHorizontal: 10}}
           />
-
-          <CountdownTimer
-            onTimeupHandler={timeupHandler}
-            timer={parseInt(examTime)}
-          />
+          {didMount ? (
+            <CountdownTimer
+              onTimeupHandler={timeupHandler}
+              timer={parseInt(examTime)}
+            />
+          ) : null}
         </View>
       </View>
     </Fragment>
