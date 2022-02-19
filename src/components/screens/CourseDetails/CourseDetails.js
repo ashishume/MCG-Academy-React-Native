@@ -35,7 +35,7 @@ const CourseDetails = (props) => {
       };
       dispatch(deActivateVideo(body));
     };
-  }, []);
+  }, [courseId]);
 
   return (
     <ScrollView>
