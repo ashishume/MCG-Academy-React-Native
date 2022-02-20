@@ -2,13 +2,12 @@ import React, {useEffect, useState, Fragment} from 'react';
 import {
   View,
   Text,
-  StyleSheet,
   Image,
   TouchableOpacity,
   ToastAndroid,
   FlatList,
 } from 'react-native';
-import {connect} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {
   fetchTestSeries,
   fetchAllTestCategories,
@@ -23,11 +22,20 @@ import {Icon} from 'react-native-elements';
 const TestSeries = (props) => {
   const [visible, setVisible] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('');
+  const {
+    testCategories,
+    testExams,
+    testQuestions,
+    myTestSeries,
+    testSeriesData,
+  } = useSelector((state) => state.testSeries);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchData = async () => {
-      await props.fetchAllTestCategories();
-      await props.fetchAllBoughtTests();
+      await dispatch(fetchAllTestCategories());
+      await dispatch(fetchAllBoughtTests());
       await fetchCategoryData();
     };
     props.navigation.addListener('focus', () => {
@@ -48,13 +56,13 @@ const TestSeries = (props) => {
       const data = await AsyncStorage.getItem('testCategorySelected');
       let newData;
       if (data == null) {
-        const d = JSON.stringify(props.testCategories[0]);
-        newData = props.testCategories[0];
+        const d = JSON.stringify(testCategories[0]);
+        newData = testCategories[0];
         await AsyncStorage.setItem('testCategorySelected', d);
       } else {
         newData = JSON.parse(data);
       }
-      await props.fetchTestSeries(newData._id);
+      await dispatch(fetchTestSeries(newData._id));
       await setSelectedCategory(newData.name);
     } catch (e) {
       ToastAndroid.show('Something went wrong', ToastAndroid.SHORT);
@@ -63,7 +71,7 @@ const TestSeries = (props) => {
 
   const renderPreferenceItems = async (e) => {
     try {
-      await props.fetchTestSeries(e._id);
+      await dispatch(fetchTestSeries(e._id));
       const categoryData = JSON.stringify(e);
       await AsyncStorage.setItem('testCategorySelected', categoryData);
       await setVisible(false);
@@ -149,7 +157,7 @@ const TestSeries = (props) => {
             activeOpacity={0.8}
             onPress={() =>
               props.navigation.navigate('My tests', {
-                myTestSeries: props.myTestSeries,
+                myTestSeries: myTestSeries,
               })
             }>
             <Icon
@@ -207,7 +215,7 @@ const TestSeries = (props) => {
               alignSelf: 'center',
               width: '80%',
             }}>
-            {props.testCategories.map((value) => {
+            {testCategories.map((value) => {
               return (
                 <TouchableOpacity
                   activeOpacity={0.5}
@@ -237,14 +245,14 @@ const TestSeries = (props) => {
             showsHorizontalScrollIndicator={false}
             horizontal
             dis
-            data={props.testSeriesData}
+            data={testSeriesData}
             ListEmptyComponent={
               <Text style={{marginTop: 10}}>No tests available</Text>
             }
             renderItem={({item, index}) => {
               return (
                 <ExamsTemplateCard
-                  boughtTestData={props.myTestSeries}
+                  boughtTestData={myTestSeries}
                   makeTestSeriesPayment={(id, price, timeLimit, name, isPaid) =>
                     makeTestSeriesPayment(id, price, timeLimit, name, isPaid)
                   }
@@ -282,25 +290,5 @@ const TestSeries = (props) => {
     </Fragment>
   );
 };
-const mapStateToProps = ({testSeries}) => {
-  const {
-    testCategories,
-    testExams,
-    testQuestions,
-    testSeriesData,
-    myTestSeries,
-  } = testSeries;
-  return {
-    testCategories,
-    testExams,
-    testQuestions,
-    myTestSeries,
-    testSeriesData,
-  };
-};
 
-export default connect(mapStateToProps, {
-  fetchAllTestCategories,
-  fetchAllBoughtTests,
-  fetchTestSeries,
-})(TestSeries);
+export default TestSeries;
