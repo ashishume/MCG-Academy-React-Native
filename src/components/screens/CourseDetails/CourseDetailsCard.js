@@ -1,5 +1,12 @@
 import React, {Fragment, useState, useEffect} from 'react';
-import {View, Text, StyleSheet, Dimensions, ToastAndroid} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Dimensions,
+  Share,
+  ToastAndroid,
+} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import CourseDetailsListItem from './CourseDetailsListItems';
 import {activateVideo, deActivateVideo} from '../../../store/actions/video';
@@ -7,6 +14,8 @@ import {useDispatch, useSelector} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import HttpService from '../../../API/HttpService';
 import {API_NAME} from '../../../API/ApiPaths';
+import {Icon} from 'react-native-elements';
+import {IconStyles} from '../../Styles';
 const {height, width} = Dimensions.get('window');
 const BuyCourseCard = (props) => {
   const dispatch = useDispatch();
@@ -58,6 +67,25 @@ const BuyCourseCard = (props) => {
     });
   };
 
+  const onShare = async (courseName, courseLink) => {
+    try {
+      const result = await Share.share({
+        message: `Hey checkout this awesome course in MCG Academy | ${courseName} | course: https://www.mcgacademy.in/course/${courseLink} | You can download the MCG Academy app from ${'https://play.google.com/store/apps/details?id=com.mcgeducation'}`,
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    } catch (error) {
+      ToastAndroid.show(error.message, ToastAndroid.SHORT);
+    }
+  };
+
   return (
     <Fragment>
       <View style={styles.container}>
@@ -71,26 +99,43 @@ const BuyCourseCard = (props) => {
         <View>
           <Text style={styles.price}>₹{props.content.price}</Text>
         </View>
+        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+          {!Bought ? (
+            <View style={styles.buyNowContainer}>
+              <TouchableOpacity
+                onPress={() => buyNewCourseHandler(props.content)}
+                style={styles.buyNowButton}>
+                <Text style={styles.buyNowButtonText}>
+                  {props.content.price === 0 ? 'Enroll Free' : 'Buy Now'}
+                </Text>
+              </TouchableOpacity>
+            </View>
+          ) : (
+            <View style={styles.goToCourseContainer}>
+              <TouchableOpacity
+                onPress={() => courseEventHandler()}
+                style={styles.buyNowButton}>
+                <Text style={styles.buyNowButtonText}>Open course</Text>
+              </TouchableOpacity>
+            </View>
+          )}
 
-        {!Bought ? (
-          <View style={styles.buyNowContainer}>
+          <View style={styles.shareContainer}>
             <TouchableOpacity
-              onPress={() => buyNewCourseHandler(props.content)}
-              style={styles.buyNowButton}>
-              <Text style={styles.buyNowButtonText}>
-                {props.content.price === 0 ? 'Enroll Free' : 'Buy Now'}
-              </Text>
+              style={styles.buyNowButton}
+              onPress={() =>
+                onShare(props.content.courseTitle, props.content._id)
+              }>
+              <Text style={styles.shareNowButtonText}>Share</Text>
+              <Icon
+                name="share-social"
+                size={25}
+                color="#000"
+                type={IconStyles.iconType}
+              />
             </TouchableOpacity>
           </View>
-        ) : (
-          <View style={styles.goToCourseContainer}>
-            <TouchableOpacity
-              onPress={() => courseEventHandler()}
-              style={styles.buyNowButton}>
-              <Text style={styles.buyNowButtonText}>Go to course</Text>
-            </TouchableOpacity>
-          </View>
-        )}
+        </View>
 
         <View style={{marginTop: 20}}>
           <Text style={styles.subHeading}>Course Details</Text>
@@ -116,6 +161,21 @@ const BuyCourseCard = (props) => {
   );
 };
 export default BuyCourseCard;
+
+const commonButtonContainerStyles = {
+  alignSelf: 'center',
+  marginTop: 10,
+  backgroundColor: '#c20202',
+  paddingVertical: 10,
+  borderRadius: 10,
+  shadowOpacity: 1,
+  shadowOffset: {
+    height: 10,
+  },
+  elevation: 5,
+  shadowRadius: 5,
+  width: '100%',
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -160,39 +220,37 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   buyNowContainer: {
-    alignSelf: 'center',
-    marginTop: 10,
-    backgroundColor: '#c20202',
-    paddingLeft: 30,
-    paddingRight: 30,
-    paddingTop: 10,
-    paddingBottom: 10,
-    borderRadius: 15,
-    shadowOpacity: 1,
-    shadowOffset: {
-      height: 10,
-    },
-    elevation: 5,
-    shadowRadius: 5,
+    ...commonButtonContainerStyles,
+    width: '48%',
+  },
+  shareContainer: {
+    ...commonButtonContainerStyles,
+    backgroundColor: '#fff',
+    color: '#000',
+    width: '48%',
   },
   goToCourseContainer: {
-    alignSelf: 'center',
-    marginTop: 10,
+    ...commonButtonContainerStyles,
     backgroundColor: '#25a866',
-    paddingLeft: 30,
-    paddingRight: 30,
-    paddingTop: 10,
-    paddingBottom: 10,
-    borderRadius: 15,
-    shadowOpacity: 1,
-    shadowOffset: {
-      height: 10,
-    },
-    elevation: 5,
-    shadowRadius: 5,
+    width: '48%',
   },
-  buyNowButton: {width: width - 70, height: 40, justifyContent: 'center'},
-  buyNowButtonText: {color: '#fff', fontSize: 20, alignSelf: 'center'},
+  buyNowButton: {
+    height: 40,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buyNowButtonText: {
+    color: '#fff',
+    fontSize: 20,
+    alignSelf: 'center',
+  },
+  shareNowButtonText: {
+    color: '#000',
+    fontSize: 20,
+    alignSelf: 'center',
+    marginRight: 10,
+  },
   subHeading: {fontSize: 25, marginTop: 10, fontWeight: 'bold'},
   courseDescription: {
     fontSize: 15,

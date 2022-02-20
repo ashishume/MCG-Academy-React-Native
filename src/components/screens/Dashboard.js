@@ -53,11 +53,7 @@ const Dashboard = (props) => {
       GetAllPermissions();
     }
 
-    return () => {
-      props.navigation.addListener('focus', () => {
-        fetchMyCourseData();
-      });
-    };
+    return () => {};
   }, [props.navigation]);
 
   const onSearchHandler = () => {

@@ -25,8 +25,8 @@ const config = {
 const MainRouting = (props) => {
   const linking = {
     prefixes: [
-      'https://www.mcgacademy.com',
-      'http://www.mcgacademy.com',
+      'https://www.mcgacademy.in',
+      'http://www.mcgacademy.in',
       'mcgacademy://',
     ],
     config: {
