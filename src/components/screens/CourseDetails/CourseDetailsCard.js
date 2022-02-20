@@ -1,12 +1,5 @@
 import React, {Fragment, useState, useEffect} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Dimensions,
-  Share,
-  ToastAndroid,
-} from 'react-native';
+import {View, Text, StyleSheet, Dimensions, ToastAndroid} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import CourseDetailsListItem from './CourseDetailsListItems';
 import {activateVideo, deActivateVideo} from '../../../store/actions/video';
@@ -16,6 +9,8 @@ import HttpService from '../../../API/HttpService';
 import {API_NAME} from '../../../API/ApiPaths';
 import {Icon} from 'react-native-elements';
 import {IconStyles} from '../../Styles';
+import Share from 'react-native-share';
+
 const {height, width} = Dimensions.get('window');
 const BuyCourseCard = (props) => {
   const dispatch = useDispatch();
@@ -67,20 +62,21 @@ const BuyCourseCard = (props) => {
     });
   };
 
-  const onShare = async (courseName, courseLink) => {
+  const onShare = async ({courseTitle, courseImage, _id}) => {
     try {
-      const result = await Share.share({
-        message: `Hey checkout this awesome course in MCG Academy | ${courseName} | course: https://www.mcgacademy.in/course/${courseLink} | You can download the MCG Academy app from ${'https://play.google.com/store/apps/details?id=com.mcgeducation'}`,
-      });
-      if (result.action === Share.sharedAction) {
-        if (result.activityType) {
-          // shared with activity type of result.activityType
-        } else {
-          // shared
-        }
-      } else if (result.action === Share.dismissedAction) {
-        // dismissed
-      }
+      console.log(courseImage);
+      const blob = await (await fetch(courseImage)).blob();
+      const reader = new FileReader();
+      reader.readAsDataURL(blob);
+      reader.onloadend = async function () {
+        const base64String = reader.result;
+        const image = `data:image/png;base64,` + base64String.split(',')[1];
+        await Share.open({
+          message: `Check ${courseTitle}: https://www.mcgacademy.in/course/${_id}
+You can download the MCG Academy app from ${'https://play.google.com/store/apps/details?id=com.mcgeducation'}`,
+          url: image,
+        }).then((resp) => {});
+      };
     } catch (error) {
       ToastAndroid.show(error.message, ToastAndroid.SHORT);
     }
@@ -123,9 +119,7 @@ const BuyCourseCard = (props) => {
           <View style={styles.shareContainer}>
             <TouchableOpacity
               style={styles.buyNowButton}
-              onPress={() =>
-                onShare(props.content.courseTitle, props.content._id)
-              }>
+              onPress={() => onShare(props.content)}>
               <Text style={styles.shareNowButtonText}>Share</Text>
               <Icon
                 name="share-social"

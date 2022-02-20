@@ -6115,6 +6115,11 @@ react-native-screens@^2.11.0:
   resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-2.18.1.tgz#47b9991c6f762d00d0ed3233e5283d523e859885"
   integrity sha512-r5WZLpmx2hHjC1RgMdPq5YpSU9tEhBpUaZ5M1SUtNIONyiLqQVxabhRCINdebIk4depJiIl7yw2Q85zJyeX6fw==
 
+react-native-share@^7.3.6:
+  version "7.3.6"
+  resolved "https://registry.yarnpkg.com/react-native-share/-/react-native-share-7.3.6.tgz#cab3e4e485cecee662ae5dd8a757fc6ec7c5140a"
+  integrity sha512-oqwWS9/Tzvo0+3RXVNH1hXIthYvOicN/iJbVEv0YMIQLlsuIeoSQ4zh9Yre1APzRKoF8+En+G2XApQk7UaI5Kg==
+
 react-native-snap-carousel@^3.9.1:
   version "3.9.1"
   resolved "https://registry.yarnpkg.com/react-native-snap-carousel/-/react-native-snap-carousel-3.9.1.tgz#6fd9bd8839546c2c6043a41d2035afbc6fe0443e"
