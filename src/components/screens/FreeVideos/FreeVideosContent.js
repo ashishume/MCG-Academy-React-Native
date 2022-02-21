@@ -6,6 +6,9 @@ import {Divider, Icon} from 'react-native-elements';
 import {IconStyles} from '../../Styles';
 import CommentSection from '../Comments/index';
 import useDidMount from '../../Utils/didMount';
+import HttpService from '../../../API/HttpService';
+import {API_NAME} from '../../../API/ApiPaths';
+import Share from 'react-native-share';
 
 const FreeVideosContent = (props) => {
   const [content, setContent] = useState('');
@@ -17,12 +20,22 @@ const FreeVideosContent = (props) => {
 
   useEffect(() => {
     if (didMount) {
-      setContent(props.route.params);
-      const body = {
-        introVideoUrl: props.route.params.videoUrl,
-        courseTitle: props.route.params.title,
-      };
-      dispatch(activateVideo(body));
+      (async () => {
+        try {
+          const response = await HttpService.get(
+            API_NAME.VIDEOS_BY_ID + '/' + props.route.params.videoId,
+          );
+          await setContent(response.data);
+          const {videoUrl, title} = response.data;
+          const body = {
+            introVideoUrl: videoUrl,
+            courseTitle: title,
+          };
+          dispatch(activateVideo(body));
+        } catch (e) {
+          console.log('Free video could not be fetched');
+        }
+      })();
     }
     return () => {
       const body = {
@@ -38,6 +51,25 @@ const FreeVideosContent = (props) => {
   };
   const onClickUrl = (e) => {
     Linking.openURL(e.otherUrl);
+  };
+
+  const onShare = async ({title, videoImage, _id}) => {
+    try {
+      const blob = await (await fetch(videoImage)).blob();
+      const reader = new FileReader();
+      reader.readAsDataURL(blob);
+      reader.onloadend = async function () {
+        const base64String = reader.result;
+        const image = `data:image/png;base64,` + base64String.split(',')[1];
+        await Share.open({
+          message: `Check ${title}: https://www.mcgacademy.in/videos/${_id}
+You can download the MCG Academy app from ${'https://play.google.com/store/apps/details?id=com.mcgeducation'}`,
+          url: image,
+        }).then((resp) => {});
+      };
+    } catch (error) {
+      ToastAndroid.show(error.message, ToastAndroid.SHORT);
+    }
   };
   return (
     <Fragment>
@@ -67,7 +99,7 @@ const FreeVideosContent = (props) => {
           </Text>
           <Divider />
           <Text style={styles.description}>{content.videoDescription}</Text>
-          <Text style={styles.otherUrl}>
+          <View style={styles.otherUrl}>
             <Icon
               onPress={() => toggleCommentSection(content)}
               size={25}
@@ -84,7 +116,15 @@ const FreeVideosContent = (props) => {
               color={'#000'}
               name="file-tray"
             />
-          </Text>
+            <Icon
+              onPress={() => onShare(content)}
+              size={25}
+              raised
+              type={IconStyles.iconType}
+              color={'#000'}
+              name="share-social"
+            />
+          </View>
         </View>
       </View>
     </Fragment>
@@ -123,7 +163,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   otherUrl: {
-    textAlign: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
   },
   category: {
     fontSize: 17,

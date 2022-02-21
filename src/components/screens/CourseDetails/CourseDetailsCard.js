@@ -64,7 +64,6 @@ const BuyCourseCard = (props) => {
 
   const onShare = async ({courseTitle, courseImage, _id}) => {
     try {
-      console.log(courseImage);
       const blob = await (await fetch(courseImage)).blob();
       const reader = new FileReader();
       reader.readAsDataURL(blob);

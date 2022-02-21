@@ -33,6 +33,9 @@ const MainRouting = (props) => {
       screens: {
         course: 'course/:courseId',
       },
+      screens: {
+        videos: 'videos/:videoId',
+      },
     },
   };
 

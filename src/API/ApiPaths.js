@@ -9,6 +9,7 @@ export const API_NAME = {
   MY_COURSES: 'courses/myCourses',
   MY_COURSE_IDS: 'courses/oneCourse',
   VIDEOS: 'videos/fetch',
+  VIDEOS_BY_ID: 'videos',
   LIBRARY: 'library/fetch',
   IMAGES: 'images/',
   CATEGORY: 'category',

@@ -118,7 +118,7 @@ export const SCREEN_ROUTES = [
     backgroundColor: '',
   },
   {
-    name: 'FreeVideoContent',
+    name: 'videos',
     component: FreeVideosContent,
     header: false,
     backgroundColor: '',
