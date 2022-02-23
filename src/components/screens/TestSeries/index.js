@@ -161,11 +161,8 @@ const TestSeries = (props) => {
               })
             }>
             <Icon
-              name="briefcase"
-              size={18}
-              reverse
-              raised
-              color="rgba(0,0,0,0.4)"
+              name="caret-forward-circle-outline"
+              size={43}
               type={IconStyles.iconType}
             />
           </TouchableOpacity>
@@ -210,10 +207,25 @@ const TestSeries = (props) => {
         {visible ? (
           <View
             style={{
-              position: 'relative',
+              position: 'absolute',
               flexDirection: 'column',
               alignSelf: 'center',
-              width: '80%',
+              width: '90%',
+              top: 50,
+              borderRadius: 10,
+              paddingHorizontal: 20,
+              shadowColor: '#000',
+              shadowOffset: {
+                width: 0,
+                height: 2,
+              },
+              shadowOpacity: 0.25,
+              shadowRadius: 3.84,
+              elevation: 5,
+              left: 20,
+              backgroundColor: '#fff',
+              opacity: 1,
+              zIndex: 1,
             }}>
             {testCategories.map((value) => {
               return (
@@ -244,7 +256,6 @@ const TestSeries = (props) => {
           <FlatList
             showsHorizontalScrollIndicator={false}
             horizontal
-            dis
             data={testSeriesData}
             ListEmptyComponent={
               <Text style={{marginTop: 10}}>No tests available</Text>
