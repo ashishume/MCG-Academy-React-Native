@@ -23,7 +23,6 @@ const ExamsListView = (props) => {
   const [myTestSeries, setMyTestSeries] = useState([]);
 
   useEffect(() => {
-    console.log(testSeriesId);
     const fetchData = async () => {
       const examListResponse = await HttpService.get(
         `${API_NAME.TEST_SERIES_EXAMS}/${testSeriesId}`,

@@ -53,7 +53,6 @@ const Explanation = ({selectedLanguageQuestions}) => {
         currLang === SUPPORTED_LANGUAGES.English
           ? SUPPORTED_LANGUAGES.Hindi
           : SUPPORTED_LANGUAGES.English;
-      console.log(newLang);
       await AsyncStorage.setItem('language', newLang);
       await getLanguageAndExplanation(newLang);
     } catch (e) {

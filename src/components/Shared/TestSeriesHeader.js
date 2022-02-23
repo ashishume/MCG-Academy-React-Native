@@ -45,18 +45,6 @@ const TestSeriesHeader = ({
         type={IconStyles.iconType}
         color="#000"
       />
-      {/* ) : (
-        <Icon
-          containerStyle={{
-            flex: 1,
-            flexBasis: 50,
-          }}
-          onPress={onPressHandler}
-          name={iconName}
-          type={IconStyles.iconType}
-          color="#000"
-        />
-      )} */}
     </View>
   );
 };

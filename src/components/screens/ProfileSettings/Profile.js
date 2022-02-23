@@ -46,19 +46,6 @@ class Profile extends Component {
   componentDidMount() {
     this.getName();
     this.props.fetchAllCategories();
-
-    // try {
-    //   const type = await AsyncStorage.getItem('userType');
-    //   console.log(type);
-
-    //   if (type) {
-    //     this.setState({
-    //       userType: type,
-    //     });
-    //   }
-    // } catch (e) {
-    //   ToastAndroid.show('Something went wrong', ToastAndroid.LONG);
-    // }
   }
 
   signOutHandler = async () => {
