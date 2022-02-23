@@ -22,9 +22,7 @@ You can download the MCG Academy app from ${'https://play.google.com/store/apps/
         url: image,
       })
         .then((resp) => {})
-        .catch((e) => {
-          ToastAndroid.show('share failed', ToastAndroid.SHORT);
-        });
+        .catch((e) => {});
     };
   } catch (error) {
     ToastAndroid.show(error.message, ToastAndroid.SHORT);
