@@ -8,7 +8,7 @@ import CommentSection from '../Comments/index';
 import useDidMount from '../../Utils/didMount';
 import HttpService from '../../../API/HttpService';
 import {API_NAME} from '../../../API/ApiPaths';
-import Share from 'react-native-share';
+import {onShareHandler} from '../../Utils/ShareInfo';
 
 const FreeVideosContent = (props) => {
   const [content, setContent] = useState('');
@@ -53,24 +53,6 @@ const FreeVideosContent = (props) => {
     Linking.openURL(e.otherUrl);
   };
 
-  const onShare = async ({title, videoImage, _id}) => {
-    try {
-      const blob = await (await fetch(videoImage)).blob();
-      const reader = new FileReader();
-      reader.readAsDataURL(blob);
-      reader.onloadend = async function () {
-        const base64String = reader.result;
-        const image = `data:image/png;base64,` + base64String.split(',')[1];
-        await Share.open({
-          message: `Check ${title}: https://www.mcgacademy.in/videos/${_id}
-You can download the MCG Academy app from ${'https://play.google.com/store/apps/details?id=com.mcgeducation'}`,
-          url: image,
-        }).then((resp) => {});
-      };
-    } catch (error) {
-      ToastAndroid.show(error.message, ToastAndroid.SHORT);
-    }
-  };
   return (
     <Fragment>
       {visible ? (
@@ -117,7 +99,14 @@ You can download the MCG Academy app from ${'https://play.google.com/store/apps/
               name="file-tray"
             />
             <Icon
-              onPress={() => onShare(content)}
+              onPress={() =>
+                onShareHandler(
+                  content?.title,
+                  content?.videoImage,
+                  'videos',
+                  content?._id,
+                )
+              }
               size={25}
               raised
               type={IconStyles.iconType}

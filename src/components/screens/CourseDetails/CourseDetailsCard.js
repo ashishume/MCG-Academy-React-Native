@@ -9,7 +9,7 @@ import HttpService from '../../../API/HttpService';
 import {API_NAME} from '../../../API/ApiPaths';
 import {Icon} from 'react-native-elements';
 import {IconStyles} from '../../Styles';
-import Share from 'react-native-share';
+import {onShareHandler} from '../../Utils/ShareInfo';
 
 const {height, width} = Dimensions.get('window');
 const BuyCourseCard = (props) => {
@@ -62,25 +62,6 @@ const BuyCourseCard = (props) => {
     });
   };
 
-  const onShare = async ({courseTitle, courseImage, _id}) => {
-    try {
-      const blob = await (await fetch(courseImage)).blob();
-      const reader = new FileReader();
-      reader.readAsDataURL(blob);
-      reader.onloadend = async function () {
-        const base64String = reader.result;
-        const image = `data:image/png;base64,` + base64String.split(',')[1];
-        await Share.open({
-          message: `Check ${courseTitle}: https://www.mcgacademy.in/course/${_id}
-You can download the MCG Academy app from ${'https://play.google.com/store/apps/details?id=com.mcgeducation'}`,
-          url: image,
-        }).then((resp) => {});
-      };
-    } catch (error) {
-      ToastAndroid.show(error.message, ToastAndroid.SHORT);
-    }
-  };
-
   return (
     <Fragment>
       <View style={styles.container}>
@@ -118,7 +99,14 @@ You can download the MCG Academy app from ${'https://play.google.com/store/apps/
           <View style={styles.shareContainer}>
             <TouchableOpacity
               style={styles.buyNowButton}
-              onPress={() => onShare(props.content)}>
+              onPress={() =>
+                onShareHandler(
+                  props.content?.courseTitle,
+                  props.content?.courseImage,
+                  'course',
+                  props.content?._id,
+                )
+              }>
               <Text style={styles.shareNowButtonText}>Share</Text>
               <Icon
                 name="share-social"

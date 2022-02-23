@@ -7,15 +7,12 @@ import {activateVideo} from '../../../store/actions/video';
 import {IconStyles} from '../../Styles';
 import ExamsListTemplate from './Templates/ExamsListTemplate';
 import {API_NAME} from '../../../API/ApiPaths';
-import Share from 'react-native-share';
 import HttpService from '../../../API/HttpService';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import TestSeriesHeader from '../../Shared/TestSeriesHeader';
+import {onShareHandler} from '../../Utils/ShareInfo';
 const ExamsListView = (props) => {
-  const {
-    testSeriesId,
-    continueToInstruction = false,
-  } = props.route.params;
+  const {testSeriesId, continueToInstruction = false} = props.route.params;
   const [isTestSeriesBought, setIsTestSeriesBought] = useState(false);
   const [boughtTestSeries, setBoughtTestSeries] = useState({});
   const [testSeriesData, setTestSeriesData] = useState({});
@@ -63,26 +60,6 @@ const ExamsListView = (props) => {
     props.navigation.navigate('VideoSolutionTestSeries', testSeriesData); //NAVIGATE TO VIDEO AND COMMENTS PAGE
   };
 
-  const onShare = async () => {
-    const {examImageUrl, name} = testSeriesData;
-    try {
-      const blob = await (await fetch(examImageUrl)).blob();
-      const reader = new FileReader();
-      reader.readAsDataURL(blob);
-      reader.onloadend = async function () {
-        const base64String = reader.result;
-        const image = `data:image/png;base64,` + base64String.split(',')[1];
-        await Share.open({
-          message: `Check ${name}: https://www.mcgacademy.in/exams/${testSeriesId}
-You can download the MCG Academy app from ${'https://play.google.com/store/apps/details?id=com.mcgeducation'}`,
-          url: image,
-        }).then((resp) => {});
-      };
-    } catch (error) {
-      ToastAndroid.show(error.message, ToastAndroid.SHORT);
-    }
-  };
-
   return (
     <>
       {/* Header */}
@@ -90,7 +67,14 @@ You can download the MCG Academy app from ${'https://play.google.com/store/apps/
         headerName="Exam"
         iconName="share-social"
         navigation={props.navigation}
-        onPressHandler={onShare}
+        onPressHandler={() =>
+          onShareHandler(
+            testSeriesData?.name,
+            testSeriesData?.examImageUrl,
+            'exam',
+            testSeriesId,
+          )
+        }
       />
 
       <View
