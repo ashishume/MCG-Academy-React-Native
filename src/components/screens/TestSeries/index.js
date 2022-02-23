@@ -82,7 +82,7 @@ const TestSeries = (props) => {
   };
 
   const continueToTest = (data) => {
-    props.navigation.navigate('Exams List', {
+    props.navigation.navigate('exam', {
       testSeriesId: data._id,
       continueToInstruction: true,
       testSeriesData: data,
@@ -101,7 +101,7 @@ const TestSeries = (props) => {
   };
 
   const routeToDescription = (data) => {
-    props.navigation.navigate('Exams List', {
+    props.navigation.navigate('exam', {
       testSeriesId: data._id,
       testSeriesData: data,
     });

@@ -196,9 +196,9 @@ export const SCREEN_ROUTES = [
     backgroundColor: '#fff',
   },
   {
-    name: 'Exams List',
+    name: 'exam',
     component: ExamsListView,
-    header: true,
+    header: false,
     backgroundColor: '#fff',
   },
   {

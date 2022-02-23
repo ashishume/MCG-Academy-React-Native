@@ -44,7 +44,7 @@ const FreeVideosContent = (props) => {
       };
       dispatch(deActivateVideo(body));
     };
-  }, []);
+  }, [props.route.params.videoId]);
   const toggleCommentSection = (e) => {
     setVisible(true);
     setVideoData(e);

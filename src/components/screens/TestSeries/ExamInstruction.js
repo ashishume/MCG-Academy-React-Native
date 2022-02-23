@@ -15,6 +15,7 @@ import {IconStyles} from '../../Styles';
 import RenderHtml from 'react-native-render-html';
 import {SUPPORTED_LANGUAGES} from '../../Utils/Language';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import TestSeriesHeader from '../../Shared/TestSeriesHeader';
 
 const ExamInstruction = (props) => {
   const {width} = useWindowDimensions();
@@ -56,40 +57,12 @@ const ExamInstruction = (props) => {
   return (
     <View style={{flex: 1, marginBottom: 10}}>
       {/* Header  navbar */}
-      <View
-        style={{
-          width: '100%',
-          height: 50,
-          flexDirection: 'row',
-          justifyContent: 'flex-start',
-          alignItems: 'center',
-          backgroundColor: '#fff',
-          shadowColor: '#000',
-          shadowOffset: {width: 1, height: 1},
-          shadowOpacity: 0.4,
-          shadowRadius: 3,
-          elevation: 5,
-          paddingLeft: 20,
-        }}>
-        <Icon
-          containerStyle={{paddingRight: 10, flex: 1}}
-          onPress={() => props.navigation.goBack()}
-          name="arrow-back-outline"
-          type={IconStyles.iconType}
-          color="#000"
-        />
-        <Text style={{fontSize: 18, flex: 10}}>Instruction</Text>
-        <Icon
-          containerStyle={{
-            flex: 1,
-            flexBasis: 50,
-          }}
-          onPress={() => setVisible(!visible)}
-          name="language-outline"
-          type={IconStyles.iconType}
-          color="#000"
-        />
-      </View>
+      <TestSeriesHeader
+        headerName="Instruction"
+        iconName="language-outline"
+        navigation={props.navigation}
+        onPressHandler={() => setVisible(!visible)}
+      />
       {visible ? (
         <View
           style={{
