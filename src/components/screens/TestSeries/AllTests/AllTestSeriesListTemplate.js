@@ -4,7 +4,7 @@ import {Avatar, ListItem} from 'react-native-elements';
 
 const AllTestSeriesListTemplate = (props) => {
   const routeToDescription = (data) => {
-    props.navigation.navigate('Exams List', {
+    props.navigation.navigate('exam', {
       testSeriesId: data._id,
       testSeriesData: data,
     });

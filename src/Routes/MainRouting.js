@@ -32,9 +32,8 @@ const MainRouting = (props) => {
     config: {
       screens: {
         course: 'course/:courseId',
-      },
-      screens: {
         videos: 'videos/:videoId',
+        exam: 'exam/:testSeriesId',
       },
     },
   };

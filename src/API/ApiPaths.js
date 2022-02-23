@@ -18,6 +18,7 @@ export const API_NAME = {
   TEST_SERIES_CATEGORIES: 'test-series/category',
   TEST_SERIES: 'test-series',
   TEST_SERIES_EXAMS: 'test-series/exam',
+  TEST_SERIES_BY_ID: 'test-series/fetch',
   TEST_SERIES_QUESTIONS: 'test-series/question',
   BUY_NEW_TEST_SERIES: 'test-series/buy-test',
   GET_BOUGHT_TEST_SERIES: 'test-series/my-tests',

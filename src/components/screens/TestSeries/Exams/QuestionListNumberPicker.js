@@ -18,10 +18,11 @@ const QuestionListNumberPicker = ({
                 <Text
                   style={{
                     margin: 5,
-                    padding: 5,
-                    paddingLeft: 11,
-                    width: 30,
-                    borderRadius: 50,
+                    textAlign: 'center',
+                    width: 50,
+                    height: 35,
+                    paddingTop: 7,
+                    borderRadius: 10,
                     backgroundColor:
                       value?.answeredOption !== undefined
                         ? '#195de5' //answered

@@ -10,20 +10,25 @@ import {IconStyles} from '../../../Styles';
 import RenderHtml from 'react-native-render-html';
 import {Icon} from 'react-native-elements';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {SUPPORTED_LANGUAGES} from '../../../Utils/Language';
 const Explanation = ({selectedLanguageQuestions}) => {
   const {width} = useWindowDimensions();
   const [explanation, setExplanation] = useState([]);
 
   useEffect(() => {
-    getLanguageAndExplanation();
+    (async () => {
+      try {
+        const currLang = await AsyncStorage.getItem('language');
+        await getLanguageAndExplanation(currLang);
+      } catch (e) {}
+    })();
 
     () => {
       return setExplanation([]);
     };
   }, []);
-  const getLanguageAndExplanation = async () => {
+  const getLanguageAndExplanation = async (currLang) => {
     try {
-      const currLang = await AsyncStorage.getItem('language');
       let solutions = [];
       selectedLanguageQuestions.map((value) => {
         const questionContent = value?.content?.find(
@@ -41,8 +46,33 @@ const Explanation = ({selectedLanguageQuestions}) => {
     }
   };
 
+  const changeLanguage = async () => {
+    try {
+      const currLang = await AsyncStorage.getItem('language');
+      const newLang =
+        currLang === SUPPORTED_LANGUAGES.English
+          ? SUPPORTED_LANGUAGES.Hindi
+          : SUPPORTED_LANGUAGES.English;
+      await AsyncStorage.setItem('language', newLang);
+      await getLanguageAndExplanation(newLang);
+    } catch (e) {
+      console.log('language changed failed');
+    }
+  };
+
   return (
     <Fragment>
+      <View style={{alignSelf: 'center'}}>
+        <Icon
+          name="language"
+          raised
+          reverse
+          type={IconStyles.iconType}
+          color="#198c9e"
+          onPress={() => changeLanguage()}
+        />
+      </View>
+
       <Text
         style={{
           fontSize: 20,
