@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1022471298229",
+    "firebase_url": "https://mcg-academy-40050.firebaseio.com",
+    "project_id": "mcg-academy-40050",
+    "storage_bucket": "mcg-academy-40050.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1022471298229:android:ddc782eb0ee54af7b3b2fc",
+        "android_client_info": {
+          "package_name": "com.mcgeducation"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1022471298229-lkq1l2vk5rg3qasghnu6m57imcu24ms7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mcgeducation",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "1022471298229-9hkrtafvrhb1vsmifr28nhpubjh4jjgk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCTVTRfdIwjYOoAkwo1E7nmzlyFBZV1bA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1022471298229-9hkrtafvrhb1vsmifr28nhpubjh4jjgk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
