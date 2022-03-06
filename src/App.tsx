@@ -23,15 +23,3 @@ const App = () => {
   );
 };
 export default App;
-
-// import React from 'react';
-// import {View} from 'react-native';
-// import YoutubePlayer from 'react-native-youtube-iframe';
-// const App = () => {
-//   return (
-//     <View>
-//       <YoutubePlayer height={500} play={true} videoId={'qBEKBEjtMeI'} />
-//     </View>
-//   );
-// };
-// export default App;

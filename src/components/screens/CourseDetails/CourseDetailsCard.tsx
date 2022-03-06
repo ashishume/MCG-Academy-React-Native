@@ -10,12 +10,13 @@ import {API_NAME} from '../../../API/ApiPaths';
 import {Icon} from 'react-native-elements';
 import {IconStyles} from '../../Styles';
 import {onShareHandler} from '../../Utils/ShareInfo';
+import YoutubePlayerUI from '../../Shared/YoutubePlayer';
 
 const {height, width} = Dimensions.get('window');
-const BuyCourseCard = (props) => {
+const BuyCourseCard = (props: any) => {
   const dispatch = useDispatch();
 
-  const videoClickEventHandler = (e) => {
+  const videoClickEventHandler = (e: any) => {
     const body = {
       introVideoUrl: e.url,
       courseTitle: e.title,
@@ -35,7 +36,7 @@ const BuyCourseCard = (props) => {
         );
         if (response?.data?.length) {
           const isBought = response?.data?.some(
-            (item) => item?.course._id == props.content._id,
+            (item: any) => item?.course._id == props.content._id,
           );
           setBought(isBought);
         }
@@ -50,7 +51,7 @@ const BuyCourseCard = (props) => {
   const courseEventHandler = () => {
     props.navigation.navigate('CourseContent', props.content);
   };
-  const buyNewCourseHandler = (e) => {
+  const buyNewCourseHandler = (e: any) => {
     const body = {
       introVideoUrl: e.url,
       courseTitle: e.title,
@@ -65,6 +66,7 @@ const BuyCourseCard = (props) => {
   return (
     <Fragment>
       <View style={styles.container}>
+        <YoutubePlayerUI videoId={props.content.introVideoUrl} />
         <View>
           <Text style={styles.courseTitle}>{props.content.courseTitle}</Text>
           <Text style={styles.author}>{props.content.author}</Text>
@@ -133,7 +135,7 @@ const BuyCourseCard = (props) => {
         </View>
         <View>
           <CourseDetailsListItem
-            videoClickEventHandler={(e) => videoClickEventHandler(e)}
+            videoClickEventHandler={(e: any) => videoClickEventHandler(e)}
             data={props.content.content}
           />
         </View>

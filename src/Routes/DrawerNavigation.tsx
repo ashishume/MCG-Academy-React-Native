@@ -36,11 +36,10 @@ const DrawerNavigation = () => {
             />
           );
         },
-      })}
-      tabBarOptions={{
-        activeTintColor: IconStyles.iconColor,
-        inactiveTintColor: 'gray',
-      }}>
+        tabBarActiveTintColor: IconStyles.iconColor,
+        tabBarInactiveTintColor: 'gray',
+        headerShown: false,
+      })}>
       <Tab.Screen name="Home" component={Dashboard} />
       <Tab.Screen name="Free Videos" component={FreeVideos} />
       <Tab.Screen name="Test Series" component={TestSeries} />
