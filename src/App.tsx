@@ -2,6 +2,7 @@ import React, {Fragment, useEffect} from 'react';
 import MainRouting from './Routes/MainRouting';
 import LoaderComponent from './components/LoaderComponent';
 import {StatusBar} from 'react-native';
+import CountdownTimer from './components/screens/TestSeries/Templates/CountdownTimer';
 // import {
 //   GenerateTokenForNotifications,
 //   LoadBackgroundAppNotifications,
@@ -16,9 +17,14 @@ const App = () => {
   }, []);
   return (
     <Fragment>
-      <StatusBar backgroundColor="black" />
+      {/* <StatusBar backgroundColor="black" />
       <MainRouting />
-      <LoaderComponent />
+      <LoaderComponent /> */}
+
+      <CountdownTimer
+        // onTimeupHandler={timeupHandler}
+        timer={parseInt('90')}
+      />
     </Fragment>
   );
 };
