@@ -18,8 +18,9 @@ import DashboardTitle from './Templates/DashboardTitle';
 import ExamsTemplateCard from './Templates/ExamsTemplateCard';
 import Styles, {IconStyles} from '../../Styles';
 import {Icon} from 'react-native-elements';
+import {StateInterface} from '../../../Shared/Interfaces/reducer';
 
-const TestSeries = (props) => {
+const TestSeries = props => {
   const [visible, setVisible] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('');
   const {
@@ -28,7 +29,7 @@ const TestSeries = (props) => {
     testQuestions,
     myTestSeries,
     testSeriesData,
-  } = useSelector((state) => state.testSeries);
+  } = useSelector((state: StateInterface) => state.testSeries);
 
   const dispatch = useDispatch();
 
@@ -69,7 +70,7 @@ const TestSeries = (props) => {
     }
   };
 
-  const renderPreferenceItems = async (e) => {
+  const renderPreferenceItems = async e => {
     try {
       await dispatch(fetchTestSeries(e._id));
       const categoryData = JSON.stringify(e);
@@ -81,7 +82,7 @@ const TestSeries = (props) => {
     }
   };
 
-  const continueToTest = (data) => {
+  const continueToTest = data => {
     props.navigation.navigate('exam', {
       testSeriesId: data._id,
       continueToInstruction: true,
@@ -100,7 +101,7 @@ const TestSeries = (props) => {
     props.navigation.navigate('Payment', obj);
   };
 
-  const routeToDescription = (data) => {
+  const routeToDescription = data => {
     props.navigation.navigate('exam', {
       testSeriesId: data._id,
       testSeriesData: data,
@@ -227,7 +228,7 @@ const TestSeries = (props) => {
               opacity: 1,
               zIndex: 1,
             }}>
-            {testCategories.map((value) => {
+            {testCategories.map(value => {
               return (
                 <TouchableOpacity
                   activeOpacity={0.5}
@@ -267,13 +268,13 @@ const TestSeries = (props) => {
                   makeTestSeriesPayment={(id, price, timeLimit, name, isPaid) =>
                     makeTestSeriesPayment(id, price, timeLimit, name, isPaid)
                   }
-                  routeToDescription={(data) => routeToDescription(data)}
-                  continueToTest={(data) => continueToTest(data)}
+                  routeToDescription={data => routeToDescription(data)}
+                  continueToTest={data => continueToTest(data)}
                   data={item}
                 />
               );
             }}
-            keyExtractor={(item) => item._id.toString()}
+            keyExtractor={item => item._id.toString()}
           />
         </View>
         <TouchableOpacity

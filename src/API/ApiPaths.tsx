@@ -13,7 +13,7 @@ export const API_NAME = {
   LIBRARY: 'library/fetch',
   IMAGES: 'images/',
   CATEGORY: 'category',
-  FEATURED: 'courses/featured/category',
+  FEATURED: 'courses/featured',
   //test series paths
   TEST_SERIES_CATEGORIES: 'test-series/category',
   TEST_SERIES: 'test-series',

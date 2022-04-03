@@ -1,5 +1,8 @@
-const LoginValidation = values => {
-  let errors={};
+export const loginValidation = (values: {email: string; password: string}) => {
+  let errors: {email: string; password: string} = {
+    email: '',
+    password: '',
+  };
   if (!values.email) {
     errors.email = 'Email address is required';
   } else if (!/\S+@\S+\.\S+/.test(values.email)) {
@@ -10,5 +13,3 @@ const LoginValidation = values => {
   }
   return errors;
 };
-
-export default LoginValidation;

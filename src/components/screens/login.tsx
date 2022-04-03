@@ -1,114 +1,111 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import React, {Component} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   ImageBackground,
   TextInput,
   StyleSheet,
   Text,
-  ToastAndroid,
-  Alert,
   Image,
-  BackHandler,
-} from 'react-native';
-
-import {
   TouchableOpacity,
-  TouchableHighlight,
-  TouchableWithoutFeedback,
-} from 'react-native-gesture-handler';
-import LoginValidation from '../Utils/LoginValidation';
-import {connect} from 'react-redux';
+} from 'react-native';
+import {loginValidation} from '../Utils/LoginValidation';
+import {connect, useDispatch} from 'react-redux';
 import {login} from '../../store/actions/auth';
 
-class Login extends Component {
-  state = {
+const Login = (props: any) => {
+  const dispatch = useDispatch();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errors, setErrors] = useState({
     email: '',
     password: '',
-    errors: '',
-  };
+  });
+  useEffect(() => {
+    (async () => {
+      const email = await AsyncStorage.getItem('email');
+      if (email !== null) props.navigation.navigate('Dashboard');
+    })();
+  }, []);
 
-  async componentDidMount() {
-    const email = await AsyncStorage.getItem('email');
-    if (email != null) this.props.navigation.navigate('Dashboard');
-  }
-
-  loginHandler = () => {
-    const body = {
-      email: this.state.email,
-      password: this.state.password,
+  const loginHandler = () => {
+    const payload = {
+      email,
+      password,
     };
-    const validate = LoginValidation(body);
-    if (validate.email || validate.password) {
-      this.setState({errors: validate});
+    const validate: {
+      email: string;
+      password: string;
+    } = loginValidation(payload);
+
+    if (validate.email?.length || validate.password?.length) {
+      setErrors({email: validate.email, password: validate.password});
       return false;
     } else {
-      this.props.login(body, this.props);
+      dispatch(login(payload, props));
     }
   };
-  routeForgotPassword = () => {
-    this.props.navigation.navigate('ForgotPassword');
-  };
+  // const routeForgotPassword = () => {
+  //   navigation.navigate('ForgotPassword');
+  // };
 
-  render() {
-    return (
-      <ImageBackground
-        source={require('../../assets/Login-Page-Screen.png')}
-        style={styles.backgroundImage}>
-        <View style={styles.container}>
-          <View style={styles.headerContainer}>
-            <View
-              style={{
-                alignSelf: 'center',
-              }}>
-              <Image
-                source={require('../../assets/logo.png')}
-                style={{width: 100, height: 100}}
-              />
-            </View>
-            <Text style={styles.headerText}>Welcome to MCG Academy</Text>
-            <Text style={styles.subHeaderText}>
-              Enter your details to signin to your account
-            </Text>
-          </View>
-
-          <View style={{marginBottom: 10}}>
-            <Text style={styles.label}>Email</Text>
-            <TextInput
-              onChangeText={(email) => this.setState({email})}
-              style={styles.input}
-              autoCompleteType="email"
-              keyboardType={'email-address'}
-              placeholderTextColor="#000"
+  return (
+    <ImageBackground
+      source={require('../../assets/Login-Page-Screen.png')}
+      style={styles.backgroundImage}>
+      <View style={styles.container}>
+        <View style={styles.headerContainer}>
+          <View
+            style={{
+              alignSelf: 'center',
+            }}>
+            <Image
+              source={require('../../assets/logo.png')}
+              style={{width: 100, height: 100}}
             />
-            <Text style={styles.errorText}>{this.state.errors.email}</Text>
           </View>
-          <View style={{marginTop: 10}}>
-            <Text style={styles.label}>Password</Text>
-            <TextInput
-              onChangeText={(password) => this.setState({password})}
-              style={styles.input}
-              secureTextEntry={true}
-              placeholderTextColor="#000"
-            />
-            <Text style={styles.errorText}>{this.state.errors.password}</Text>
-          </View>
+          <Text style={styles.headerText}>Welcome to MCG Academy</Text>
+          <Text style={styles.subHeaderText}>
+            Enter your details to signin to your account
+          </Text>
+        </View>
 
-          <TouchableOpacity
-            activeOpacity={0.8}
-            onPress={() => this.loginHandler()}
-            style={styles.buttonContainer}>
-            <Text style={styles.buttonText}>Login</Text>
-          </TouchableOpacity>
+        <View style={{marginBottom: 10}}>
+          <Text style={styles.label}>Email</Text>
+          <TextInput
+            onChangeText={email => setEmail(email)}
+            style={styles.input}
+            keyboardType={'email-address'}
+            placeholderTextColor="#000"
+          />
+          <Text style={styles.errorText}>{errors.email}</Text>
+        </View>
+        <View style={{marginTop: 10}}>
+          <Text style={styles.label}>Password</Text>
+          <TextInput
+            onChangeText={password => setPassword(password)}
+            style={styles.input}
+            secureTextEntry={true}
+            placeholderTextColor="#000"
+          />
+          <Text style={styles.errorText}>{errors.password}</Text>
+        </View>
 
-          <Text style={{textAlign: 'center', paddingTop: 10}}>Or</Text>
-          <TouchableOpacity
-            activeOpacity={0.8}
-            onPress={() => this.props.navigation.navigate('Signup')}
-            style={styles.registerButtonContainer}>
-            <Text style={styles.buttonText}>Register</Text>
-          </TouchableOpacity>
-          {/* <View
+        <TouchableOpacity
+          activeOpacity={0.8}
+          onPress={() => loginHandler()}
+          style={styles.buttonContainer}>
+          <Text style={styles.buttonText}>Login</Text>
+        </TouchableOpacity>
+
+        <Text style={{textAlign: 'center', paddingTop: 10}}>Or</Text>
+        <TouchableOpacity
+          activeOpacity={0.8}
+          onPress={() => props.navigation.navigate('Signup')}
+          style={styles.registerButtonContainer}>
+          <Text style={styles.buttonText}>Register</Text>
+        </TouchableOpacity>
+        {/* <View
             style={{
               marginTop: 20,
               flexDirection: 'row',
@@ -128,11 +125,10 @@ class Login extends Component {
               </Text>
             </TouchableOpacity>
           </View> */}
-        </View>
-      </ImageBackground>
-    );
-  }
-}
+      </View>
+    </ImageBackground>
+  );
+};
 
 const mapStateToProps = (state, ownProps) => {
   if (state.login.login.status) ownProps.navigation.navigate('Swiper');
@@ -140,7 +136,7 @@ const mapStateToProps = (state, ownProps) => {
     loginState: state.login.login,
   };
 };
-export default connect(mapStateToProps, {login})(Login);
+export default connect(mapStateToProps)(Login);
 
 const styles = StyleSheet.create({
   container: {
@@ -215,6 +211,6 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
   },
   errorText: {
-    color: 'white',
+    color: 'red',
   },
 });

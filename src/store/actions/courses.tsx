@@ -4,31 +4,23 @@ import {API_NAME} from '../../API/ApiPaths';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {ToastAndroid} from 'react-native';
 
-export const fetchAllCourses = () => async (dispatch) => {
-  const category = await AsyncStorage.getItem('category');
-  const body = {
-    category: JSON.parse(category),
+export const fetchAllCourses =
+  (categoryId: string) => async (dispatch: any) => {
+    const response = await HttpService.get(API_NAME.COURSES + '/' + categoryId);
+    dispatch({
+      type: ActionType.GET_ALL_COURSES,
+      payload: response.data,
+    });
   };
-  const response = await HttpService.post(API_NAME.COURSES, body);
 
-  dispatch({
-    type: ActionType.GET_ALL_COURSES,
-    payload: response.data,
-  });
-};
-export const fetchFeaturedCourses = () => async (dispatch) => {
-  const category = await AsyncStorage.getItem('category');
-  const body = {
-    category: JSON.parse(category),
-  };
-  const response = await HttpService.post(API_NAME.FEATURED, body);
-
+export const fetchFeaturedCourses = () => async (dispatch: any) => {
+  const response = await HttpService.get(API_NAME.FEATURED);
   dispatch({
     type: ActionType.GET_FEATURED_COURSE,
     payload: response.data,
   });
 };
-export const buyNewCourse = (courseId) => async (dispatch) => {
+export const buyNewCourse = (courseId: string) => async (dispatch: any) => {
   const user = await AsyncStorage.getItem('userId');
   const body = {
     userId: user,
@@ -40,7 +32,7 @@ export const buyNewCourse = (courseId) => async (dispatch) => {
     payload: response.data,
   });
 };
-export const fetchMyCourses = () => async (dispatch) => {
+export const fetchMyCourses = () => async (dispatch: any) => {
   try {
     const userId = await AsyncStorage.getItem('userId');
     const response = await HttpService.get(API_NAME.MY_COURSES + '/' + userId);
@@ -55,17 +47,18 @@ export const fetchMyCourses = () => async (dispatch) => {
 };
 
 //only must by used in my Courses
-export const fetchCourseById = (courseId, props) => async (dispatch) => {
-  const response = await HttpService.get(
-    `${API_NAME.MY_COURSE_IDS}/${courseId}`,
-  );
+export const fetchCourseById =
+  (courseId: string, props: any) => async (dispatch: any) => {
+    const response = await HttpService.get(
+      `${API_NAME.MY_COURSE_IDS}/${courseId}`,
+    );
 
-  dispatch({
-    type: ActionType.GET_COURSE_BY_ID,
-    payload: response.data,
-  });
+    dispatch({
+      type: ActionType.GET_COURSE_BY_ID,
+      payload: response.data,
+    });
 
-  if (response.status == 200) {
-    props.navigation.navigate('CourseContent', response.data);
-  }
-};
+    if (response.status == 200) {
+      props.navigation.navigate('CourseContent', response.data);
+    }
+  };

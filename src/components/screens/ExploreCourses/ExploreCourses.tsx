@@ -1,22 +1,36 @@
-import React, {useEffect} from 'react';
-import {View, Text, SafeAreaView, StyleSheet, ScrollView} from 'react-native';
+import React, {useEffect, useState, Fragment} from 'react';
+import {
+  View,
+  Text,
+  SafeAreaView,
+  StyleSheet,
+  ScrollView,
+  ToastAndroid,
+} from 'react-native';
 import ExploreCoursesCard from './ExploreCoursesCard';
 import {fetchAllCourses} from '../../../store/actions/courses';
 import {useDispatch, useSelector} from 'react-redux';
 import Styles from '../../Styles';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import {StateInterface} from '../../../Shared/Interfaces/reducer';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import CategoryFilter from '../../Shared/Filter';
 
-const ExploreCourses = ({navigation}) => {
-  const courses = useSelector((state) => state.courses.courses);
+const ExploreCourses = ({navigation, categories}: any) => {
+  const courses = useSelector((state: StateInterface) => state.courses.courses);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    navigation.addListener('focus', () => {
-      dispatch(fetchAllCourses());
-    });
-  }, []);
+    (async () => {
+      const fetchedCategoryId = await AsyncStorage.getItem('categoryId');
+      const categoryId = !!fetchedCategoryId
+        ? fetchedCategoryId
+        : categories[0]._id;
+      await dispatch(fetchAllCourses(categoryId));
+    })();
+  }, [categories]);
 
-  const onRouteToCourseDetailsHandler = (value) => {
+  const onRouteToCourseDetailsHandler = (value: any) => {
     navigation.navigate('course', {
       courseId: value?._id,
     });
@@ -25,7 +39,8 @@ const ExploreCourses = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={{flex: 1}}>
-        <Text style={styles.titleText}>Explore courses</Text>
+        {/* <Text style={styles.titleText}>Explore courses</Text> */}
+        <CategoryFilter />
         <View style={{marginTop: 0}}>
           <View style={styles.scrollContainer}>
             {courses.map((value, i) => {

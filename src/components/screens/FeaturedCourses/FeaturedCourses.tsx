@@ -14,10 +14,13 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useDispatch, useSelector} from 'react-redux';
 import {fetchFeaturedCourses} from '../../../store/actions/courses';
 import Styles from '../../Styles';
+import {StateInterface} from '../../../Shared/Interfaces/reducer';
 const {height, width} = Dimensions.get('window');
 
 const FeaturedCourses = ({navigation}) => {
-  const featured = useSelector((state) => state.courses.featured);
+  const featured = useSelector(
+    (state: StateInterface) => state.courses.featured,
+  );
   const dispatch = useDispatch();
   useEffect(() => {
     navigation.addListener('focus', () => {
@@ -28,7 +31,7 @@ const FeaturedCourses = ({navigation}) => {
       startHeaderHeight = 100 + StatusBar.currentHeight;
     }
   }, []);
-  const onRouteToCourseDetailsHandler = (value) => {
+  const onRouteToCourseDetailsHandler = value => {
     navigation.navigate('course', {
       courseId: value?._id,
     });

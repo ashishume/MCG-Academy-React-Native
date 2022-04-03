@@ -3,6 +3,7 @@ import {Image, Dimensions, View, TouchableOpacity} from 'react-native';
 import {connect, useDispatch, useSelector} from 'react-redux';
 import {fetchAllImages} from '../../store/actions/images';
 import Carousel from 'react-native-snap-carousel';
+import {StateInterface} from '../../Shared/Interfaces/reducer';
 
 const horizontalMargin = 20;
 const slideWidth = 280;
@@ -12,7 +13,7 @@ const itemWidth = slideWidth + horizontalMargin * 2;
 const itemHeight = 200;
 
 const DashboardSlideshow = ({navigation}) => {
-  const images = useSelector((state) => state.images.images);
+  const images = useSelector((state: StateInterface) => state.images.images);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -23,7 +24,7 @@ const DashboardSlideshow = ({navigation}) => {
     return (
       <TouchableOpacity
         activeOpacity={0.8}
-        onPress={(e) => {
+        onPress={e => {
           navigation.navigate('course', {
             courseId: item?.course,
           });

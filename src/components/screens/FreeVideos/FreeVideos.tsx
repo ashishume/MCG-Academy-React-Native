@@ -1,19 +1,20 @@
 import React, {useEffect} from 'react';
 import {View, SafeAreaView, FlatList, Text} from 'react-native';
 import TopHeader from '../../Shared/Header';
-import {connect} from 'react-redux';
+import {connect, useDispatch} from 'react-redux';
 import {fetchFreeVideos} from '../../../store/actions/video';
 import FreeVideosCard from './FreeVideosCard';
 
-const FreeVideos = (props) => {
+const FreeVideos = ({navigation, videos}: any) => {
+  const dispatch = useDispatch();
   useEffect(() => {
-    const unsubscribe = props.navigation.addListener('focus', () => {
-      props.fetchFreeVideos();
+    const unsubscribe = navigation.addListener('focus', () => {
+      dispatch(fetchFreeVideos());
     });
     return unsubscribe;
-  }, [props.navigation]);
-  const videoEventHandler = (value) => {
-    props.navigation.navigate('videos', {videoId: value?._id});
+  }, [navigation]);
+  const videoEventHandler = (value: any) => {
+    navigation.navigate('videos', {videoId: value?._id});
   };
 
   return (
@@ -24,7 +25,7 @@ const FreeVideos = (props) => {
         <FlatList
           ListEmptyComponent={<Text>No videos available</Text>}
           keyExtractor={(item, i) => i.toString()}
-          renderItem={(item) => {
+          renderItem={item => {
             return (
               <FreeVideosCard
                 onClickVideoItem={() => videoEventHandler(item.item)}
@@ -32,13 +33,13 @@ const FreeVideos = (props) => {
               />
             );
           }}
-          data={props.videos}
+          data={videos}
         />
       </SafeAreaView>
     </View>
   );
 };
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     videos: state.visible.freeVideos,
   };
