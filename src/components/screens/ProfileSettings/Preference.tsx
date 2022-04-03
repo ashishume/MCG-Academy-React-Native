@@ -7,7 +7,7 @@ import {
   TouchableHighlight,
   View,
 } from 'react-native';
-import {MultipleSelectPicker} from 'react-native-multi-select-picker';
+// import {MultipleSelectPicker} from 'react-native-multi-select-picker';
 const width = Dimensions.get('screen').width;
 const Preference = (props) => {
   const [selectedItems, setSelectedItems] = useState([]);
@@ -26,7 +26,7 @@ const Preference = (props) => {
       <Modal animationType="slide" transparent={true} visible={props.visible}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <MultipleSelectPicker
+            {/* <MultipleSelectPicker
               items={tempArray}
               onSelectionsChange={(ele) => setSelectedItems(ele)}
               selectedItems={selectedItems}
@@ -40,7 +40,7 @@ const Preference = (props) => {
               }}
               buttonText="hello"
               checkboxStyle={{height: 20, width: 20}}
-            />
+            /> */}
             <View style={{flexDirection: 'row'}}>
               <TouchableHighlight
                 disabled={!selectedItems.length ? true : false}

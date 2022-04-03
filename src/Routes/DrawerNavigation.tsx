@@ -15,7 +15,7 @@ const DrawerNavigation = () => {
     <Tab.Navigator
       screenOptions={({route}) => ({
         tabBarIcon: ({focused, color, size}) => {
-          let iconName;
+          let iconName = '';
           if (route.name === 'Home') {
             iconName = 'ios-home';
           } else if (route.name === 'Free Videos') {

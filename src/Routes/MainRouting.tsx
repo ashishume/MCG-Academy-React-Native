@@ -28,13 +28,6 @@ const MainRouting = (props: any) => {
 
   return (
     <NavigationContainer linking={linking}>
-      {/* {props.videoBody.introVideoUrl ? (
-        <YoutubePlayerUI
-          key={props.videoBody.introVideoUrl}
-          videoId={props.videoBody.introVideoUrl}
-          videoTitle={props.videoBody.courseTitle}
-        />
-      ) : null} */}
       <Stack.Navigator
         initialRouteName="Splash"
         screenOptions={{
