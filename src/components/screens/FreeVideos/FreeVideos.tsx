@@ -4,6 +4,7 @@ import TopHeader from '../../Shared/Header';
 import {connect, useDispatch} from 'react-redux';
 import {fetchFreeVideos} from '../../../store/actions/video';
 import FreeVideosCard from './FreeVideosCard';
+import CategoryFilter from '../../Shared/Filter';
 
 const FreeVideos = ({navigation, videos}: any) => {
   const dispatch = useDispatch();
@@ -16,10 +17,18 @@ const FreeVideos = ({navigation, videos}: any) => {
   const videoEventHandler = (value: any) => {
     navigation.navigate('videos', {videoId: value?._id});
   };
+  const changeFreeVideos = async () => {
+    await dispatch(fetchFreeVideos());
+  };
 
   return (
-    <View style={{flex: 1}}>
+    <View style={{flex: 1, backgroundColor: '#fff'}}>
       <TopHeader name="Free Videos" />
+      <View style={{marginTop: 5}}>
+        <CategoryFilter
+          setNewCategory={(courseId: string) => changeFreeVideos()}
+        />
+      </View>
       <SafeAreaView
         style={{flex: 1, backgroundColor: '#fff', paddingBottom: 5}}>
         <FlatList

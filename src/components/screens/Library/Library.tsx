@@ -1,42 +1,50 @@
 import React, {Fragment, useEffect} from 'react';
 import {View} from 'react-native';
 import {fetchAllLibrary} from '../../../store/actions/library';
-import {connect} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import LibraryCard from './LibraryCard';
 import TopHeader from '../../Shared/Header';
-import {FlatList, ScrollView} from 'react-native-gesture-handler';
+import {FlatList} from 'react-native-gesture-handler';
+import {StateInterface} from '../../../Shared/Interfaces/reducer';
+import CategoryFilter from '../../Shared/Filter';
 
-const Library = (props) => {
+const Library = ({navigation}: any) => {
+  const dispatch = useDispatch();
+  const library = useSelector((state: StateInterface) => state.library.library);
+
   useEffect(() => {
-    return props.navigation.addListener('focus', () => {
-      props.fetchAllLibrary();
+    return navigation.addListener('focus', () => {
+      dispatch(fetchAllLibrary());
     });
-  }, [props.navigation]);
+  }, [navigation]);
 
+  const changeLibrary = async () => {
+    await dispatch(fetchAllLibrary());
+  };
   return (
     <Fragment>
-      <TopHeader name="Library" />
-      <View
-        style={{
-          backgroundColor: '#fff',
-          paddingVertical: 10,
-          height: '100%',
-          flex: 1,
-        }}>
-        <FlatList
-          numColumns={2}
-          data={props.library}
-          renderItem={LibraryCard}
-          keyExtractor={(item) => item._id}
+      <View style={{backgroundColor: '#fff', height: '100%'}}>
+        <TopHeader name="Library" />
+        <CategoryFilter
+          setNewCategory={(courseId: string) => changeLibrary()}
         />
+        <View
+          style={{
+            backgroundColor: '#fff',
+            paddingVertical: 10,
+            height: '100%',
+            flex: 1,
+          }}>
+          <FlatList
+            numColumns={2}
+            data={library}
+            renderItem={LibraryCard}
+            keyExtractor={item => item._id}
+          />
+        </View>
       </View>
     </Fragment>
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    library: state.library.library,
-  };
-};
-export default connect(mapStateToProps, {fetchAllLibrary})(Library);
+export default Library;

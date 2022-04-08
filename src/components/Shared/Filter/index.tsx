@@ -10,7 +10,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useSelector} from 'react-redux';
 import {StateInterface} from '../../../Shared/Interfaces/reducer';
 
-const CategoryFilter = () => {
+const CategoryFilter = ({setNewCategory, width = '100%'}: any) => {
   const [visible, setVisible] = useState(false);
   const categories = useSelector(
     (state: StateInterface) => state.category.category,
@@ -18,12 +18,9 @@ const CategoryFilter = () => {
 
   const setActiveCategory = async (categoryId: string) => {
     try {
-      const categoryIdData = await AsyncStorage.setItem(
-        'categoryId',
-        categoryId,
-      );
-      setVisible(!visible);
-      return categoryIdData;
+      await AsyncStorage.setItem('categoryId', categoryId);
+      await setVisible(!visible);
+      await setNewCategory(categoryId);
     } catch (e) {
       ToastAndroid.show('Something went wrong', ToastAndroid.LONG);
     }
@@ -35,15 +32,16 @@ const CategoryFilter = () => {
         onPress={() => setVisible(!visible)}>
         <View
           style={{
+            backgroundColor: '#fff',
             flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
-            height: 50,
-            width: '50%',
+            height: 40,
+            width: width,
+            marginLeft: width === '100%' ? 0 : 20,
             borderRadius: 5,
-            shadowColor: '#bfbdbd',
-            elevation: 4,
-            shadowRadius: 5,
+            borderWidth: 1,
+            borderColor: 'lightgray',
             marginBottom: 10,
           }}>
           <Text style={{fontSize: 20, color: 'gray'}}>Filter</Text>
@@ -55,9 +53,10 @@ const CategoryFilter = () => {
             position: 'absolute',
             top: 50,
             backgroundColor: '#fff',
-            width: '50%',
-            height: '50%',
-            zIndex: 1,
+            width: width,
+            height: 150,
+            zIndex: 99,
+            marginLeft: width === '100%' ? 0 : 20,
             paddingTop: 20,
             elevation: 5,
             borderRadius: 5,
@@ -80,6 +79,7 @@ const CategoryFilter = () => {
                     paddingVertical: 7,
                     paddingLeft: 7,
                     color: 'gray',
+                    zIndex: 99,
                     borderBottomColor: 'lightgray',
                   }}>
                   {category.name}

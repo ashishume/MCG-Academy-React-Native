@@ -36,11 +36,18 @@ const ExploreCourses = ({navigation, categories}: any) => {
     });
   };
 
+  const changeCourses = async (categoryId: string) => {
+    await dispatch(fetchAllCourses(categoryId));
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={{flex: 1}}>
         {/* <Text style={styles.titleText}>Explore courses</Text> */}
-        <CategoryFilter />
+        <CategoryFilter
+          width="44%"
+          setNewCategory={(courseId: string) => changeCourses(courseId)}
+        />
         <View style={{marginTop: 0}}>
           <View style={styles.scrollContainer}>
             {courses.map((value, i) => {
